@@ -1,27 +1,49 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
+#    Updated: 2023/03/16 19:01:50 by lkukhale         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS = main.c
+NAME 		= minishell
+USER		= lkukhale
+SRCS 		= ${shell find ./src -iname "*.c"}
 
-OBJS = ${SRCS:.c=.o}
+HEADERS		= -I ./includes/ -I ${LIBFT}/includes/
+LIBS		= ${LIBFT}/libft.a
+LIBFT		= ./lib/libft
+CFLAGS		= -Wall -Wextra -Werror
+OBJS		= ${SRCS:.c=.o}
+RM			= rm -f
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
 
-RM = rm -rf
 
-all: ${NAME}
-${NAME}: ${OBJS}
-	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
+
+all:	libft	${NAME}
+
+libft:
+		make -C ${LIBFT}
+
+.c.o:
+		@${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
+
+${NAME}:	${OBJS}
+		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
 
 
 clean:
-	@${MAKE} -C ./libft fclean
-	@${RM} ${OBJS}
+		${RM} ${OBJS}
+		@make -C $(LIBFT) clean
 
-fclean: clean
-	@${RM} ${NAME}
+fclean:	clean
+		${RM} ${NAME}
+		@make -C $(LIBFT) fclean
 
-re: fclean all
+re:		fclean all
 
-.PHONY: all clean fclean re
+.PHONY:	all clean fclean re
