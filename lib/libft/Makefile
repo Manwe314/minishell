@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
+#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2022/11/15 19:43:44 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/03/17 13:05:35 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ AR			= ar
 ARFLAGS		= rc
 RANLIB		= ranlib
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= #-Wall -Wextra -Werror
 RM 			= rm -f
 
 .c.o:

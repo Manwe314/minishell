@@ -3,23 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/16 19:13:51 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:01:50 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
+char *ft_remove_n(char *str)
+{
+	str[ft_strlen(str) - 1] = '\0';
+	return (str);
+}
+
 int main()
 {
 	char *msg;
 
-	msg = get_next_line(0);
-	ft_putstr_fd(msg,1);
 
+	while(1)
+	{
+		ft_putstr_fd("➜ minishell$ :",1);
+		msg = ft_remove_n(get_next_line(0));
+		ft_cd(msg);
+		free(msg);
+	}
 	/*signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
