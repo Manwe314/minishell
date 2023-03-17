@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/17 17:01:50 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:09:42 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 char *ft_remove_n(char *str)
 {
-	str[ft_strlen(str) - 1] = '\0';
+	if (str[ft_strlen(str) - 1] == '\n')
+		str[ft_strlen(str) - 1] = '\0';
 	return (str);
 }
 
