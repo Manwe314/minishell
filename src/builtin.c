@@ -41,16 +41,51 @@ int ft_cd(char *path)
 
 /*
 // ft_echo: print the string str to the standard output
-// if n_flag is set to 1, a # will be printed at the end of the string
-// if it doesn't end with a newline
+// if n_flag is not 1, it will print a newline at the end of the string
 // @param: str: the string to print
 */
 int ft_echo(char *str, int n_flag)
 {
 	ft_putstr_fd(str, 1);
-	if (n_flag == 1 && str[ft_strlen(str) - 1] != '\n')
-		ft_putstr_fd("#", 1);
+	if (n_flag != 1)
+		ft_putstr_fd("\n", 1);
+	return (SUCCEED);
+}
+
+
+/*
+// ft_pwd: print the current working directory to the standard output
+*/
+int ft_pwd(void)
+{
+	char *pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+	{
+		ft_putstr_fd("pwd: Error while getting the current working directory", 2);
+		return (ERROR);
+	}
+	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);
+	free(pwd);
+	return (SUCCEED);
+}
+
+/*
+// ft_env: print the environment variables to the standard output
+*/
+int ft_env(void)
+{
+	extern char **environ;
+	int	i;
+
+	i = -1;
+	while (environ[++i] != NULL)
+	{
+		ft_putstr_fd(environ[i], 1);
+		ft_putstr_fd("\n", 1);
+	}
 	return (SUCCEED);
 }
 

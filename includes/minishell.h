@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/17 16:43:12 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:06:59 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # define ERROR 0
 
 int ft_cd(char *path);
+int ft_pwd(void);
+int ft_echo(char *str, int n_flag);
 
 #endif
