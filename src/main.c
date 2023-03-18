@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/17 19:13:28 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:10:44 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,12 @@ char *ft_remove_n(char *str)
 	return (str);
 }
 
-int main()
+int main(int a, char **b)
 {
-	//char *msg;
-	extern char **environ;
-    int i = 0;
-    while (environ[i] != NULL) {
-        printf("%s\n", environ[i]);
-        i++;
-    }
-	printf("\n\n");
-	system("env");
+	(void)a;
+	printf("%s\n",getenv("pop"));
+	ft_export(b[1]);
+	printf("%s\n",getenv("pop"));
 	/*while(1)
 	{
 		ft_putstr_fd("➜ minishell$ :",1);
