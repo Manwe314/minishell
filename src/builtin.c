@@ -14,9 +14,9 @@
 
 
 /*
-// ft_cd: change the current working directory to the one specified in path
-// will check if the path exists and if the user has the right to access it
-// @param: path: the path to the new working directory
+* ft_cd: change the current working directory to the one specified in path
+* will check if the path exists and if the user has the right to access it
+* @param: path: the path to the new working directory
 */
 int ft_cd(char *path)
 {
@@ -40,9 +40,9 @@ int ft_cd(char *path)
 
 
 /*
-// ft_echo: print the string str to the standard output
-// if n_flag is not 1, it will print a newline at the end of the string
-// @param: str: the string to print
+* ft_echo: print the string str to the standard output
+* if n_flag is not 1, it will print a newline at the end of the string
+* @param: str: the string to print
 */
 int ft_echo(char *str, int n_flag)
 {
@@ -54,7 +54,7 @@ int ft_echo(char *str, int n_flag)
 
 
 /*
-// ft_pwd: print the current working directory to the standard output
+* ft_pwd: print the current working directory to the standard output
 */
 int ft_pwd(void)
 {
@@ -73,7 +73,7 @@ int ft_pwd(void)
 }
 
 /*
-// ft_env: print the environment variables to the standard output
+* ft_env: print the environment variables to the standard output
 */
 int ft_env(void)
 {
@@ -88,6 +88,4 @@ int ft_env(void)
 	}
 	return (SUCCEED);
 }
-
-
 
