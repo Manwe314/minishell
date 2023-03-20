@@ -6,7 +6,7 @@
 #    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/03/16 19:01:50 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/03/20 18:07:13 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 		= minishell
 USER		= lkukhale
 SRCS 		= ${shell find ./src -iname "*.c"}
 
-HEADERS		= -I ./includes/ -I ${LIBFT}/includes/
+HEADERS		= -I ./includes/
 LIBS		= ${LIBFT}/libft.a
 LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror

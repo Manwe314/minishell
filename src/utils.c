@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/20 19:45:58 by lkukhale         ###   ########.fr       */
+/*   Created: 2023/03/20 19:45:16 by lkukhale          #+#    #+#             */
+/*   Updated: 2023/03/20 19:45:49 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
-int main(int argc, char *argv[], char *envp[])
+void	free_split(char **split)
 {
-	(void)argc;
-	(void)argv;
-	char* input;
-	/*printf("%s\n",getenv("pop"));
-	ft_export(argv[1]);
-	printf("%s\n",getenv("pop"));*/
-	while(1)
+	int	i;
+
+	i = 0;
+	while (split[i] != 0)
 	{
-		input = get_input();
-		if (input == NULL)
-			break ;
-		handle_input(input, envp);
-		//ft_cd(msg);
-		//free(msg);
+		free(split[i]);
+		i++;
 	}
-	/*signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	char *argv = readline()*/
-	return (0);
+	free(split[i]);
+	free(split);
+}
+
+void execute_command(char *command, char **arguments, char **envp)
+{
+	pid_t executable_to_be_done;
+
+	executable_to_be_done = fork();
+	if (executable_to_be_done == 0)
+		execve(command, arguments, envp);
+	waitpid(executable_to_be_done, NULL, 0);
 }
