@@ -66,6 +66,61 @@ int ft_print_env_alphabeticaly()
 	return (SUCCEED);
 }
 
+int	ft_change_env(char *name, char *value)
+{
+	int i;
+	int j;
+	char *tmp;
+
+	i = -1;
+	while (g_global.environ[++i])
+	{
+		j = 0;
+		while (g_global.environ[i][j] != '=' && g_global.environ[i][j] != '\0')
+			j++;
+		if (ft_strncmp(g_global.environ[i], name, j) == 0)
+		{
+			tmp = ft_strdup(g_global.environ[i]);
+			free(g_global.environ[i]);
+			g_global.environ[i] = ft_strjoin(name, value);
+			free(tmp);
+			return (SUCCEED);
+		}
+	}
+	return (ERROR);
+}
+
+int	ft_add_env(char *name, char *value)
+{
+	int i;
+	char **tmp;
+
+	i = 0;
+	while (g_global.environ[i])
+		i++;
+	tmp = malloc(sizeof(char *) * (i + 2));
+	if (!tmp)
+		return (ERROR);
+	i = -1;
+	while (g_global.environ[++i])
+	{
+		tmp[i] = ft_strdup(g_global.environ[i]);
+		if (!tmp[i])
+		{
+			while (--i >= 0)
+				free(tmp[i]);
+			free(tmp);
+			return (ERROR);
+		}
+		free(g_global.environ[i]);
+	}
+	free(g_global.environ);
+	tmp[i] = ft_strjoin(name, value);
+	tmp[i + 1] = NULL;
+	g_global.environ = tmp;
+	return (SUCCEED);
+}
+
 /*
 * ft_export: add the variable name to the environment with the value value
 * if the variable already exists, it will change its value to value
@@ -74,43 +129,38 @@ int ft_print_env_alphabeticaly()
 */
 
 /*
-TODO: if value doesn't exist, add the variable to the environment
-! segffault when the new value is long
+! if a malloc fails in ft_change env, the function will try ft_add_env
 */
 int ft_export(char *str)
 {
-	int 		i;
-	char		*name;
-	char		*value;
+	char	*name;
+	char	*value;
+	int		return_value;
 
-	i = -1;
 	if (!str)
-	{
 		return (ft_print_env_alphabeticaly());
-	}
 	if (ft_strchr(str, '=') == NULL)
 	{
 		name = str;
-		value = "\0";
+		value = ft_strdup("=");
+		if (!value)
+			return (ERROR);
 	}
 	else
 	{
 		name = ft_substr(str, 0, ft_strchr(str, '=') - str);
-		value = ft_substr(str, ft_strchr(str, '=') - str + 1, ft_strlen(str) - ft_strlen(name) - 1);
-	}
-	if (getenv(name))
-	{
-		while (g_global.environ[++i])
+		if (!name)
+			return (ERROR);
+		value = ft_substr(str, ft_strchr(str, '=') - str, ft_strlen(str) - ft_strlen(name));
+		if (!value)
 		{
-			if (ft_strnstr(g_global.environ[i], name, ft_strlen(name)) != 0)
-			{
-				ft_strlcpy((g_global.environ[i] + ft_strlen(name) + 1), value, ft_strlen(value) + 1);
-				free(name);
-				free(value);
-				return (SUCCEED);
-			}
+			free(name);
+			return (ERROR);
 		}
-	}*/
-	return 0;
-	//return (ft_change_env_var(name, value));
+	}
+	if (ft_change_env(name, value) == ERROR)
+		return_value = ft_add_env(name, value);
+	free(name);
+	free(value);
+	return (return_value);
 }

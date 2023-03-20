@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/20 17:28:58 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:05:10 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ void ft_init_global()
 int main(int a, char **b)
 {
 	(void)a;
-	(void)b;
 	ft_init_global();
+	ft_export(b[1]);
+	ft_export(0);
 
 	/*while(1)
 	{
