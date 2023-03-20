@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
+#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/03/16 19:01:50 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/03/20 14:28:04 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
-
-
 
 
 all:	libft	${NAME}

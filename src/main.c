@@ -6,12 +6,12 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/18 15:10:44 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:28:58 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
+
 
 char *ft_remove_n(char *str)
 {
@@ -20,12 +20,41 @@ char *ft_remove_n(char *str)
 	return (str);
 }
 
+void	ft_free_global()
+{
+	int i;
+
+	i = -1;
+	while (g_global.environ[++i])
+	{
+		free(g_global.environ[i]);
+	}
+	free(g_global.environ);
+}
+
+void ft_init_global()
+{
+	int i;
+	extern char **environ;
+
+	i = 0;
+	while (environ[i])
+		i++;
+	g_global.environ = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (environ[++i]){
+		g_global.environ[i] = ft_strdup(environ[i]);
+	}
+	g_global.environ[i] = NULL;
+}
+
+
 int main(int a, char **b)
 {
 	(void)a;
-	printf("%s\n",getenv("pop"));
-	ft_export(b[1]);
-	printf("%s\n",getenv("pop"));
+	(void)b;
+	ft_init_global();
+
 	/*while(1)
 	{
 		ft_putstr_fd("➜ minishell$ :",1);
@@ -37,5 +66,6 @@ int main(int a, char **b)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	char *b = readline()*/
+	ft_free_global();
 	return (0);
 }

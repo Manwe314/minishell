@@ -78,59 +78,13 @@ int ft_pwd(void)
 */
 int ft_env(void)
 {
-	extern char **environ;
 	int	i;
 
 	i = -1;
-	while (environ[++i] != NULL)
+	while (g_global.environ[++i] != NULL)
 	{
-		ft_putstr_fd(environ[i], 1);
+		ft_putstr_fd(g_global.environ[i], 1);
 		ft_putstr_fd("\n", 1);
 	}
 	return (SUCCEED);
-}
-
-
-/*
-* ft_export: add the variable name to the environment with the value value
-* if the variable already exists, it will change its value to value
-* if no argument is given, it will print the environment variables
-* @param: str: the string in format "name=value" to add to the environment
-*/
-
-/*
-TODO: print the environment variables in alphabetical order
-TODO: if value doesn't exist, add the variable to the environment
-! segffault when the new value is long
-*/
-int ft_export(char *str)
-{
-	extern char **environ;
-	int 		i;
-	char		*name;
-	char		*value;
-
-	i = -1;
-	if (!str)
-	{
-		return 0;
-		//return (ft_print_env_alphabeticaly(environ));
-	}
-	name = ft_substr(str, 0, ft_strchr(str, '=') - str);
-	value = ft_substr(str, ft_strchr(str, '=') - str + 1, ft_strlen(str) - ft_strlen(name) - 1);
-	if (getenv(name))
-	{
-		while (environ[++i])
-		{
-			if (ft_strnstr(environ[i], name, ft_strlen(name)) != 0)
-			{
-				ft_strlcpy((environ[i] + ft_strlen(name) + 1), value, ft_strlen(value) + 1);
-				free(name);
-				free(value);
-				return (SUCCEED);
-			}
-		}
-	}
-	return 0;
-	//return (ft_change_env_var(name, value));
 }
