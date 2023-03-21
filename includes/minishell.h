@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/20 19:46:29 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:33:07 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
 
 # define SUCCEED 1
 # define ERROR 0

@@ -6,7 +6,7 @@
 #    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/03/20 18:07:13 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/03/21 19:36:23 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ libft:
 		@${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
 ${NAME}:	${OBJS}
-		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
+		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
 
 
 clean:
