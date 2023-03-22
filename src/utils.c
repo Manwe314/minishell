@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:45:16 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/21 17:13:13 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:42:05 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void execute_command(char *command, char **arguments, char **envp)
 	pid_t	executable_to_be_done;
 	int		execve_return;
 
+	//printf("%s\n", command);
+	//int i = 0;
+	/*while (arguments[i])
+	{
+		printf("%s\n", arguments[i]);
+		i++;
+	}*/
 	execve_return = 1;
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0)

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/21 19:33:07 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:57:42 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ void	do_base_case(char *input, char **envp);
 char	*get_command(char *name, char **paths);
 char	*get_path(char **envp);
 void	execute_command(char *command, char **arguments, char **envp);
+int		detect_path_executable(char *input);
+char	*get_home(char **envp);
+char	*return_user(char *path);
+int		home_begin_size(char *home);
+void	do_pathed_executable(char *input, int casse, char **envp);
+void	remove_path(char **arguments);
+char	*expand_home_directory(char *path, char **envp);
+char	*clean_home_path(char *path, char **envp);
 void	free_split(char **split);
 int		ft_pwd(void);
 int		ft_cd(char *path);
