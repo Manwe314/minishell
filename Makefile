@@ -6,11 +6,7 @@
 #    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/03/20 14:28:04 by beaudibe         ###   ########.fr        #
-=======
-#    Updated: 2023/03/21 19:36:23 by lkukhale         ###   ########.fr        #
->>>>>>> origin/lkukhale
+#    Updated: 2023/03/24 11:00:34 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

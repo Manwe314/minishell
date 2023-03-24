@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_paths_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:52:17 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/22 19:54:51 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:10:40 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ char	*return_user(char *path)
 
 int	home_begin_size(char *home)
 {
-	int size;
 	int i;
 
-	size = 0;
 	i = ft_strlen(home) - 1;
 	while (home[i] != '/')
 		i--;

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/20 16:12:06 by beaudibe         ###   ########.fr       */
-=======
-/*   Updated: 2023/03/22 19:57:42 by lkukhale         ###   ########.fr       */
->>>>>>> origin/lkukhale
+/*   Updated: 2023/03/24 11:24:46 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +34,14 @@
 # define SUCCEED 1
 # define ERROR 0
 
-<<<<<<< HEAD
-int ft_cd(char *path);
-int ft_pwd(void);
-int ft_echo(char *str, int n_flag);
-int ft_export(char *name);
-int ft_export(char *str);
-
-
 typedef struct s_global
 {
 	char **environ;
 }	t_global;
-
-
 extern t_global g_global;
-=======
+
+
+
 char	*get_input();
 void	handle_input(char *input, char **envp);
 void	do_base_case(char *input, char **envp);
@@ -73,6 +61,5 @@ int		ft_pwd(void);
 int		ft_cd(char *path);
 int		ft_echo(char *str, int n_flag);
 int		ft_export(char *name);
->>>>>>> origin/lkukhale
-
+int		ft_unset(char *str);
 #endif

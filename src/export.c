@@ -30,7 +30,8 @@ int ft_print_env_alphabeticaly()
 	if (!env)
 		return (ERROR);
 	i = -1;
-	while (g_global.environ[++i]){
+	while (g_global.environ[++i])
+	{
 		env[i] = ft_strdup(g_global.environ[i]);
 	}
 	env[i] = NULL;
@@ -65,6 +66,7 @@ int ft_print_env_alphabeticaly()
 	free(env);
 	return (SUCCEED);
 }
+
 
 int	ft_change_env(char *name, char *value)
 {
