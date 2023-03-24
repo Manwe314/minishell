@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/20 16:12:06 by beaudibe         ###   ########.fr       */
+=======
+/*   Updated: 2023/03/22 19:57:42 by lkukhale         ###   ########.fr       */
+>>>>>>> origin/lkukhale
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +23,22 @@
 # include "libft.h"
 # include "get_next_line_bonus.h"
 
+# include <unistd.h>
+# include <string.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+
 # define SUCCEED 1
 # define ERROR 0
 
+<<<<<<< HEAD
 int ft_cd(char *path);
 int ft_pwd(void);
 int ft_echo(char *str, int n_flag);
@@ -36,5 +53,26 @@ typedef struct s_global
 
 
 extern t_global g_global;
+=======
+char	*get_input();
+void	handle_input(char *input, char **envp);
+void	do_base_case(char *input, char **envp);
+char	*get_command(char *name, char **paths);
+char	*get_path(char **envp);
+void	execute_command(char *command, char **arguments, char **envp);
+int		detect_path_executable(char *input);
+char	*get_home(char **envp);
+char	*return_user(char *path);
+int		home_begin_size(char *home);
+void	do_pathed_executable(char *input, int casse, char **envp);
+void	remove_path(char **arguments);
+char	*expand_home_directory(char *path, char **envp);
+char	*clean_home_path(char *path, char **envp);
+void	free_split(char **split);
+int		ft_pwd(void);
+int		ft_cd(char *path);
+int		ft_echo(char *str, int n_flag);
+int		ft_export(char *name);
+>>>>>>> origin/lkukhale
 
 #endif

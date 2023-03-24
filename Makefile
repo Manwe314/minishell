@@ -6,7 +6,11 @@
 #    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/03/20 14:28:04 by beaudibe         ###   ########.fr        #
+=======
+#    Updated: 2023/03/21 19:36:23 by lkukhale         ###   ########.fr        #
+>>>>>>> origin/lkukhale
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +18,7 @@ NAME 		= minishell
 USER		= lkukhale
 SRCS 		= ${shell find ./src -iname "*.c"}
 
-HEADERS		= -I ./includes/ -I ${LIBFT}/includes/
+HEADERS		= -I ./includes/
 LIBS		= ${LIBFT}/libft.a
 LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror
@@ -31,7 +35,7 @@ libft:
 		@${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
 ${NAME}:	${OBJS}
-		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME}
+		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
 
 
 clean:
