@@ -6,11 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/03/27 14:48:48 by beaudibe         ###   ########.fr       */
-=======
-/*   Updated: 2023/03/27 18:09:27 by beaudibe         ###   ########.fr       */
->>>>>>> 2dcee278dd557b80f579f1aeb18407f35888d0fc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +65,7 @@ int		ft_export(char *name);
 int		ft_unset(char *str);
 int	ft_add_history(char *line);
 void ft_clear_history();
-<<<<<<< HEAD
-=======
-void ft_history(void);
->>>>>>> 2dcee278dd557b80f579f1aeb18407f35888d0fc
+void ft_history();
 
 
 #endif
