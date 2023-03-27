@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2023/03/20 14:06:20 by beaudibe          #+#    #+#             */
 /*   Updated: 2023/03/20 14:06:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
@@ -16,12 +19,12 @@
 * ft_print_env_alphabeticaly: print the environment variables in
 * alphabetical order
 */
-int ft_print_env_alphabeticaly()
+int	ft_print_env_alphabeticaly(void)
 {
-	char **env;
-	char *tmp;
-	int i;
-	int j;
+	char	**env;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -43,9 +46,9 @@ int ft_print_env_alphabeticaly()
 		{
 			tmp = ft_strdup(env[j]);
 			free(env[j]);
-			env[j] = ft_strdup(env[j-1]);
-			free(env[j-1]);
-			env[j-1] = ft_strdup(tmp);
+			env[j] = ft_strdup(env[j - 1]);
+			free(env[j - 1]);
+			env[j - 1] = ft_strdup(tmp);
 			free(tmp);
 			j--;
 		}
@@ -66,7 +69,6 @@ int ft_print_env_alphabeticaly()
 	free(env);
 	return (SUCCEED);
 }
-
 
 int	ft_change_env(char *name, char *value)
 {
@@ -94,8 +96,8 @@ int	ft_change_env(char *name, char *value)
 
 int	ft_add_env(char *name, char *value)
 {
-	int i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -133,12 +135,13 @@ int	ft_add_env(char *name, char *value)
 /*
 ! if a malloc fails in ft_change env, the function will try ft_add_env
 */
-int ft_export(char *str)
+int	ft_export(char *str)
 {
 	char	*name;
 	char	*value;
 	int		return_value;
 
+	return_value = 0;
 	if (!str)
 		return (ft_print_env_alphabeticaly());
 	if (ft_strchr(str, '=') == NULL)
@@ -153,7 +156,8 @@ int ft_export(char *str)
 		name = ft_substr(str, 0, ft_strchr(str, '=') - str);
 		if (!name)
 			return (ERROR);
-		value = ft_substr(str, ft_strchr(str, '=') - str, ft_strlen(str) - ft_strlen(name));
+		value = ft_substr(str, ft_strchr(str, '=') - str, ft_strlen(str)
+				- ft_strlen(name));
 		if (!value)
 		{
 			free(name);

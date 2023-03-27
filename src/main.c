@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/24 11:34:54 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:08:50 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void ft_init_global()
 	while (environ[++i]){
 		g_global.environ[i] = ft_strdup(environ[i]);
 	}
+	g_global.history = malloc(sizeof(char *) * 1);
+	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
 }
 
@@ -47,6 +49,9 @@ void	ft_free_global()
 	}
 	free(g_global.environ);
 }
+/*
+! remember that on bash, the prompt is $USER@$HOSTNAME:$PWD$
+*/
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -55,19 +60,20 @@ int	main(int argc, char *argv[], char *envp[])
 	char* input;
 
 	ft_init_global();
+
+	handle_signals();
 	while(1)
 	{
 		input = get_input();
 		if (input == NULL)
 			break ;
 		handle_input(input, envp);
+		ft_add_history(input);
 		//ft_cd(msg);
 		//free(msg);
 	}
-	ft_putchar_fd('\n', 1);
-	/*signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);*/
+	ft_putstr_fd("exit\n", 1);
+	ft_clear_history();
 	ft_free_global();
 	return (0);
 }

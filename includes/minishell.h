@@ -65,6 +65,7 @@ int		ft_export(char *name);
 int		ft_unset(char *str);
 int	ft_add_history(char *line);
 void ft_clear_history();
+void ft_history();
 
 
 #endif
