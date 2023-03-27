@@ -2,16 +2,24 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2023/03/24 19:53:18 by beaudibe          #+#    #+#             */
 /*   Updated: 2023/03/24 19:53:18 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void ft_history(void)
+
+
+/*
+* ft_history() displays the history of the shell
+*/
+void	ft_history(void)
 {
 	int i;
 
@@ -26,9 +34,13 @@ void ft_history(void)
 	}
 }
 
+/*
+* ft_add_history() adds a line to the history of the shell
+* @param line: the line to add to the history
+*/
 int	ft_add_history(char *line)
 {
-	static int	nb_history;
+	static int nb_history;
 	int i;
 	char **tmp;
 
@@ -52,7 +64,7 @@ int	ft_add_history(char *line)
 	return (SUCCEED);
 }
 
-void	ft_clear_history()
+void	ft_clear_history(void)
 {
 	int i;
 
