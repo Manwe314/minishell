@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int ft_history(void)
+void ft_history(void)
 {
 	int i;
 
@@ -25,7 +24,6 @@ int ft_history(void)
 		ft_putstr_fd(g_global.history[i], 1);
 		ft_putstr_fd("\n", 1);
 	}
-	return (SUCCEED);
 }
 
 int	ft_add_history(char *line)
