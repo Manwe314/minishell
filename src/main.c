@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:52:16 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:15:17 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	main(int argc, char *argv[], char *envp[])
 		if (input == NULL)
 			break ;
 		handle_input(input, envp);
-
 		ft_add_history(input);
 		//ft_cd(msg);
 		//free(msg);
