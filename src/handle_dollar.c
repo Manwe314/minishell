@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:03:41 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 20:52:48 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:19:09 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_str_replace(char *str, char *to_replace, char *replace_with)
 	int		i;
 
 	i = 0;
+	printf("replace_with %s\n", replace_with);
 	tmp = ft_strnstr(str, to_replace, ft_strlen(str));
 	tmp2 = ft_substr(str, 0, tmp - str - 1);
 	if (!replace_with)
@@ -52,23 +53,27 @@ char	*ft_handle_dollar(char *str)
 	int		i;
 	int		j;
 	char	*tmp;
-	char	*new_str;
+    char    *new_str;
 
 	i = -1;
-	new_str = ft_strdup(str);
+    new_str = ft_strdup(str);
 	if (!new_str || !str)
 		return (NULL);
 	while (new_str[++i])
 	{
 		if (new_str[i] == '$')
 		{
-			j = i;
-			while (new_str[j] && ft_isalnum(new_str[j]))
+			j = 0;
+			i++;
+			while (new_str[i + j] && ft_isalnum(new_str[i + j]))
 				j++;
-			tmp = ft_substr(new_str, i + 1, j - 1);
+			tmp = ft_substr(new_str, i, j);
+			printf("tmp: %s %d \n", tmp, j);
 			new_str = ft_str_replace(new_str, tmp, getenv(tmp));
+			i = -1;
 			free(tmp);
 		}
 	}
 	return (new_str);
 }
+
