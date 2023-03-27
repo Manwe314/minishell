@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/24 20:32:08 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:48:48 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,8 @@ int		ft_cd(char *path);
 int		ft_echo(char *str, int n_flag);
 int		ft_export(char *name);
 int		ft_unset(char *str);
+int	ft_add_history(char *line);
+void ft_clear_history();
+
+
 #endif

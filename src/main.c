@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/24 20:36:05 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:48:34 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void ft_init_global()
 	while (environ[++i]){
 		g_global.environ[i] = ft_strdup(environ[i]);
 	}
+	g_global.history = malloc(sizeof(char *) * 1);
+	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
 }
 
@@ -72,7 +74,7 @@ int	main(int argc, char *argv[], char *envp[])
 		//free(msg);
 	}
 	ft_putstr_fd("exit\n", 1);
-	clear_history();
+	ft_clear_history();
 	ft_free_global();
 	return (0);
 }
