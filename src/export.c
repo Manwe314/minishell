@@ -15,16 +15,17 @@
 
 #include "minishell.h"
 
+
 /*
 * ft_print_env_alphabeticaly: print the environment variables in
 * alphabetical order
 */
 int	ft_print_env_alphabeticaly(void)
 {
-	char	**env;
-	char	*tmp;
-	int		i;
-	int		j;
+	char **env;
+	char *tmp;
+	int i;
+	int j;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -96,8 +97,8 @@ int	ft_change_env(char *name, char *value)
 
 int	ft_add_env(char *name, char *value)
 {
-	int		i;
-	char	**tmp;
+	int i;
+	char **tmp;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -137,9 +138,9 @@ int	ft_add_env(char *name, char *value)
 */
 int	ft_export(char *str)
 {
-	char	*name;
-	char	*value;
-	int		return_value;
+	char *name;
+	char *value;
+	int return_value;
 
 	if (!str)
 		return (ft_print_env_alphabeticaly());

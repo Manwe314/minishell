@@ -2,14 +2,18 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
 /*   Updated: 2023/03/24 21:02:00 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
+
 
 // !There's still some thing written when you do ctrl + c when you have start a
 // !command.

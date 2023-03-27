@@ -15,6 +15,7 @@
 
 #include "minishell.h"
 
+
 /*
 * ft_cd: change the current working directory to the one specified in path
 * will check if the path exists and if the user has the right to access it

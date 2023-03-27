@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:48:48 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:06:45 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		ft_unset(char *str);
 int	ft_add_history(char *line);
 void ft_clear_history();
 void ft_history();
+char *ft_handle_dollar(char *str);
 
 
 #endif
