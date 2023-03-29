@@ -17,6 +17,7 @@
 
 // !There's still some thing written when you do ctrl + c when you have start a
 // !command.
+// !Add free input in the readline function
 // ? Maybe we should use a global variable in the readline function
 void	handle_ctrl_c(int sig)
 {
@@ -31,6 +32,7 @@ void	handle_ctrl_d(int sig)
 	exit(SUCCEED);
 }
 
+// !Doesn't work as intended
 void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
