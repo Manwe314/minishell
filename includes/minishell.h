@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:48:48 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/21 19:18:26 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ int		ft_unset(char *str);
 int	ft_add_history(char *line);
 void ft_clear_history();
 void ft_history();
-
+int	*find_quote_pairs(char *input, int start);
+char	*make_path_one(char *input);
+int	init_size_arguments_one(char *input, int *quote_pair);
+void	put_in_arguments_one(char *input, char **arguments, int *quote_pair);
+char	**make_arguments_one(char *input, int *quote_pair);
+void	execute_case_one(char *input);
+int	is_begining(char *input, int index);
 
 #endif
