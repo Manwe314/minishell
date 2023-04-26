@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 20:06:45 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:51:42 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@
 
 typedef struct s_global
 {
-	char **environ;
-	char **history;
+	char	**environ;
+	char	**history;
+	int		exit_status;
+	int		ctrl_c;
+	char *input;
 }	t_global;
 extern t_global g_global;
 

@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:03:41 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 21:19:09 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:47:02 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*ft_str_replace(char *str, char *to_replace, char *replace_with)
 	int		i;
 
 	i = 0;
-	printf("replace_with %s\n", replace_with);
 	tmp = ft_strnstr(str, to_replace, ft_strlen(str));
 	tmp2 = ft_substr(str, 0, tmp - str - 1);
 	if (!replace_with)
@@ -48,6 +47,24 @@ char	*ft_str_replace(char *str, char *to_replace, char *replace_with)
 	return (new_str);
 }
 
+void   ft_handle_interogation(char *str)
+{
+	int i;
+	char *tmp;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '?' && (str[i + 1] == ' ' \
+		|| str[i + 1] == '\0' || str[i + 1] == '	'))
+		{
+			tmp = ft_itoa(g_global.exit_status);
+			str = ft_str_replace(str, "?", tmp);
+			free(tmp);
+		}
+	}
+}
+
 char	*ft_handle_dollar(char *str)
 {
 	int		i;
@@ -59,6 +76,7 @@ char	*ft_handle_dollar(char *str)
     new_str = ft_strdup(str);
 	if (!new_str || !str)
 		return (NULL);
+	ft_handle_interogation(new_str);
 	while (new_str[++i])
 	{
 		if (new_str[i] == '$')
@@ -68,7 +86,6 @@ char	*ft_handle_dollar(char *str)
 			while (new_str[i + j] && ft_isalnum(new_str[i + j]))
 				j++;
 			tmp = ft_substr(new_str, i, j);
-			printf("tmp: %s %d \n", tmp, j);
 			new_str = ft_str_replace(new_str, tmp, getenv(tmp));
 			i = -1;
 			free(tmp);

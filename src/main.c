@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/27 21:20:38 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:47:32 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_init_global(void)
 	g_global.history = malloc(sizeof(char *) * 1);
 	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
+	g_global.exit_status = 0;
+	g_global.ctrl_c = 0;
 }
 
 char	*ft_remove_n(char *str)
@@ -51,9 +53,6 @@ void	ft_free_global(void)
 	}
 	free(g_global.environ);
 }
-/*
-! remember that on bash, the prompt is $USER@$HOSTNAME:$PWD$
-*/
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -68,6 +67,7 @@ int	main(int argc, char *argv[], char *envp[])
 		input = get_input();
 		if (input == NULL)
 			break ;
+		g_global.exit_status++;
 		handle_input(input, envp);
 		ft_add_history(input);
 	}
