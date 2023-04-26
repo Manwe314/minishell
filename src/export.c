@@ -142,6 +142,7 @@ int	ft_export(char *str)
 	char *value;
 	int return_value;
 
+	return_value = SUCCEED;
 	if (!str)
 		return (ft_print_env_alphabeticaly());
 	if (ft_strchr(str, '=') == NULL)
