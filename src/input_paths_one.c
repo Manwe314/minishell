@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:48:19 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/22 19:57:43 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/04/20 19:08:06 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,18 @@ void do_pathed_executable(char *input, int casse, char **envp)
 void remove_path(char **arguments)
 {
 	int	i;
+	int is_slash;
 
-	i = ft_strlen(arguments[0]);
+	i = 0;
+	is_slash = 0;
+	while (arguments[0][i] != '\0')
+	{
+		if (arguments[0][i] == '/')
+			is_slash = 1;
+		i++;
+	}
+	if (!is_slash)
+		return ;
 	while (arguments[0][i] != '/')
 		i--;
 	i++;
@@ -60,6 +70,7 @@ char	*expand_home_directory(char *path, char **envp)
 	home = get_home(envp);
 	new_path = ft_strdup(path + 1);
 	new_path = ft_strjoin(home, new_path);
+	free(home);
 	return (new_path);
 }
 
@@ -80,5 +91,7 @@ char	*clean_home_path(char *path, char **envp)
 	while (path[sub_size] != '/')
 		sub_size++;
 	new_path = ft_strjoin(new_path, (path + sub_size));
+	free(user);
+	free(home);
 	return (new_path);
 }

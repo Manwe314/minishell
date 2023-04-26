@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/04/25 15:51:42 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:26:00 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ int	ft_add_history(char *line);
 void ft_clear_history();
 void ft_history();
 char *ft_handle_dollar(char *str);
-
+int	*find_quote_pairs(char *input, int start);
+char	*make_path_one(char *input);
+int	init_size_arguments_one(char *input, int *quote_pair);
+void	put_in_arguments_one(char *input, char **arguments, int *quote_pair);
+char	**make_arguments_one(char *input, int *quote_pair);
+void	execute_case_one(char *input);
+int	is_begining(char *input, int index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:40:43 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/16 19:07:23 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:52:02 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ft_strjoingnl(char *s1, char *s2)
 		str[i++] = s2[j++];
 	str[ft_strlengnl(s1) + ft_strlengnl(s2)] = '\0';
 	free(s1);
+	free(s2);
 	return (str);
 }
 

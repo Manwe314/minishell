@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:45:16 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/27 20:59:59 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:23:32 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,60 @@ void	free_split(char **split)
 	free(split);
 }
 
+
+int	is_begining(char *input, int index)
+{
+	int i;
+
+	i = 0;
+	while (input[i] == ' ')
+		i++;
+	if (i >= index && input[index] == ' ')
+		return (1);
+	return (0);
+
+}
+
+int	*find_quote_pairs(char *input, int start)
+{
+	int	i;
+	int j;
+	static int	quote_pair[2];
+
+	i = start;
+	quote_pair[0] = 0;
+	quote_pair[1] = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == 39 || input[i] == 34)
+		{
+			j = i + 1;
+			quote_pair[0] = i;
+			while (input[j] != '\0' && input[i] != '\0')
+			{
+				if (input[j] == input[i])
+				{
+					quote_pair[1] = j;
+					return (quote_pair);
+				}
+				j++;
+			}
+		}
+		i++;
+	}
+	return (quote_pair);
+}
+
 void execute_command(char *command, char **arguments, char **envp)
 {
 	pid_t	executable_to_be_done;
 	int		execve_return;
 
-	//printf("%s\n", command);
-	//int i = 0;
-	/*while (arguments[i])
+	/*printf("Command: %s\n", command);
+	int i = 0;
+	while (arguments[i])
 	{
-		printf("%s\n", arguments[i]);
+		printf("Argument[%d]: %s\n", i, arguments[i]);
 		i++;
 	}*/
 	execve_return = 1;

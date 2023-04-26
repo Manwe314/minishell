@@ -2,17 +2,13 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+
-	+:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+
-	+#+        */
-/*                                                +#+#+#+#+#+
-	+#+           */
-/*   Created: 2023/03/20 14:06:20 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/20 14:06:20 by beaudibe         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/26 15:30:17 by beaudibe          #+#    #+#             */
+/*   Updated: 2023/04/26 15:30:17 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 
@@ -142,7 +138,7 @@ int	ft_export(char *str)
 	char *value;
 	int return_value;
 
-	return_value = SUCCEED;
+	return_value = 0;
 	if (!str)
 		return (ft_print_env_alphabeticaly());
 	if (ft_strchr(str, '=') == NULL)
