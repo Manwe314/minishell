@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:03:41 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/04/26 15:17:25 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:13:00 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ char	*ft_str_replace(char *str, char *to_replace, char *replace_with)
 	return (new_str);
 }
 
-void   ft_handle_interogation(char *str)
+void	ft_handle_interogation(char *str)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '?' && (str[i + 1] == ' ' \
-		|| str[i + 1] == '\0' || str[i + 1] == '	'))
+		if (str[i] == '?' && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i
+					+ 1] == '	'))
 		{
 			tmp = ft_itoa(g_global.exit_status);
 			str = ft_str_replace(str, "?", tmp);
@@ -70,10 +70,10 @@ char	*ft_handle_dollar(char *str)
 	int		i;
 	int		j;
 	char	*tmp;
-    char    *new_str;
+	char	*new_str;
 
 	i = -1;
-    new_str = ft_strdup(str);
+	new_str = ft_strdup(str);
 	if (!new_str || !str)
 		return (NULL);
 	ft_handle_interogation(new_str);
@@ -93,4 +93,9 @@ char	*ft_handle_dollar(char *str)
 	}
 	return (new_str);
 }
+int ft_check_builtin(char **str)
+{
 
+}
+
+int ft_execute_command_builtin(char **str)

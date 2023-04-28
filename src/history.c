@@ -16,7 +16,7 @@
 /*
 * ft_history() displays the history of the shell
 */
-void	ft_history(void)
+int	ft_history(void)
 {
 	int i;
 
@@ -29,6 +29,7 @@ void	ft_history(void)
 		ft_putstr_fd(g_global.history[i], 1);
 		ft_putstr_fd("\n", 1);
 	}
+	return (SUCCEED);
 }
 
 /*

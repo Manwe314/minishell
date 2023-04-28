@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_meta_one.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:14:05 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/04/21 19:18:55 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:37:57 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,6 @@ void	execute_case_one(char *input)
 	path = make_path_one(input);
 	arguments = make_arguments_one(input, quote_pair);
 	execute_command(path, arguments, g_global.environ);
+	
 	// need to handle $HOME/exec and "$HOME/exec"
 }

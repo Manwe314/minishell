@@ -14,14 +14,6 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-<<<<<<< HEAD
-=======
-
-// !There's still some thing written when you do ctrl + c when you have start a
-// !command.
-// !Add free input in the readline function
-// ? Maybe we should use a global variable in the readline function
->>>>>>> b0c1548252c33c41ba4ec8b23886b681eefc06e3
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;
@@ -43,7 +35,6 @@ void	handle_ctrl_d(int sig)
 	exit(SUCCEED);
 }
 
-// !Doesn't work as intended
 void	handle_ctrl_backslash(int sig)
 {
 	rl_on_new_line();
