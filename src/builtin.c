@@ -56,6 +56,8 @@ int	ft_echo(char **str, int n_flag)
 	int	i;
 
 	i = 0;
+	if (n_flag)
+		i++;
 	while (str[++i])
 	{
 		ft_putstr_fd(str[i], 1);
