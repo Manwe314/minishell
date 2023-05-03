@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/03 17:39:54 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:20:43 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,14 +257,15 @@ void	close_fds(int size)
 	while (i < size)
 	{
 		if (g_global.fds[i] > 0)
-		{
-			printf("fd: %d\n", g_global.fds[i]);
 			close(g_global.fds[i]);
-		}
-
 		i++;
 	}
 	free(g_global.fds);
+	g_global.fds = 0;
+	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
+		perror("dup2");
+	if (dup2(g_global.save_STDOUT, STDOUT_FILENO) < 0)
+		perror("dup2");
 }
 
 void	execute_case_two(char *input)
@@ -278,11 +279,14 @@ void	execute_case_two(char *input)
 	arguments = ft_split(new_input, ' ');
 	free(new_input);
 	new_input = set_up_execution_two(arguments);
-	casse = detect_path_executable(new_input);
-	if (casse > 0)
-		do_pathed_executable(new_input, casse, g_global.environ);
-	if (casse == 0)
-		do_base_case(new_input, g_global.environ);
+	if (new_input != 0)
+	{
+		casse = detect_path_executable(new_input);
+		if (casse > 0)
+			do_pathed_executable(new_input, casse, g_global.environ);
+		if (casse == 0)
+			do_base_case(new_input, g_global.environ);
+	}
 	close_fds(get_fd_size(arguments));
 	free_split(arguments);
 }

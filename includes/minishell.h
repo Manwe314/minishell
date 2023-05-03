@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/03 17:25:43 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:12:31 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
 
 
 # define SUCCEED 1
@@ -38,13 +39,15 @@ typedef struct s_global
 {
 	char	**environ;
 	char	**history;
+	int		save_STDIN;
+	int		save_STDOUT;
 	int		*fds;
 }	t_global;
 extern t_global g_global;
 
 void handle_signals();
 int	ft_add_history(char *line);
-char	*get_input();
+char	 *get_input();
 void	handle_input(char *input, char **envp);
 void	do_base_case(char *input, char **envp);
 char	*get_command(char *name, char **paths);

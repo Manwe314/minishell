@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/03 16:55:06 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:28:18 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void execute_command(char *command, char **arguments, char **envp)
 	execve_return = 1;
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0)
-		 execve_return = execve(command, arguments, envp);
+		execve_return = execve(command, arguments, envp);
 	if (execve_return == -1)
 	{
 		perror("execve");

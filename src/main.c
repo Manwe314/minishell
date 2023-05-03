@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/03 17:39:06 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:13:28 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void ft_init_global()
 	g_global.history = malloc(sizeof(char *) * 1);
 	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
+	g_global.fds = 0;
+	g_global.save_STDIN = dup(STDIN_FILENO);
+	g_global.save_STDOUT = dup(STDOUT_FILENO);
 }
 
 char *ft_remove_n(char *str)
