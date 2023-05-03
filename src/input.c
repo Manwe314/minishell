@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/03 16:54:36 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:39:54 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,15 +177,33 @@ int	redirect_case(char **arguments, int i)
 	return (0);
 }
 
+int	get_fd_size(char **arguments)
+{
+	int i;
+	int size;
+
+	i = 0;
+	size = 0;
+	while (arguments[i] != 0)
+	{
+		if (arguments[i][0] == '>' || arguments[i][0] == '<')
+			size++;
+		i++;
+	}
+	return (size);
+}
+
 char	*set_up_execution_two(char **arguments)
 {
 	char	*input;
 	char	*temp;
 	int	i;
-	int	fd;
+	int j;
 
 	i = 0;
 	input = 0;
+	j = 0;
+	g_global.fds = (int*)malloc(sizeof(int) * get_fd_size(arguments));
 	while (arguments[i] != 0)
 	{
 		//printf("redirect case[%d]: %d\n",i , redirect_case(arguments, i));
@@ -201,23 +219,25 @@ char	*set_up_execution_two(char **arguments)
 		{
 			if (arguments[i + 1] != 0 && arguments[i][0] =='<')
 			{
-				fd = open(arguments[i + 1], O_RDONLY);
-				if (fd < 0)
+				g_global.fds[j] = open(arguments[i + 1], O_RDONLY);
+				if (g_global.fds[j] < 0)
 				{
 					perror("failed to open a file");// could have a custom error function here;
 					return (0);
 				}
-				dup2(fd, 0);
+				dup2(g_global.fds[j], 0);
+				j++;
 			}
 			if (arguments[i + 1] != 0 && arguments[i][0] =='>')
 			{
-				fd = open(arguments[i + 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
-				if (fd < 0)
+				g_global.fds[j] = open(arguments[i + 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+				if (g_global.fds[j] < 0)
 				{
 					perror("failed to create a file");// could have a custom error function here;
 					return (0);
 				}
-				dup2(fd, 1);
+				dup2(g_global.fds[j], 1);
+				j++;
 			}
 		}
 		if (redirect_case(arguments, i) == 2)
@@ -227,6 +247,24 @@ char	*set_up_execution_two(char **arguments)
 		i++;
 	}
 	return (input);
+}
+
+void	close_fds(int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (g_global.fds[i] > 0)
+		{
+			printf("fd: %d\n", g_global.fds[i]);
+			close(g_global.fds[i]);
+		}
+
+		i++;
+	}
+	free(g_global.fds);
 }
 
 void	execute_case_two(char *input)
@@ -245,7 +283,8 @@ void	execute_case_two(char *input)
 		do_pathed_executable(new_input, casse, g_global.environ);
 	if (casse == 0)
 		do_base_case(new_input, g_global.environ);
-
+	close_fds(get_fd_size(arguments));
+	free_split(arguments);
 }
 
 /*void	execute_case_three(char *input)

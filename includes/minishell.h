@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/04/21 19:18:26 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:25:43 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@
 
 typedef struct s_global
 {
-	char **environ;
-	char **history;
+	char	**environ;
+	char	**history;
+	int		*fds;
 }	t_global;
 extern t_global g_global;
 
