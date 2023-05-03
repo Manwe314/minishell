@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/04/21 19:18:19 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:54:36 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,165 @@ int	detect_meta_chars(char *input)
 	return (casse);
 }
 
-
-/*void	execute_case_two(char *input)
+int	get_insert_size(char *input)
 {
+	int i;
+	int size;
+
+	i = 0;
+	size = 0;
+	while(input[i] != '\0')
+	{
+		if (input[i] == '>')
+		{
+			if (i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '>' && input[i - 1] != '<')
+				size++;
+			if (i + 1 < ft_strlengnl(input) && input[i + 1] != ' ' && input[i + 1] != '>')
+				size++;
+			size++;
+			i++;
+		}
+		if (input[i] == '<')
+		{
+			if ( i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '<' && input[i - 1] != '>')
+				size++;
+			if ( i + 1 < ft_strlengnl(input)  && input[i + 1] != ' ' && input[i + 1] != '<')
+				size++;
+			size++;
+			i++;
+		}
+		if (input[i] != '\0' && input[i] != '>' && input[i] != '<')
+		{
+			size++;
+			i++;
+		}
+	}
+	return (size);
+}
+
+char	*insert_spaces(char *input)
+{
+	int	i;
+	int	j;
+	int	size;
+	char	*new_input;
+
+	size = get_insert_size(input);
+	//printf("original: %d\nnew: %d\ndiff: %d\n", ft_strlengnl(input), size, size - ft_strlengnl(input));
+	new_input = malloc((size + 1) * sizeof(char));
+	i = 0;
+	j = 0;
+	size = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '>' || input[i] == '<')
+		{
+			size = i;
+			if (i - 1 >= 0 && input[i - 1] != ' ' && input[i] != input[i - 1])
+			{
+				new_input[j] = ' ';
+				j++;
+			}
+			while (input[i] != '\0' && input[size] == input[i])
+			{
+				new_input[j] = input[i];
+				i++;
+				j++;
+			}
+			new_input[j] = ' ';
+			j++;
+		}
+		new_input[j] = input[i];
+		i++;
+		j++;
+	}
+	new_input[j] = '\0';
+	return(new_input);
+}
+
+int	redirect_case(char **arguments, int i)
+{
+	if (ft_strlengnl(arguments[i]) == 1 && (arguments[i][0] == '>' || arguments[i][0] == '<'))
+		return (1);
+	if (ft_strlengnl(arguments[i]) > 1 && (arguments[i][0] == '>' || arguments[i][0] == '<'))
+		return (2);
+	if (i != 0 && (arguments[i - 1][0] == '>' || arguments[i - 1][0] == '<'))
+		return (-1);
+	return (0);
+}
+
+char	*set_up_execution_two(char **arguments)
+{
+	char	*input;
+	char	*temp;
+	int	i;
+	int	fd;
+
+	i = 0;
+	input = 0;
+	while (arguments[i] != 0)
+	{
+		//printf("redirect case[%d]: %d\n",i , redirect_case(arguments, i));
+		if (redirect_case(arguments, i) == 0)
+		{
+			temp = ft_strdup(arguments[i]);
+			input = ft_strjoingnl(input, temp);
+			temp = input;
+			input = ft_strjoin(input, " ");
+			free(temp);
+		}
+		if (redirect_case(arguments, i) == 1)
+		{
+			if (arguments[i + 1] != 0 && arguments[i][0] =='<')
+			{
+				fd = open(arguments[i + 1], O_RDONLY);
+				if (fd < 0)
+				{
+					perror("failed to open a file");// could have a custom error function here;
+					return (0);
+				}
+				dup2(fd, 0);
+			}
+			if (arguments[i + 1] != 0 && arguments[i][0] =='>')
+			{
+				fd = open(arguments[i + 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+				if (fd < 0)
+				{
+					perror("failed to create a file");// could have a custom error function here;
+					return (0);
+				}
+				dup2(fd, 1);
+			}
+		}
+		if (redirect_case(arguments, i) == 2)
+		{
+			// do >> or <<
+		}
+		i++;
+	}
+	return (input);
+}
+
+void	execute_case_two(char *input)
+{
+	char	*new_input;
+	char	**arguments;
+	int		casse;
+
+	new_input = insert_spaces(input);
+	free(input);
+	arguments = ft_split(new_input, ' ');
+	free(new_input);
+	new_input = set_up_execution_two(arguments);
+	casse = detect_path_executable(new_input);
+	if (casse > 0)
+		do_pathed_executable(new_input, casse, g_global.environ);
+	if (casse == 0)
+		do_base_case(new_input, g_global.environ);
 
 }
 
-void	execute_case_three(char *input)
+/*void	execute_case_three(char *input)
 {
 
 }
@@ -125,9 +277,9 @@ void	do_meta_chars(char *input, int casse)
 {
 	if (casse == 1)
 		execute_case_one(input);
-	/*if (casse == 2)
+	if (casse == 2)
 		execute_case_two(input);
-	if (casse == 3)
+	/*if (casse == 3)
 		execute_case_three(input);
 	if (casse == 4)
 		execute_case_four(input);
