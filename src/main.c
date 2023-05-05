@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/03 20:13:28 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:02:19 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void ft_init_global()
 	g_global.fds = 0;
 	g_global.save_STDIN = dup(STDIN_FILENO);
 	g_global.save_STDOUT = dup(STDOUT_FILENO);
+	g_global.here_doc = 0;
+	g_global.f_pipes[0] = -1;
+	g_global.f_pipes[1] = -1;
+	g_global.last_out = -1;
+	g_global.last_in = 0;
 }
 
 char *ft_remove_n(char *str)
@@ -75,7 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 		//ft_cd(msg);
 		//free(msg);
 	}
-	//ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("exit\n", 1);
 	ft_clear_history();
 	ft_free_global();
 	return (0);

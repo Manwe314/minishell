@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/03 20:12:31 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:14:37 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_global
 	int		save_STDIN;
 	int		save_STDOUT;
 	int		*fds;
+	int		f_pipes[2];
+	int		last_out;
+	int		last_in;
+	char	*here_doc;
 }	t_global;
 extern t_global g_global;
 
@@ -77,5 +81,12 @@ void	put_in_arguments_one(char *input, char **arguments, int *quote_pair);
 char	**make_arguments_one(char *input, int *quote_pair);
 void	execute_case_one(char *input);
 int	is_begining(char *input, int index);
-
+int	get_insert_size(char *input);
+char	*insert_spaces(char *input);
+int	redirect_case(char **arguments, int i);
+int	get_fd_size(char **arguments);
+void handle_heredoc(char *delim);
+void	execute_case_two(char *input);
+void	close_fds(int size);
+char	*set_up_execution_two(char **arguments);
 #endif
