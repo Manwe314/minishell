@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/08 16:07:40 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:13:26 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_global
 	int			exit_status;
 }	t_global;
 
+extern t_global	g_global;
+
 void			handle_signals(void);
 int				ft_add_history(char *line);
 char			*get_input(void);
@@ -87,10 +89,8 @@ int				ft_execute_command_builtin(char **str);
 int	ft_print_env_alphabeticaly(void);
 int	ft_env(void);
 
-void handle_signals();
-int	ft_add_history(char *line);
-char	 *get_input();
-void	handle_input(char *input, char **envp);
+
+
 void	do_base_case(char *input, char **envp);
 char	*get_command(char *name, char **paths);
 char	*get_path(char **envp);
@@ -104,14 +104,9 @@ void	remove_path(char **arguments);
 char	*expand_home_directory(char *path, char **envp);
 char	*clean_home_path(char *path, char **envp);
 void	free_split(char **split);
-int		ft_pwd(void);
-int		ft_cd(char *path);
-int		ft_echo(char *str, int n_flag);
-int		ft_export(char *name);
-int		ft_unset(char *str);
+
 int	ft_add_history(char *line);
 void ft_clear_history();
-void ft_history();
 int	*find_quote_pairs(char *input, int start);
 char	*make_path_one(char *input);
 int	init_size_arguments_one(char *input, int *quote_pair);
