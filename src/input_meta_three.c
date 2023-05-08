@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:13:45 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/05 18:14:38 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:21:53 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	execute_case_two(char *input)
 	arguments = ft_split(new_input, ' ');
 	free(new_input);
 	new_input = set_up_execution_two(arguments);
-	if (g_global.last_in == -1)
+	if (g_global.last_in == -1 && new_input != 0)
 	{
 		if (pipe(g_global.f_pipes) < 0)
 			perror("pipes"); // error handlinging

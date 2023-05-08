@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/05 18:14:45 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/08 20:23:18 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,117 @@ int	detect_meta_chars(char *input)
 	return (casse);
 }
 
-/*void	execute_case_three(char *input)
+int	is_all_space(char *input)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == ' ' || input[i] == '	')
+			j++;
+		i++;
+	}
+	if (i == j)
+		return (1);
+	return (0);
+}
+
+void	piped_command()
 {
 
 }
 
+int split_size(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != 0)
+		i++;
+	return (i);
+}
+int initial_pipe_check(char *input)
+{
+	int i;
+
+	i = 0;
+	while (input[i] == ' ' && input[i] != '\0')
+		i++;
+	if (input[i] == '|')
+		return (-1);
+	i = ft_strlengnl(input);
+	i--;
+	while (i >= 0 && input[i] == ' ')
+		i--;
+	if (input[i] == '|')
+		return (1);
+	return (0);
+
+}
+
+char *finish_piped_input(char *input)
+{
+	char *added_input;
+	char *temp;
+
+	while (1)
+	{
+		added_input = readline("> ");
+		if (is_all_space(added_input) == 0)
+			if (initial_pipe_check(added_input) != 1)
+				break ;
+		temp = ft_strjoin(input, added_input);
+		free (input);
+		free(added_input);
+		input = temp;
+	}
+	temp = ft_strjoin(input, added_input);
+	free(input);
+	free(added_input);
+	return (temp);
+}
+
 void	execute_case_four(char *input)
+{
+	char **new_input;
+	int	i;
+	int	size;
+
+	i = initial_pipe_check(input);
+	if (i == -1)
+	{
+		perror("Invalid Token"); // need actual error msger
+		free(input);
+		return ;
+	}
+	if (i == 1)
+		input = finish_piped_input(input);
+	new_input = ft_split(input, '|');
+	i = 0;
+	size = split_size(new_input);
+	while (new_input[i] != 0)
+	{
+		if (is_all_space(new_input[i]))
+		{
+			perror("Syntax error"); // best have error mesinger
+			break;
+		}
+		i++;
+	}
+	if (i != size && i + 1 != size)
+		return ;
+	i = 0;
+	while (new_input[i] != 0)
+	{
+		printf("split[%d]: %s\n", i, new_input[i]);
+		i++;
+	}
+}
+
+/*void	execute_case_three(char *input)
 {
 
 }
@@ -122,10 +227,11 @@ void	do_meta_chars(char *input, int casse)
 	if (casse == 2)
 		execute_case_two(input);
 	/*if (casse == 3)
-		execute_case_three(input);
+		execute_case_three(input);*/
 	if (casse == 4)
 		execute_case_four(input);
-	if (casse == 5)
+	printf("out of case 4\n");
+	/*if (casse == 5)
 		execute_case_five(input);
 	if (casse == 6)
 		execute_case_six(input);
