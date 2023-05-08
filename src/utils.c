@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:45:16 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/04/26 15:23:32 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:08:10 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void execute_command(char *command, char **arguments, char **envp)
 	execve_return = 1;
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0)
-		 execve_return = execve(command, arguments, envp);
+		execve_return = execve(command, arguments, envp);
 	if (execve_return == -1)
 	{
 		perror("execve");

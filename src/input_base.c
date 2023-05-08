@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:54:00 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/03/28 17:46:42 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:57:02 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void do_base_case(char *input, char **envp)
 	if (command == 0)
 	{
 		command = ft_strjoin(exectable_components[0], ": Command Not Found\n");
-		ft_putstr_fd(command, 1);
+		ft_putstr_fd(command, 2);
 		free(command);
 		free_split(individual_paths);
 		free_split(exectable_components);

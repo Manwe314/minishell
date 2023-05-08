@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/04/26 16:40:18 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:02:15 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,7 @@ int	detect_meta_chars(char *input)
 	return (casse);
 }
 
-
-/*void	execute_case_two(char *input)
-{
-
-}
-
-void	execute_case_three(char *input)
+/*void	execute_case_three(char *input)
 {
 
 }
@@ -125,9 +119,9 @@ void	do_meta_chars(char *input, int casse)
 {
 	if (casse == 1)
 		execute_case_one(input);
-	/*if (casse == 2)
+	if (casse == 2)
 		execute_case_two(input);
-	if (casse == 3)
+	/*if (casse == 3)
 		execute_case_three(input);
 	if (casse == 4)
 		execute_case_four(input);

@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/02 18:08:24 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:03:42 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void	ft_init_global(void)
 	g_global.history = malloc(sizeof(char *) * 1);
 	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
+	g_global.fds = 0;
+	g_global.save_STDIN = dup(STDIN_FILENO);
+	g_global.save_STDOUT = dup(STDOUT_FILENO);
+	g_global.here_doc = 0;
+	g_global.f_pipes[0] = -1;
+	g_global.f_pipes[1] = -1;
+	g_global.last_out = -1;
+	g_global.last_in = 0;
 	g_global.exit_status = 0;
 	g_global.ctrl_c = 0;
 }
