@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:13:45 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/05 18:21:53 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:17:49 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,11 @@ void	execute_case_two(char *input)
 		ft_putstr_fd(g_global.here_doc, g_global.f_pipes[1]);
 		close(g_global.f_pipes[1]);
 		g_global.f_pipes[1] = -1;
+		if (g_global.last_write_pipe >= 0)
+		{
+			dup2(g_global.last_write_pipe, STDOUT_FILENO);
+			close(g_global.last_write_pipe);
+		}
 	}
 	g_global.last_in = 0;
 	g_global.last_out = -1;

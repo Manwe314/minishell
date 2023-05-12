@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/05 17:02:19 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:24:00 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void ft_init_global()
 	g_global.f_pipes[1] = -1;
 	g_global.last_out = -1;
 	g_global.last_in = 0;
+	g_global.last_write_pipe = -1;
 }
 
 char *ft_remove_n(char *str)

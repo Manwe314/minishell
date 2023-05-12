@@ -6,13 +6,23 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/04 20:58:08 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:41:47 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int split_size(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != 0)
+		i++;
+	return (i);
+}
 
 void	free_split(char **split)
 {
@@ -84,10 +94,17 @@ void execute_command(char *command, char **arguments, char **envp)
 		printf("Argument[%d]: %s\n", i, arguments[i]);
 		i++;
 	}*/
+	if (g_global.last_write_pipe != -1)
+	{
+		//ft_putstr_fd("1\n", g_global.save_STDOUT);
+		close(g_global.last_write_pipe);
+	}
+
 	execve_return = 1;
 	executable_to_be_done = fork();
-	if (executable_to_be_done == 0)
+	if (executable_to_be_done == 0){
 		execve_return = execve(command, arguments, envp);
+	}
 	if (execve_return == -1)
 	{
 		perror("execve");
