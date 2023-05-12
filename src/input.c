@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/08 16:02:15 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:33:51 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ void	execute_case_seven(char *input)
 
 }*/
 
-void	do_meta_chars(char *input, int casse)
+void do_meta_chars(char *input, int casse, char **envp)
 {
 	if (casse == 1)
-		execute_case_one(input);
+		execute_case_one(input, envp);
 	if (casse == 2)
 		execute_case_two(input);
 	/*if (casse == 3)
@@ -133,7 +133,7 @@ void	do_meta_chars(char *input, int casse)
 		execute_case_seven(input);*/
 }
 
-void	handle_input(char *input, char **envp)
+void handle_input(char *input, char **envp)
 {
 	//printf("handle input\n");
 	/*parse for metacharacters
@@ -149,7 +149,7 @@ void	handle_input(char *input, char **envp)
 	is_meta = detect_meta_chars(input);
 	if (is_meta > 0)
 	{
-		do_meta_chars(input, is_meta);
+		do_meta_chars(input, is_meta, envp);
 		return ;
 	}
 	casse = detect_path_executable(input);
@@ -157,7 +157,7 @@ void	handle_input(char *input, char **envp)
 	if (casse > 0)
 	{
 		do_pathed_executable(input, casse, envp);
-		return ;
+		return;
 	}
 	do_base_case(input, envp);
 }

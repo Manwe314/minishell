@@ -2,19 +2,15 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+
-	+:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+
-	+#+        */
-/*                                                +#+#+#+#+#+
-	+#+           */
-/*   Created: 2023/03/17 13:16:07 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/17 13:16:07 by beaudibe         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/09 12:45:00 by beaudibe          #+#    #+#             */
+/*   Updated: 2023/05/09 12:45:00 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 /*
 * ft_cd: change the current working directory to the one specified in path

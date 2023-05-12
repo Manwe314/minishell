@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:03:41 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/01 15:37:17 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:24:21 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ char	*ft_handle_dollar(char *str)
 			free(tmp);
 		}
 	}
+	//free(str);
 	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/08 16:13:26 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:26:26 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ typedef struct s_global
 	int		last_out;
 	int		last_in;
 	char	*here_doc;
-	int			ctrl_c;
 	char		*input;
 	int			exit_status;
 }	t_global;
 
 extern t_global	g_global;
 
+int	ft_is_buitin(char **str);
 void			handle_signals(void);
 int				ft_add_history(char *line);
 char			*get_input(void);
-void			handle_input(char *input, char **envp);
+void handle_input(char *input, char **envp);
 void			do_base_case(char *input, char **envp);
 char			*get_command(char *name, char **paths);
 char			*get_path(char **envp);
@@ -83,7 +83,7 @@ int				init_size_arguments_one(char *input, int *quote_pair);
 void			put_in_arguments_one(char *input, char **arguments, \
 					int *quote_pair);
 char			**make_arguments_one(char *input, int *quote_pair);
-void			execute_case_one(char *input);
+void execute_case_one(char *input, char **envp);
 int				is_begining(char *input, int index);
 int				ft_execute_command_builtin(char **str);
 int	ft_print_env_alphabeticaly(void);
@@ -112,7 +112,6 @@ char	*make_path_one(char *input);
 int	init_size_arguments_one(char *input, int *quote_pair);
 void	put_in_arguments_one(char *input, char **arguments, int *quote_pair);
 char	**make_arguments_one(char *input, int *quote_pair);
-void	execute_case_one(char *input);
 int	is_begining(char *input, int index);
 int	get_insert_size(char *input);
 char	*insert_spaces(char *input);

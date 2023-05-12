@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_base.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:54:00 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/05 17:57:02 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:31:11 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,16 @@ void do_base_case(char *input, char **envp)
 	char *command;
 
 	path = get_path(envp);
+	
 	individual_paths = ft_split(path, ':');
 	exectable_components = ft_split(input, ' ');
+	if (ft_is_buitin(exectable_components) == SUCCEED)
+	{
+		g_global.exit_status = ft_execute_command_builtin(exectable_components);
+		free_split(individual_paths);
+		free_split(exectable_components) ;
+		return ;
+	}
 	command = get_command(exectable_components[0], individual_paths);
 	if (command == 0)
 	{

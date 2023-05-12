@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:14:05 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/04/26 17:37:57 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:31:52 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ char	**make_arguments_one(char *input, int *quote_pair)
 	return (arguments);
 }
 
-void	execute_case_one(char *input)
+void execute_case_one(char *input, char **envp)
 {
 	int	*quote_pair;
 	char	*path;
@@ -164,9 +164,13 @@ void	execute_case_one(char *input)
 	//printf ("pair: \nFirst : %d\nSecond: %d\n", quote_pair[0], quote_pair[1]);
 	if (quote_pair[0] == 0 && quote_pair[1] == 0)
 	{
-		//handle $ function here
+		//printf("%s\n", input);
+		//printf("%s\n", ft_handle_dollar(input));
+
+		handle_input(ft_handle_dollar(input), envp);
 		return ;
 	}
+
 	if (quote_pair[0] != 0 && quote_pair[1] == 0)
 	{
 		//handle error here
@@ -176,6 +180,6 @@ void	execute_case_one(char *input)
 	path = make_path_one(input);
 	arguments = make_arguments_one(input, quote_pair);
 	execute_command(path, arguments, g_global.environ);
-	
+
 	// need to handle $HOME/exec and "$HOME/exec"
 }
