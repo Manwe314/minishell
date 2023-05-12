@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:54:00 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/12 16:31:11 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:37:41 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void do_base_case(char *input, char **envp)
 	char *command;
 
 	path = get_path(envp);
-	
+
 	individual_paths = ft_split(path, ':');
 	exectable_components = ft_split(input, ' ');
 	if (ft_is_buitin(exectable_components) == SUCCEED)

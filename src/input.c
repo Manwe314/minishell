@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/12 16:33:51 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:37:35 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	detect_path_executable(char *input)
 	i = 0;
 	is_path = 0;
 	//printf("input: %s\n", input);
-	while (input[i] != ' ' && input[i] != '\0')
+	while (input[i] != ' ' && input[i] != '\0') // if it starts with space???
 	{
 		if (input[i] == '/')
 		{
@@ -95,17 +95,7 @@ int	detect_meta_chars(char *input)
 
 }
 
-void	execute_case_four(char *input)
-{
-
-}
-
 void	execute_case_five(char *input)
-{
-
-}
-
-void	execute_case_six(char *input)
 {
 
 }
@@ -122,14 +112,14 @@ void do_meta_chars(char *input, int casse, char **envp)
 	if (casse == 2)
 		execute_case_two(input);
 	/*if (casse == 3)
-		execute_case_three(input);
+		execute_case_three(input);*/
 	if (casse == 4)
 		execute_case_four(input);
-	if (casse == 5)
-		execute_case_five(input);
+	/*if (casse == 5)
+		execute_case_five(input);*/
 	if (casse == 6)
-		execute_case_six(input);
-	if (casse == 7)
+		execute_case_four(input);
+	/*if (casse == 7)
 		execute_case_seven(input);*/
 }
 

@@ -5,12 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 19:45:16 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/08 16:08:10 by beaudibe         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/05/12 16:37:24 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int split_size(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != 0)
+		i++;
+	return (i);
+}
 
 void	free_split(char **split)
 {
@@ -82,10 +92,17 @@ void execute_command(char *command, char **arguments, char **envp)
 		printf("Argument[%d]: %s\n", i, arguments[i]);
 		i++;
 	}*/
+	if (g_global.last_write_pipe != -1)
+	{
+		//ft_putstr_fd("1\n", g_global.save_STDOUT);
+		close(g_global.last_write_pipe);
+	}
+
 	execve_return = 1;
 	executable_to_be_done = fork();
-	if (executable_to_be_done == 0)
+	if (executable_to_be_done == 0){
 		execve_return = execve(command, arguments, envp);
+	}
 	if (execve_return == -1)
 	{
 		perror("execve");

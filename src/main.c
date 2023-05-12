@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/12 16:28:47 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:37:13 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_init_global(void)
 	g_global.last_out = -1;
 	g_global.last_in = 0;
 	g_global.exit_status = 0;
+	g_global.last_write_pipe = -1;
 }
 
 char	*ft_remove_n(char *str)
