@@ -6,13 +6,42 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:13:45 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/11 20:17:49 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:16:30 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*set_up_execution_two(char **arguments)
+char *rename_file(char *name, char *var)
+{
+	int	i;
+
+	free(var);
+	var = malloc(sizeof(char) * (ft_strlen(name) + 1));
+	i = 0;
+	while (name[i] != '\0')
+	{
+		if (name[i] == '&')
+			var[i] = '<';
+		else if (name[i] == '*')
+			var[i] = '>';
+		else if (name[i] == ';')
+			var[i] = '|';
+		else if (name[i] == '(')
+			var[i] = 34;
+		else if (name[i] == ')')
+			var[i] = 39;
+		else if (name[i] == '!')
+			var[i] = '$';
+		else
+			var[i] = name[i];
+		i++;
+	}
+	var[i] = '\0';
+	return (var);
+}
+
+char	*set_up_execution_two(char **arguments, char *name)
 {
 	char	*input;
 	char	*temp;
@@ -38,7 +67,7 @@ char	*set_up_execution_two(char **arguments)
 		{
 			if (arguments[i + 1] != 0 && arguments[i][0] =='<')
 			{
-				g_global.fds[j] = open(arguments[i + 1], O_RDONLY);
+				g_global.fds[j] = open(rename_file(arguments[i + 1], name) , O_RDONLY);
 				if (g_global.fds[j] < 0)
 				{
 					perror("failed to open a file");// could have a custom error function here;
@@ -50,7 +79,7 @@ char	*set_up_execution_two(char **arguments)
 			}
 			if (arguments[i + 1] != 0 && arguments[i][0] =='>')
 			{
-				g_global.fds[j] = open(arguments[i + 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+				g_global.fds[j] = open(rename_file(arguments[i + 1], name), O_TRUNC | O_CREAT | O_RDWR, 0644);
 				if (g_global.fds[j] < 0)
 				{
 					perror("failed to create a file");// could have a custom error function here;
@@ -70,7 +99,7 @@ char	*set_up_execution_two(char **arguments)
 					perror("Invalid token"); //need real error handler here
 					return (0);
 				}
-				handle_heredoc(ft_strdup(arguments[i + 1]));
+				handle_heredoc(rename_file(arguments[i + 1], name));
 				g_global.last_in = -1;
 
 			}
@@ -81,7 +110,7 @@ char	*set_up_execution_two(char **arguments)
 					perror("Invalid token"); //need real error handler here
 					return (0);
 				}
-				g_global.fds[j] = open(arguments[i + 1], O_APPEND | O_CREAT | O_RDWR, 0644);
+				g_global.fds[j] = open(rename_file(arguments[i + 1], name), O_APPEND | O_CREAT | O_RDWR, 0644);
 				if (g_global.fds[j] < 0)
 				{
 					perror("failed to create a file");// could have a custom error function here;
@@ -131,13 +160,16 @@ void	execute_case_two(char *input)
 {
 	char	*new_input;
 	char	**arguments;
+	char	*name;
 	int		casse;
 
+	change_quoted_char(input);
 	new_input = insert_spaces(input);
 	free(input);
 	arguments = ft_split(new_input, ' ');
 	free(new_input);
-	new_input = set_up_execution_two(arguments);
+	name = malloc(1);
+	new_input = set_up_execution_two(arguments, name);
 	if (g_global.last_in == -1 && new_input != 0)
 	{
 		if (pipe(g_global.f_pipes) < 0)
@@ -164,4 +196,5 @@ void	execute_case_two(char *input)
 	}
 	close_fds(get_fd_size(arguments));
 	free_split(arguments);
+	free(name);
 }

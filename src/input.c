@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/12 16:37:35 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:28:01 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	detect_path_executable(char *input)
 
 	i = 0;
 	is_path = 0;
-	//printf("input: %s\n", input);
 	while (input[i] != ' ' && input[i] != '\0') // if it starts with space???
 	{
 		if (input[i] == '/')
@@ -48,6 +47,22 @@ int	detect_path_executable(char *input)
 	return (is_path);
 }
 
+int	is_flaged(int index)
+{
+	int	i;
+
+	if (g_global.quoted_flags == 0)
+		return (0);
+	i = 0;
+	while (g_global.quoted_flags[i] != -1)
+	{
+		if (g_global.quoted_flags[i] == index)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	detect_meta_chars(char *input)
 {
 	int	i;
@@ -58,7 +73,7 @@ int	detect_meta_chars(char *input)
 	while (input[i] != '\0')
 	{
 		// quotes ' and " and variables $
-		if (input[i] == 39 || input[i] == 34 || input[i] == 36)
+		if ((input[i] == 39 || input[i] == 34 || input[i] == 36) && !is_flaged(i))
 		{
 			casse += 1;
 			break;
@@ -69,7 +84,7 @@ int	detect_meta_chars(char *input)
 	while (input[i] != '\0')
 	{
 		// redirections < and > and << and >>
-		if (input[i] == 60 || input[i] == 62)
+		if ((input[i] == 60 || input[i] == 62) && !is_flaged(i))
 		{
 			casse += 2;
 			break;
@@ -80,7 +95,7 @@ int	detect_meta_chars(char *input)
 	while (input[i] != '\0')
 	{
 		//  pipes |
-		if (input[i] == 124)
+		if (input[i] == 124 && !is_flaged(i))
 		{
 			casse += 4;
 			break;
@@ -90,37 +105,106 @@ int	detect_meta_chars(char *input)
 	return (casse);
 }
 
-/*void	execute_case_three(char *input)
-{
-
-}
-
-void	execute_case_five(char *input)
-{
-
-}
-
-void	execute_case_seven(char *input)
-{
-
-}*/
-
 void do_meta_chars(char *input, int casse, char **envp)
 {
 	if (casse == 1)
 		execute_case_one(input, envp);
 	if (casse == 2)
 		execute_case_two(input);
-	/*if (casse == 3)
-		execute_case_three(input);*/
+	if (casse == 3)
+		execute_case_one(input, envp);
 	if (casse == 4)
 		execute_case_four(input);
-	/*if (casse == 5)
-		execute_case_five(input);*/
+	if (casse == 5)
+		execute_case_one(input, envp);
 	if (casse == 6)
 		execute_case_four(input);
-	/*if (casse == 7)
-		execute_case_seven(input);*/
+	if (casse == 7)
+		execute_case_one(input, envp);
+}
+
+int get_revert_size(char *input)
+{
+	int i;
+	int	size;
+
+	i = 0;
+	size  = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '*'  || input[i] == ';' || input[i] == '&' || input[i] == '(' || input[i] == ')' || input[i] == '!')
+			size++;
+		i++;
+	}
+	return (size);
+}
+int	uinteger_array_size(int *array)
+{
+	int i;
+
+	i = 0;
+	if (!array)
+		return (0);
+	while (array[i] != -1)
+		i++;
+	return (i);
+}
+
+void	revert_quoted_chars(char *input)
+{
+	int i;
+	int	j;
+	int	size;
+
+	i = 0;
+	j = 0;
+	size = get_revert_size(input);
+	if (size == 0)
+		return ;
+	if (g_global.quoted_flags != 0)
+		free(g_global.quoted_flags);
+	g_global.quoted_flags = (int *)malloc(sizeof(int) * (size + 1));
+	while (input[i] != '\0')
+	{
+		if (input[i] == '&')
+		{
+			input[i] = '<';
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		if (input[i] == '*')
+		{
+			input[i] = '>';
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		if (input[i] == ';')
+		{
+			input[i] = '|';
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		if (input[i] == '(')
+		{
+			input[i] = 34;
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		if (input[i] == ')')
+		{
+			input[i] = 39;
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		if (input[i] == '!')
+		{
+			input[i] = '$';
+			g_global.quoted_flags[j] = i;
+			j++;
+		}
+		i++;
+	}
+	g_global.quoted_flags[j] = -1;
 }
 
 void handle_input(char *input, char **envp)
@@ -134,12 +218,17 @@ void handle_input(char *input, char **envp)
 	  if it is neither a metacharacter input nor a relative/absolute path input then it must be a general executable
 	  therefore try to execute the input normally
 	*/
+	/*printf("\n----------\n");
+	printf("%s", input);
+	printf("\n----------\n");*/
+	revert_quoted_chars(input);
 	int	casse;
 	int	is_meta;
 	is_meta = detect_meta_chars(input);
+	//printf("%d\n", is_meta);
 	if (is_meta > 0)
 	{
-		do_meta_chars(input, is_meta, envp);
+		do_meta_chars(input, is_meta, envp); // backslash in compleate pipes end chrashes.
 		return ;
 	}
 	casse = detect_path_executable(input);

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:10:13 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/11 19:28:44 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:51:18 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,5 @@ void handle_heredoc(char *delim)
 			perror("last dup2");
 		g_global.last_out = -1;
 	}
+	free(delim);
 }

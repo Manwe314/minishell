@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/12 16:37:13 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/15 19:34:30 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	ft_init_global(void)
 	g_global.environ = malloc(sizeof(char *) * (i + 1));
 	i = -1;
 	while (environ[++i])
-	{
 		g_global.environ[i] = ft_strdup(environ[i]);
-	}
 	g_global.history = malloc(sizeof(char *) * 1);
 	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
@@ -41,6 +39,7 @@ void	ft_init_global(void)
 	g_global.last_in = 0;
 	g_global.exit_status = 0;
 	g_global.last_write_pipe = -1;
+	g_global.quoted_flags = 0;
 }
 
 char	*ft_remove_n(char *str)
@@ -77,14 +76,13 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		ft_add_history(input);
 		//g_global.exit_status = handle_input(input, envp);
+		// add error for * ; &
 		if (ft_strncmp(input, "exit", 4) == 0 && (input[4] == ' ' || input[4] == '\0'))
 		{
 			free(input);
 			break ;
 		}
 		handle_input(input, envp);
-
-
 		free(input);
 	}
 	ft_putstr_fd("exit\n", 1);

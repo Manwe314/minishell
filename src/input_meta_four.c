@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 20:31:10 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/11 20:32:12 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:25:31 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int initial_pipe_check(char *input)
 	i = 0;
 	while (input[i] == ' ' && input[i] != '\0')
 		i++;
-	if (input[i] == '|')
+	if (input[i] == '|') // check quote flag
 		return (-1);
 	i = ft_strlengnl(input);
 	i--;
 	while (i >= 0 && input[i] == ' ')
 		i--;
-	if (input[i] == '|')
+	if (input[i] == '|') // check quote flag
 		return (1);
 	return (0);
 
@@ -56,7 +56,6 @@ char *finish_piped_input(char *input)
 
 void	piped_command_start(char *input, int *pip)
 {
-	//printf("pip strt: %d & %d\n", pip[0], pip[1]);
 	if (dup2(pip[1], STDOUT_FILENO) < 0)
 		perror("dup PcS:");
 	g_global.last_write_pipe = dup(pip[1]);

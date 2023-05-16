@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/12 16:38:02 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:55:09 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_global
 	char	*here_doc;
 	char		*input;
 	int			exit_status;
+	int			*quoted_flags;
 }	t_global;
 
 extern t_global	g_global;
@@ -121,7 +122,7 @@ int	get_fd_size(char **arguments);
 void handle_heredoc(char *delim);
 void	execute_case_two(char *input);
 void	close_fds(int size);
-char	*set_up_execution_two(char **arguments);
+char	*set_up_execution_two(char **arguments, char *name);
 int initial_pipe_check(char *input);
 char *finish_piped_input(char *input);
 void	piped_command_start(char *input, int *pip);
@@ -131,4 +132,6 @@ void	pipeline(char **input, int size);
 void	execute_case_four(char *input);
 int split_size(char **split);
 int	is_all_space(char *input);
+void change_quoted_char(char *input);
+int	is_flaged(int index);
 #endif

@@ -95,6 +95,20 @@ char	**ft_split(char const *s, char c)
 	return (strings);
 }
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != 0)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split[i]);
+	free(split);
+}
+
 int main(int argc, char *argv[])
 {
 	(void)argc;
@@ -111,5 +125,6 @@ int main(int argc, char *argv[])
 		printf("split[%d]: %s\n", i, split[i]);
 		i++;
 	}
+	free_split(split);
 	return (0);
 }

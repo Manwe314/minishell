@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/12 16:37:24 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:21:44 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void execute_command(char *command, char **arguments, char **envp)
 		//ft_putstr_fd("1\n", g_global.save_STDOUT);
 		close(g_global.last_write_pipe);
 	}
-
 	execve_return = 1;
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0){
@@ -109,4 +108,31 @@ void execute_command(char *command, char **arguments, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	waitpid(executable_to_be_done, NULL, 0);
+}
+
+void change_quoted_char(char *input)
+{
+	int i;
+
+	if (g_global.quoted_flags == 0)
+		return ;
+	i = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '<' && is_flaged(i))
+			input[i] = '&';
+		if (input[i] == '>' && is_flaged(i))
+			input[i] = '*';
+		if (input[i] == '|' && is_flaged(i))
+			input[i] = ';';
+		if (input[i] == 34 && is_flaged(i))
+			input[i] = '(';
+		if (input[i] == 39 && is_flaged(i))
+			input[i] = ')';
+		if (input[i] == '$' && is_flaged(i))
+			input[i] = '!';
+		i++;
+	}
+	free(g_global.quoted_flags);
+	g_global.quoted_flags = 0;
 }

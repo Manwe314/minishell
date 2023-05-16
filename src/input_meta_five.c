@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:39:33 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/12 15:41:59 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/15 19:21:15 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	execute_case_four(char *input)
 	int	i;
 	int	size;
 
+	change_quoted_char(input);
 	i = initial_pipe_check(input);
 	if (i == -1)
 	{
