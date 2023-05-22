@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:03:41 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/12 16:24:21 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:17:23 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ void	ft_handle_interogation(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '?' && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i
-					+ 1] == '	'))
+		if (str[i] == 39)
+			while (str[++i] != 39 && str[i] != '\0')
+				;
+		if (str[i] == '?' && (str[i + 1] == ' ' || str[i + 1] == '\0' \
+		|| str[i + 1] == '	'))
 		{
 			tmp = ft_itoa(g_global.exit_status);
 			str = ft_str_replace(str, "?", tmp);
@@ -73,13 +76,53 @@ char	*ft_handle_dollar(char *str)
 	char	*new_str;
 
 	i = -1;
+	if (!str)
+		return (NULL);
 	new_str = ft_strdup(str);
-	if (!new_str || !str)
+	if (!new_str)
 		return (NULL);
 	ft_handle_interogation(new_str);
 	while (new_str[++i])
 	{
+		if (str[i] == 39)
+			while (str[++i] != 39 && str[i] != '\0')
+				;
 		if (new_str[i] == '$')
+		{
+			j = 0;
+			i++;
+			while (new_str[i + j] && ft_isalnum(new_str[i + j]))
+				j++;
+			tmp = ft_handle_dollar(ft_substr(new_str, i, j));
+			new_str = ft_str_replace(new_str, tmp, getenv(tmp));
+			i = -1;
+			free(tmp);
+		}
+	}
+	//free(str);
+	return (new_str);
+}
+/*
+char	*ft_handle_dollar(char *str)
+{
+	char *new_str;
+	char *tmp;
+	int i;
+	int j;
+
+	i = -1;
+	if (!str)
+		return (NULL);
+	new_str = ft_strdup(str);
+	if (!new_str)
+		return (NULL);
+	ft_handle_interogation(new_str);
+	while (str[++i])
+	{
+		//if (str[i] == 39)
+		//	while (str[++i] != 39)
+		//		;
+		if (str[i] == '$')
 		{
 			j = 0;
 			i++;
@@ -93,4 +136,4 @@ char	*ft_handle_dollar(char *str)
 	}
 	//free(str);
 	return (new_str);
-}
+}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/15 20:55:09 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:51:26 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_global
 
 extern t_global	g_global;
 
+int env_exist(char *str);
 int	ft_is_buitin(char **str);
 void			handle_signals(void);
 int				ft_add_history(char *line);
@@ -90,7 +91,7 @@ int				is_begining(char *input, int index);
 int				ft_execute_command_builtin(char **str);
 int	ft_print_env_alphabeticaly(void);
 int	ft_env(void);
-
+int env_exist(char *str);
 
 
 void	do_base_case(char *input, char **envp);

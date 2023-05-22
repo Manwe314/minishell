@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+int env_exist(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (g_global.environ[++i])
+		if (ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0)
+			return (i);
+	return (-1);
+}
+
 /*
 * ft_cd: change the current working directory to the one specified in path
 * will check if the path exists and if the user has the right to access it
@@ -19,16 +30,35 @@
 */
 int	ft_cd(char **path)
 {
+	char *temp;
+
 	if (path[1] != 0 && path[2] != 0)
 	{
-		ft_putstr_fd("cd: Too many arguments", 2);
+		ft_putstr_fd("cd: Too many arguments\n", 2);
 		return (ERROR);
+	}
+	if (path[1][0] == '~')
+	{
+		if (env_exist("HOME") == -1)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			return (ERROR);
+		}
+		temp = ft_strjoin(getenv("HOME"), path[1] + 1);
+		free(path[1]);
+		path[1] = ft_strdup(temp);
+		free(temp);
+		if (path[1] == NULL)
+		{
+			ft_putstr_fd("cd: Error while changing repertories\n", 2);
+			return (ERROR);
+		}
 	}
 	if (access(path[1], F_OK) != -1)
 	{
 		if (chdir(path[1]) == -1)
 		{
-			ft_putstr_fd("cd: Error while changing repertories", 2);
+			ft_putstr_fd("cd: Error while changing repertories\n", 2);
 			return (ERROR);
 		}
 	}
@@ -36,7 +66,7 @@ int	ft_cd(char **path)
 	{
 		ft_putstr_fd("cd: ", 2);
 		ft_putstr_fd(path[1], 2);
-		ft_putstr_fd(": No such file or directory", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		return (ERROR);
 	}
 	return (SUCCEED);
@@ -56,6 +86,8 @@ int	ft_echo(char **str, int n_flag)
 		i++;
 	while (str[++i])
 	{
+		while (str[i][0] == '-' && str[i][1] == 'n')
+			i++;
 		ft_putstr_fd(str[i], 1);
 		if (str[i + 1])
 			ft_putstr_fd(" ", 1);
