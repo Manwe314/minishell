@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/12 15:42:06 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/05/25 20:33:38 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,57 +46,101 @@ typedef struct s_global
 	int		last_out;
 	int		last_in;
 	int		last_write_pipe;
+	int		error_status;
+	int		quoted_flags;
+	int		is_piped;
+	int		fd_size;
+	int 	exit_status;
+	char 	*input;
 	char	*here_doc;
 }	t_global;
 extern t_global g_global;
 
-void handle_signals();
+int	ft_env(void);
+int	ft_pwd(void);
+int	ft_echo(char *str, int n_flag);
+int	ft_cd(char *path);
+
+int	ft_print_env_alphabeticaly(void);
+int	ft_change_env(char *name, char *value);
+int	ft_add_env(char *name, char *value);
+int	ft_export(char *str);
+
+char	*ft_strjoingnl(char *s1, char *s2);
+int	ft_strlengnl(char *str);
+int	ft_strchrgnl(char *s, char c);
+char	*get_next_line(int fd);
+
+void	ft_history(void);
 int	ft_add_history(char *line);
-char	 *get_input();
-void	handle_input(char *input, char **envp);
-void	do_base_case(char *input, char **envp);
-char	*get_command(char *name, char **paths);
-char	*get_path(char **envp);
-void	execute_command(char *command, char **arguments, char **envp);
-int		detect_path_executable(char *input);
-char	*get_home(char **envp);
-char	*return_user(char *path);
-int		home_begin_size(char *home);
-void	do_pathed_executable(char *input, int casse, char **envp);
-void	remove_path(char **arguments);
-char	*expand_home_directory(char *path, char **envp);
-char	*clean_home_path(char *path, char **envp);
+void	ft_clear_history(void);
+
+void	handle_signals(void);
+void	handle_ctrl_backslash(int sig);
+void	handle_ctrl_d(int sig);
+void	handle_ctrl_c(int sig);
+
+int ft_unset(char *str);
+
+char *get_input();
+int split_size(char **split);
 void	free_split(char **split);
-int		ft_pwd(void);
-int		ft_cd(char *path);
-int		ft_echo(char *str, int n_flag);
-int		ft_export(char *name);
-int		ft_unset(char *str);
-int	ft_add_history(char *line);
-void ft_clear_history();
-void ft_history();
-int	*find_quote_pairs(char *input, int start);
-char	*make_path_one(char *input);
-int	init_size_arguments_one(char *input, int *quote_pair);
-void	put_in_arguments_one(char *input, char **arguments, int *quote_pair);
-char	**make_arguments_one(char *input, int *quote_pair);
-void	execute_case_one(char *input);
-int	is_begining(char *input, int index);
-int	get_insert_size(char *input);
-char	*insert_spaces(char *input);
-int	redirect_case(char **arguments, int i);
-int	get_fd_size(char **arguments);
-void handle_heredoc(char *delim);
-void	execute_case_two(char *input);
-void	close_fds(int size);
-char	*set_up_execution_two(char **arguments);
+int error_handler(char *msg, int flag);
+int	is_open_quotes(char *input);
+int check_redirection_token(char *input, int i);
+int check_pipe_token(char *input, int i);
+int	validate_input(char *input);
+int is_quoted(char *input, int index);
+int	is_all_space(char *input);
 int initial_pipe_check(char *input);
 char *finish_piped_input(char *input);
+void handle_heredoc(char *delim);
+int	*find_quote_pairs(char *input, int start);
+int	detect_path_executable(char *input);
+char	*expand_home_directory(char *path, char **envp);
+char	*get_home(char **envp);
+char	*return_user(char *path);
+int	home_begin_size(char *home);
+char	*clean_home_path(char *path, char **envp);
+char *clean_redirection_token(char *input, int start, int end);
+char *get_fname_delim(char *input, int index);
+void	do_heredocs(char *input);
+int	change_fd(char *input, int i, char *name, int fd);
+int	get_fd_size(char *input);
+void redirect(char *input);
+void do_redirections(char *input);
+int jump_fdelim(char *input, int i);
+int	command_start_index(char *input, int start);
+char	*get_path(char **envp);
+char	*get_command(char *name, char **paths);
+void execute_command(char *command, char **arguments, char **envp);
+char *clean_command(char *command, int casse);
+char *remove_path(char *command);
+int	word_size_q(char *s, char c, int i);
+int	word_count_q(char *s, char c);
+char	*make_string_q(char *s, int i, int size);
+void	make_strings_q(char *s, char c, char **strings);
+char	**ft_split_q(char *s, char c);
+int is_after_redirect(char **arguments, int index);
+int has_command(char **arguments, int index);
+int get_new_arguments_size(char **arguments);
+char *take_command(char *input);
+void make_new_arguments(char **new, char **old);
+char **remove_redirections(char **arguments);
+void remove_quotes_from_args(char **arguments);
+char **clean_up_split(char **arguments);
+void clean_up(char **arguments);
+char *get_clean_command(char **arguments);
 void	piped_command_start(char *input, int *pip);
 void piped_command_end(char *input, int *pip);
 void piped_command_middle(char *input, int *inpip, int *outpip);
 void	pipeline(char **input, int size);
-void	execute_case_four(char *input);
-int split_size(char **split);
-int	is_all_space(char *input);
+void	piping(char *input);
+char *set_up_piping(char *input);
+int input_handler(char *input);
+
+
+
+
+
 #endif

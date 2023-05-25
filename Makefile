@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/03/24 11:00:34 by beaudibe         ###   ########.fr        #
+#    Updated: 2023/05/25 20:18:14 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS 		= ${shell find ./src -iname "*.c"}
 HEADERS		= -I ./includes/
 LIBS		= ${LIBFT}/libft.a
 LIBFT		= ./lib/libft
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
 
