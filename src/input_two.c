@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/25 20:09:13 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/08 21:46:25 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,12 @@ int is_quoted(char *input, int index)
 	while (quote_pairs[1] != 0)
 	{
 		if (index > quote_pairs[0] && index < quote_pairs[1])
-			return (1);
+		{
+			if (input[index] == '$' && input[quote_pairs[0]] == 34)
+				return (0);
+			else
+				return (1);
+		}
 		quote_pairs = find_quote_pairs(input, quote_pairs[1] + 1);
 	}
 	return (0);
@@ -238,12 +243,10 @@ char *finish_piped_input(char *input)
 			if (initial_pipe_check(added_input) != 1)
 				break ;
 		temp = ft_strjoin(input, added_input);
-		free (input);
 		free(added_input);
 		input = temp;
 	}
 	temp = ft_strjoin(input, added_input);
-	//free(input);
 	free(added_input);
 	return (temp);
 }
@@ -451,17 +454,20 @@ char *clean_redirection_token(char *input, int start, int end)
 	{
 		while (i != q_pair[0] && i != end)
 			i++;
-		if (i == q_pair[0])
+		if (i == q_pair[0] && q_pair[1] != 0)
 		{
 			if (i != j)
-				token = ft_strjoingnl(token, ft_substr(input, j, i - j));
-			token = ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1));
+				token = handle_dollar(ft_strjoingnl(token, ft_substr(input, j, i - j)));
+			if (input[q_pair[0]] == 34)
+				token = handle_dollar(ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
+			else
+				token = ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1));
 			i = q_pair[1] + 1;
 			j = i;
 			q_pair = find_quote_pairs(input, i);
 		}
 		else
-			token = ft_strjoingnl(token, ft_substr(input, j, i - j));
+			token = handle_dollar(ft_strjoingnl(token, ft_substr(input, j, i - j)));
 		if (i != end)
 			i++;
 	}
@@ -719,13 +725,6 @@ void execute_command(char *command, char **arguments, char **envp)
 	pid_t	executable_to_be_done;
 	int		execve_return;
 
-	/*printf("Command: %s\n", command);
-	int i = 0;
-	while (arguments[i])
-	{
-		printf("Argument[%d]: %s\n", i, arguments[i]);
-		i++;
-	}*/
 	if (g_global.last_write_pipe != -1)
 	{
 		if (dup2(g_global.last_write_pipe, STDOUT_FILENO) < 0)
@@ -1002,6 +1001,11 @@ void remove_quotes_from_args(char **arguments)
 			free(arguments[i]);
 			arguments[i] = temp;
 		}
+		else
+		{
+			temp = handle_dollar(arguments[i]);
+			arguments[i] = temp;
+		}
 		i++;
 	}
 }
@@ -1016,12 +1020,14 @@ char **clean_up_split(char **arguments)
 	return (new_arguments);
 }
 
-void clean_up(char **arguments)
+void clean_up(char **arguments, char *command)
 {
 	int i;
 
 	if (arguments != 0)
 		free_split(arguments);
+	if (command != 0)
+		free(command);
 	i = 0;
 	while (i < g_global.fd_size)
 	{
@@ -1148,7 +1154,6 @@ void	piping(char *input)
 	int size;
 	char **pipe_split;
 
-	// input = ft_handle_dollar(input);
 	pipe_split = ft_split_q(input, '|');
 	size = split_size(pipe_split);
 	g_global.is_piped = 1;
@@ -1166,17 +1171,105 @@ char *set_up_piping(char *input)
 		if (!validate_input(temp))
 		{
 			free(temp);
-			free(input);
 			return (0);
 		}
 		else
-		{
-			free(input);
 			return (temp);
-		}
 	}
 	else
 		return (input);
+}
+
+void	execution(char *command, char **arguments)
+{
+	if (ft_is_buitin(arguments))
+		ft_execute_command_builtin(arguments);
+	else if (command != 0)
+		execute_command(command, arguments, g_global.environ);
+}
+
+int has_dollar(char *input)
+{
+	int i;
+
+	i = 0;
+	while (input[i]!= '\0')
+	{
+		if (input[i] == '$')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int variable_name_size(char *input, int i)
+{
+	int size;
+
+	size = 0;
+
+	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 && input[i] != 39 && input[i] != '|' && input[i] != '<' && input[i] != '/')
+	{
+		size++;
+		i++;
+	}
+	return (size);
+}
+
+char *get_variable_value(char *name)
+{
+	int len;
+	int i;
+
+	len = ft_strlengnl(name);
+	if (len == 0)
+		return (ft_strdup("$"));
+	i = 0;
+	while (g_global.environ[i] != 0)
+	{
+		if (ft_strncmp(name, g_global.environ[i], len) == 0 && g_global.environ[i][len] == '=')
+			return (ft_strdup(g_global.environ[i] + (len + 1)));
+		i++;
+	}
+	return (ft_strdup(""));
+}
+
+char *expand_variable(char *input, int i, int varibale_size)
+{
+	char *name;
+	char *value;
+
+	name = ft_substr(input, ++i, --varibale_size);
+	value = get_variable_value(name);
+	free(name);
+	return (value);
+}
+
+char *handle_dollar(char *input)
+{
+	char *new_input;
+	int i;
+	int j;
+
+	if (!has_dollar(input))
+		return (input);
+	i = 0;
+	new_input = 0;
+	while (input[i] != '\0')
+	{
+		j = i;
+		while (input[j] != '$' && input[j] != '\0')
+			j++;
+		new_input = ft_strjoingnl(new_input, ft_substr(input, i, j - i));
+		i = j;
+		if (input[j] == '$')
+		{
+			i = i + variable_name_size(input, j);
+			new_input = ft_strjoingnl(new_input, expand_variable(input, j, variable_name_size(input, j)));
+		}
+	}
+	free(input);
+	return (new_input);
 }
 
 int input_handler(char *input)
@@ -1191,25 +1284,22 @@ int input_handler(char *input)
 		input = set_up_piping(input);
 		if (input != 0)
 			piping(input);
-		clean_up(0);
+		clean_up(0, 0);
 		return (0);
 	}
-	// input = ft_handle_dollar(input);
 	do_redirections(input);
 	if (g_global.error_status > 0)
 		return (error_handler(0, 0));
 	arguments = ft_split_q(input, ' ');
 	arguments = clean_up_split(arguments);
-	command = get_clean_command(arguments); // free command. but its not freeable if there is NO command
-	/*int i = 0;
-	printf("CMD: %s\n", arguments[0]);
+	int i = 0;
 	while (arguments[i] != 0)
 	{
 		printf("arg[%d]: %s\n", i, arguments[i]);
 		i++;
-	}*/
-	if (command != 0)
-		execute_command(command, arguments, g_global.environ);
-	clean_up(arguments);
+	}
+	command = get_clean_command(arguments); // free command. but its not freeable if there is NO command
+	execution(command, arguments);
+	clean_up(arguments, command);
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/25 20:33:38 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/08 21:33:24 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define SUCCEED 1
 # define ERROR 0
 
+
 typedef struct s_global
 {
 	char	**environ;
@@ -58,8 +59,8 @@ extern t_global g_global;
 
 int	ft_env(void);
 int	ft_pwd(void);
-int	ft_echo(char *str, int n_flag);
-int	ft_cd(char *path);
+int	ft_echo(char **str, int n_flag);
+int	ft_cd(char **path);
 
 int	ft_print_env_alphabeticaly(void);
 int	ft_change_env(char *name, char *value);
@@ -81,6 +82,10 @@ void	handle_ctrl_d(int sig);
 void	handle_ctrl_c(int sig);
 
 int ft_unset(char *str);
+int	ft_unset_str(char **str);
+int	ft_export_str(char **str);
+int	ft_is_buitin(char **str);
+int	ft_execute_command_builtin(char **str);
 
 char *get_input();
 int split_size(char **split);
@@ -129,7 +134,7 @@ void make_new_arguments(char **new, char **old);
 char **remove_redirections(char **arguments);
 void remove_quotes_from_args(char **arguments);
 char **clean_up_split(char **arguments);
-void clean_up(char **arguments);
+void clean_up(char **arguments, char *command);
 char *get_clean_command(char **arguments);
 void	piped_command_start(char *input, int *pip);
 void piped_command_end(char *input, int *pip);
@@ -138,6 +143,7 @@ void	pipeline(char **input, int size);
 void	piping(char *input);
 char *set_up_piping(char *input);
 int input_handler(char *input);
+char *handle_dollar(char *input);
 
 
 
