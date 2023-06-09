@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/08 21:46:25 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:55:59 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,18 +456,20 @@ char *clean_redirection_token(char *input, int start, int end)
 			i++;
 		if (i == q_pair[0] && q_pair[1] != 0)
 		{
-			if (i != j)
-				token = handle_dollar(ft_strjoingnl(token, ft_substr(input, j, i - j)));
+			if (i != j && j <= i)
+				token = ft_strjoingnl(token, handle_dollar(ft_substr(input, j, i - j)));
 			if (input[q_pair[0]] == 34)
-				token = handle_dollar(ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
+				token = ft_strjoingnl(token, handle_dollar(ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
 			else
 				token = ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1));
 			i = q_pair[1] + 1;
 			j = i;
 			q_pair = find_quote_pairs(input, i);
+			if (i == q_pair[0])
+				i--;
 		}
 		else
-			token = handle_dollar(ft_strjoingnl(token, ft_substr(input, j, i - j)));
+			token = ft_strjoingnl(token, handle_dollar(ft_substr(input, j, i - j)));
 		if (i != end)
 			i++;
 	}
@@ -1024,13 +1026,16 @@ void clean_up(char **arguments, char *command)
 {
 	int i;
 
+	printf("clean up1\n");
 	if (arguments != 0)
 		free_split(arguments);
+	printf("clean up2\n");
 	if (command != 0)
 		free(command);
 	i = 0;
 	while (i < g_global.fd_size)
 	{
+		printf("clean up3\n");
 		close(g_global.fds[i]);
 		i++;
 	}
@@ -1193,7 +1198,7 @@ int has_dollar(char *input)
 	int i;
 
 	i = 0;
-	while (input[i]!= '\0')
+	while (input[i] != '\0')
 	{
 		if (input[i] == '$')
 			return (1);
@@ -1224,6 +1229,8 @@ char *get_variable_value(char *name)
 	len = ft_strlengnl(name);
 	if (len == 0)
 		return (ft_strdup("$"));
+	if (len == 1 && name[0] == '?')
+		return (ft_itoa(g_global.exit_status));
 	i = 0;
 	while (g_global.environ[i] != 0)
 	{
@@ -1298,7 +1305,7 @@ int input_handler(char *input)
 		printf("arg[%d]: %s\n", i, arguments[i]);
 		i++;
 	}
-	command = get_clean_command(arguments); // free command. but its not freeable if there is NO command
+	command = get_clean_command(arguments);
 	execution(command, arguments);
 	clean_up(arguments, command);
 	return 0;

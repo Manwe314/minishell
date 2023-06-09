@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/08 21:32:49 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:45:39 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	main(int argc, char *argv[])
 		input = get_input();
 		if (input == NULL)
 			break ;
-		ft_add_history(input);
+		if (ft_strlengnl(input) > 0)
+			ft_add_history(input);
 		//g_global.exit_status = handle_input(input, envp);
 		if (ft_strncmp(input, "exit", 4) == 0 && (input[4] == ' ' || input[4] == '\0'))
 		{

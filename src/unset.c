@@ -25,14 +25,9 @@ int ft_unset(char *str)
 	int i;
 
 	i = -1;
-	if (str == NULL)
-	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (ERROR);
-	}
 	while (g_global.environ[++i])
 	{
-		if (ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0)
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) && g_global.environ[i][ft_strlengnl(str)] == '=')
 		{
 			free(g_global.environ[i]);
 			while(g_global.environ[i + 1])

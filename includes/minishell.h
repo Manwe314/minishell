@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/08 21:33:24 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:57:55 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ extern t_global g_global;
 
 int	ft_env(void);
 int	ft_pwd(void);
-int	ft_echo(char **str, int n_flag);
+int	ft_echo(char **str);
 int	ft_cd(char **path);
 
 int	ft_print_env_alphabeticaly(void);
