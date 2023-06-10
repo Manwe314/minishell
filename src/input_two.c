@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/09 21:55:59 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/10 21:49:53 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char *get_input()
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
-	if (input[ft_strlen(input) - 1] == '\n')
-		input[ft_strlen(input) - 1] = '\0';
 	return (input);
 }
 
@@ -54,8 +52,6 @@ int error_handler(char *msg, int flag)
 	{
 		if (msg != 0)
 			printf("%s\n", msg);
-		if (g_global.is_piped != 1)
-			free(g_global.input);
 		return (g_global.exit_status);
 	}
 	if (flag == 1)
@@ -107,7 +103,7 @@ int check_redirection_token(char *input, int i)
 			i++;
 			while (input[i] != '\0' && input[i] == ' ')
 				i++;
-			if (input[i] == '<' || input[i] == '\0' || input[i] == '>')
+			if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
 				return (1);
 		}
 		else if (input[i] == '>' && i != save)
@@ -125,7 +121,7 @@ int check_redirection_token(char *input, int i)
 			i++;
 			while (input[i] != '\0' && input[i] == ' ')
 				i++;
-			if (input[i] == '<' || input[i] == '\0' || input[i] == '>')
+			if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
 				return (1);
 		}
 		else if (input[i] == '<' && i != save)
@@ -234,7 +230,6 @@ int initial_pipe_check(char *input)
 char *finish_piped_input(char *input)
 {
 	char *added_input;
-	char *temp;
 
 	while (1)
 	{
@@ -242,13 +237,10 @@ char *finish_piped_input(char *input)
 		if (is_all_space(added_input) == 0)
 			if (initial_pipe_check(added_input) != 1)
 				break ;
-		temp = ft_strjoin(input, added_input);
-		free(added_input);
-		input = temp;
+		input = ft_strjoingnl(input, added_input);
 	}
-	temp = ft_strjoin(input, added_input);
-	free(added_input);
-	return (temp);
+	input = ft_strjoingnl(input, added_input);
+	return (input);
 }
 
 void handle_heredoc(char *delim)
@@ -604,6 +596,8 @@ void redirect(char *input)
 					free(name);
 					return ;
 				}
+				if (name != 0)
+					free(name);
 			}
 		}
 		if (input[i] == '>' && !is_quoted(input, i))
@@ -618,6 +612,8 @@ void redirect(char *input)
 					free(name);
 					return ;
 				}
+				if (name != 0)
+					free(name);
 				g_global.last_out = j;
 			}
 			else
@@ -629,6 +625,8 @@ void redirect(char *input)
 					free(name);
 					return ;
 				}
+				if (name != 0)
+					free(name);
 				g_global.last_out = j;
 			}
 		}
@@ -715,10 +713,14 @@ char	*get_command(char *name, char **paths)
 		command = ft_strjoin(temp, name);
 		free (temp);
 		if (access(command, 0) == 0)
+		{
+			free_split(paths);
 			return (command);
+		}
 		free (command);
 		i++;
 	}
+	free_split(paths);
 	return (0);
 }
 
@@ -727,6 +729,13 @@ void execute_command(char *command, char **arguments, char **envp)
 	pid_t	executable_to_be_done;
 	int		execve_return;
 
+	/*printf("command: %s\n", command);
+	int i = 0;
+	while (arguments[i] != 0)
+	{
+		printf("arg[%d]: %s\n", i, arguments[i]);
+		i++;
+	}*/
 	if (g_global.last_write_pipe != -1)
 	{
 		if (dup2(g_global.last_write_pipe, STDOUT_FILENO) < 0)
@@ -772,7 +781,6 @@ char *clean_command(char *command, int casse)
 
 char *remove_path(char *command)
 {
-
 	int	i;
 	int is_slash;
 	char *name;
@@ -786,11 +794,12 @@ char *remove_path(char *command)
 		i++;
 	}
 	if (!is_slash)
-		return (ft_strdup(command));
+		return (command);
 	while (command[i] != '/')
 		i--;
 	i++;
 	name = ft_substr(command, i, ft_strlen(command) - i);
+	free(command);
 	return (name);
 }
 
@@ -915,7 +924,6 @@ int has_command(char **arguments, int index)
 		return (0);
 	else
 		return (1);
-
 }
 
 int get_new_arguments_size(char **arguments)
@@ -941,24 +949,32 @@ int get_new_arguments_size(char **arguments)
 char *take_command(char *input)
 {
 	int i;
+	char *command;
 
 	i = 0;
+	command = 0;
 	while (input[i] != '\0')
 	{
 		if ((input[i] == '<' || input[i] == '>') && !is_quoted(input, i))
 			break ;
 		i++;
 	}
-	return (ft_substr(input, 0, i));
+	if (input[i] == '\0')
+		command = ft_strdup(input);
+	else
+		command = ft_substr(input, 0, i);
+	return (command);
 }
 
-void make_new_arguments(char **new, char **old)
+char **make_new_arguments(char **old, int size)
 {
 	int i;
 	int j;
+	char **new;
 
 	i = 0;
 	j = 0;
+	new = (char **)malloc(sizeof(char *) * (size + 1));
 	while (old[i] != 0)
 	{
 		if (i != 0 && is_after_redirect(old, i))
@@ -973,6 +989,7 @@ void make_new_arguments(char **new, char **old)
 		i++;
 	}
 	new[j] = 0;
+	return (new);
 }
 
 char **remove_redirections(char **arguments)
@@ -981,8 +998,7 @@ char **remove_redirections(char **arguments)
 	char **new_arguments;
 
 	size = get_new_arguments_size(arguments);
-	new_arguments = (char **)malloc(sizeof(char *) * (size + 1));
-	make_new_arguments(new_arguments, arguments);
+	new_arguments = make_new_arguments(arguments, size);
 	return (new_arguments);
 }
 
@@ -1004,12 +1020,10 @@ void remove_quotes_from_args(char **arguments)
 			arguments[i] = temp;
 		}
 		else
-		{
-			temp = handle_dollar(arguments[i]);
-			arguments[i] = temp;
-		}
+			arguments[i] = handle_dollar(arguments[i]);
 		i++;
 	}
+
 }
 
 char **clean_up_split(char **arguments)
@@ -1018,27 +1032,33 @@ char **clean_up_split(char **arguments)
 
 	new_arguments = remove_redirections(arguments);
 	remove_quotes_from_args(new_arguments);
+	/*int i = 0;
+	while (new_arguments[i] != 0)
+	{
+		printf("arg[%d]: %s\n", i, new_arguments[i]);
+		i++;
+	}*/
 	free_split(arguments);
 	return (new_arguments);
 }
 
-void clean_up(char **arguments, char *command)
+void clean_up(char **arguments, char *command, char *input)
 {
 	int i;
 
-	printf("clean up1\n");
 	if (arguments != 0)
 		free_split(arguments);
-	printf("clean up2\n");
 	if (command != 0)
 		free(command);
+	if (input != 0)
+		free(input);
 	i = 0;
 	while (i < g_global.fd_size)
 	{
-		printf("clean up3\n");
 		close(g_global.fds[i]);
 		i++;
 	}
+	free(g_global.fds);
 	g_global.fd_size = 0;
 	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
 		error_handler("dup2 clean", 2);
@@ -1137,16 +1157,16 @@ void	pipeline(char **input, int size)
 		i++;
 	}
 	i = 0;
-	while (i < size)
-	{
-		waitpid(pids[i], NULL, 0);
-		i++;
-	}
-	i = 0;
 	while (i < size - 1)
 	{
 		close(pipes[i][0]);
 		free(pipes[i]);
+		i++;
+	}
+	i = 0;
+	while (i < size)
+	{
+		waitpid(pids[i], NULL, 0);
 		i++;
 	}
 	g_global.last_write_pipe = -1;
@@ -1291,22 +1311,19 @@ int input_handler(char *input)
 		input = set_up_piping(input);
 		if (input != 0)
 			piping(input);
-		clean_up(0, 0);
+		clean_up(0, 0, input);
 		return (0);
 	}
 	do_redirections(input);
-	if (g_global.error_status > 0)
-		return (error_handler(0, 0));
-	arguments = ft_split_q(input, ' ');
-	arguments = clean_up_split(arguments);
-	int i = 0;
-	while (arguments[i] != 0)
+	if (g_global.error_status == 0)
 	{
-		printf("arg[%d]: %s\n", i, arguments[i]);
-		i++;
+		arguments = ft_split_q(input, ' ');
+		arguments = clean_up_split(arguments);
+		command = get_clean_command(arguments);
+		execution(command, arguments);
+		clean_up(arguments, command, input);
 	}
-	command = get_clean_command(arguments);
-	execution(command, arguments);
-	clean_up(arguments, command);
+	else
+		clean_up(0,0,input);
 	return 0;
 }

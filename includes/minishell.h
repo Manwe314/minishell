@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/09 18:57:55 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/10 21:23:14 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,11 @@ int is_after_redirect(char **arguments, int index);
 int has_command(char **arguments, int index);
 int get_new_arguments_size(char **arguments);
 char *take_command(char *input);
-void make_new_arguments(char **new, char **old);
+char **make_new_arguments(char **old, int size);
 char **remove_redirections(char **arguments);
 void remove_quotes_from_args(char **arguments);
 char **clean_up_split(char **arguments);
-void clean_up(char **arguments, char *command);
+void clean_up(char **arguments, char *command, char *input);
 char *get_clean_command(char **arguments);
 void	piped_command_start(char *input, int *pip);
 void piped_command_end(char *input, int *pip);

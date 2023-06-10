@@ -120,7 +120,6 @@ int	ft_echo(char **str) //if more then 1 -n is in place it dosent work
 */
 int	ft_pwd(void)
 {
-	printf("pwdio\n");
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
@@ -141,7 +140,6 @@ int	ft_pwd(void)
 */
 int	ft_env(void)
 {
-	printf("envio\n");
 	int	i;
 
 	i = -1;
