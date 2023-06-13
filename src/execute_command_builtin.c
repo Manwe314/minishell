@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 18:13:30 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/09 21:39:31 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:44:14 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,60 @@ int	ft_unset_str(char **str)
 	return (j);
 }
 
+int check_bounds(char *number)
+{
+	if (ft_strlengnl(number) == 10 && ft_strncmp("2147483647", number, 10) < 0)
+		return (1);
+	if (ft_strlengnl(number) >= 11 && number[0] != '-')
+		return (1);
+	if (ft_strlengnl(number) == 11 && ft_strncmp("-2147483647", number, 11) < 0)
+		return (1);
+	if (ft_strlengnl(number) >= 12)
+		return (1);
+	return (0);
+}
+
+int check_char(char *number)
+{
+	int i;
+
+	i = 0;
+	if (number[0] == '-')
+		i++;
+	while (number[i] != '\0')
+	{
+		if (number[i] < '0' || number[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int handle_exit(char **arguments)
+{
+	if (split_size(arguments) > 2)
+	{
+		printf("exit: invalid number of arguments\n");
+		return (1);
+	}
+	else if (arguments[1] != 0 && (check_char(arguments[1]) || check_bounds(arguments[1])))
+	{
+		printf("exit: %s: numeric value required\n", arguments[1]);
+		g_global.error_status = 2;
+		return (255);
+	}
+	else if (arguments[1] == 0)
+	{
+		g_global.error_status = 2;
+		return (0);
+	}
+	else
+	{
+		g_global.error_status = 2;
+		return (ft_atoi(arguments[1]) % 256);
+	}
+}
+
 /*
 * ft_is_buitin: check if the command is a builtin
 * @str: the command
@@ -279,6 +333,8 @@ int	ft_is_buitin(char **str)
 	else if (ft_strncmp(str[0], "env\0", 4) == 0)
 		return (SUCCEED);
 	else if (ft_strncmp(str[0], "history\0", 8) == 0)
+		return (SUCCEED);
+	else if (ft_strncmp(str[0], "exit\0", 5) == 0)
 		return (SUCCEED);
 	return (ERROR);
 }
@@ -302,5 +358,7 @@ int	ft_execute_command_builtin(char **str)
 		ft_history(); // done
 		return (0);
 	}
+	else if (ft_strncmp(str[0], "exit\0", 5) == 0)
+		return (handle_exit(str));
 	return (-1);
 }

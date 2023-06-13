@@ -19,7 +19,7 @@
 /*
 * ft_history() displays the history of the shell
 */
-void	ft_history(void) // adds empy parts to history
+void	ft_history(void)
 {
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/10 21:23:14 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:35:15 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int jump_fdelim(char *input, int i);
 int	command_start_index(char *input, int start);
 char	*get_path(char **envp);
 char	*get_command(char *name, char **paths);
-void execute_command(char *command, char **arguments, char **envp);
+int execute_command(char *command, char **arguments, char **envp);
 char *clean_command(char *command, int casse);
 char *remove_path(char *command);
 int	word_size_q(char *s, char c, int i);

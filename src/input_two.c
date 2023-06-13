@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/10 21:49:53 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:55:02 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -720,22 +720,18 @@ char	*get_command(char *name, char **paths)
 		free (command);
 		i++;
 	}
+	printf("minishell: %s: command not found\n", name);
+	g_global.exit_status = 1;
 	free_split(paths);
 	return (0);
 }
 
-void execute_command(char *command, char **arguments, char **envp)
+int execute_command(char *command, char **arguments, char **envp)
 {
 	pid_t	executable_to_be_done;
 	int		execve_return;
+	int		status;
 
-	/*printf("command: %s\n", command);
-	int i = 0;
-	while (arguments[i] != 0)
-	{
-		printf("arg[%d]: %s\n", i, arguments[i]);
-		i++;
-	}*/
 	if (g_global.last_write_pipe != -1)
 	{
 		if (dup2(g_global.last_write_pipe, STDOUT_FILENO) < 0)
@@ -744,15 +740,20 @@ void execute_command(char *command, char **arguments, char **envp)
 	}
 	execve_return = 1;
 	executable_to_be_done = fork();
-	if (executable_to_be_done == 0){
+	if (executable_to_be_done == 0)
 		execve_return = execve(command, arguments, envp);
-	}
 	if (execve_return == -1)
 	{
-		perror("execve");
+		perror(command);
 		exit(EXIT_FAILURE);
 	}
-	waitpid(executable_to_be_done, NULL, 0);
+	waitpid(executable_to_be_done, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
+	else
+		return(EXIT_FAILURE);
 }
 
 char *clean_command(char *command, int casse)
@@ -1082,7 +1083,8 @@ char *get_clean_command(char **arguments)
 	{
 		command = ft_strdup(arguments[0]);
 		arguments[0] = remove_path(arguments[0]);
-		command = clean_command(command, detect_path_executable(command));
+		if (!ft_is_buitin(arguments))
+			command = clean_command(command, detect_path_executable(command));
 	}
 	else
 		command = 0;
@@ -1097,7 +1099,7 @@ void	piped_command_start(char *input, int *pip)
 	close(pip[0]);
 	close(pip[1]);
 	input_handler(input);
-	exit(1);
+	exit(g_global.exit_status);
 }
 
 void piped_command_end(char *input, int *pip)
@@ -1107,7 +1109,7 @@ void piped_command_end(char *input, int *pip)
 	close(pip[1]);
 	close(pip[0]);
 	input_handler(input);
-	exit(1);
+	exit(g_global.exit_status);
 }
 
 void piped_command_middle(char *input, int *inpip, int *outpip)
@@ -1122,7 +1124,7 @@ void piped_command_middle(char *input, int *inpip, int *outpip)
 	close(inpip[1]);
 	close(outpip[1]);
 	input_handler(input);
-	exit(1);
+	exit(g_global.exit_status);
 }
 
 void	pipeline(char **input, int size)
@@ -1130,6 +1132,7 @@ void	pipeline(char **input, int size)
 	pid_t	*pids;
 	int	i;
 	int	**pipes;
+	int status;
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * size);
 	pipes = (int **)malloc(sizeof(int *) * (size - 1));
@@ -1166,9 +1169,15 @@ void	pipeline(char **input, int size)
 	i = 0;
 	while (i < size)
 	{
-		waitpid(pids[i], NULL, 0);
+		waitpid(pids[i], &status, 0);
 		i++;
 	}
+	if (WIFEXITED(status))
+		g_global.exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_global.exit_status = WTERMSIG(status);
+	else
+		g_global.exit_status = EXIT_FAILURE;
 	g_global.last_write_pipe = -1;
 	free(pids);
 	free(pipes);
@@ -1208,9 +1217,25 @@ char *set_up_piping(char *input)
 void	execution(char *command, char **arguments)
 {
 	if (ft_is_buitin(arguments))
-		ft_execute_command_builtin(arguments);
+		g_global.exit_status = ft_execute_command_builtin(arguments);
 	else if (command != 0)
-		execute_command(command, arguments, g_global.environ);
+		g_global.exit_status = execute_command(command, arguments, g_global.environ);
+}
+
+char *handle_exit_status(void)
+{
+	int status;
+	char *value;
+
+	status = g_global.exit_status;
+	if (status >= 0 && status <= 255)
+		value = ft_itoa(status);
+	else
+	{
+		status = status % 256;
+		value = ft_itoa(status);
+	}
+	return (value);
 }
 
 int has_dollar(char *input)
@@ -1267,6 +1292,12 @@ char *expand_variable(char *input, int i, int varibale_size)
 	char *value;
 
 	name = ft_substr(input, ++i, --varibale_size);
+	if (ft_strncmp(name, "?", 1) == 0 && ft_strlen(name) == 1)
+	{
+		value = handle_exit_status();
+		free(name);
+		return (value);
+	}
 	value = get_variable_value(name);
 	free(name);
 	return (value);
