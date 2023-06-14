@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-// !There's still some thing written when you do ctrl + c when you have start a
-// !command.
-// ? Maybe we should use a global variable in the readline function
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;

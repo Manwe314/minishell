@@ -15,10 +15,6 @@
 
 #include "minishell.h"
 
-
-/*
-* ft_history() displays the history of the shell
-*/
 void	ft_history(void)
 {
 	int i;
@@ -34,10 +30,6 @@ void	ft_history(void)
 	}
 }
 
-/*
-* ft_add_history() adds a line to the history of the shell
-* @param line: the line to add to the history
-*/
 int	ft_add_history(char *line)
 {
 	static int nb_history;

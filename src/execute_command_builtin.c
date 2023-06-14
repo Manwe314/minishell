@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 18:13:30 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/13 21:44:14 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:51:18 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,56 +25,79 @@ int is_invalid_identifier(char a)
 	return (0);
 }
 
-int is_valid_exp(char *str, int f)
+int sub_is_valid_exp_one(char *str, int f)
 {
 	int i;
 
 	i = 0;
-	if (ft_strchr(str, '=') == 0)
+	while (str[i] != '\0')
 	{
-		while (str[i] != '\0')
+		if (is_invalid_identifier(str[i]) == 1)
 		{
-			if (is_invalid_identifier(str[i]) == 1)
-			{
-				if (f != 0)
-				{
-					ft_putstr_fd(str, 1);
-					ft_putstr_fd(" : has an invalid identifier : ", 1);
-					ft_putchar_fd(str[i], 1);
-					ft_putchar_fd('\n', 1);
-				}
-				return (0);
-			}
-			i++;
-		}
-	}
-	else
-	{
-		if (str[0] == '=')
-		{
-			if ( f != 0)
+			if (f != 0)
 			{
 				ft_putstr_fd(str, 1);
-				ft_putstr_fd(" : has an invalid identifier\n", 1);
+				ft_putstr_fd(" : has an invalid identifier : ", 1);
+				ft_putchar_fd(str[i], 1);
+				ft_putchar_fd('\n', 1);
 			}
 			return (0);
 		}
-		i = 0;
-		while (str[i] != '=')
+		i++;
+	}
+	return (1);
+}
+
+int sub_is_valid_exp_two(char *str, int f)
+{
+	if (str[0] == '=')
+	{
+		if ( f != 0)
 		{
-			if (is_invalid_identifier(str[i]) == 1)
-			{
-				if (f != 0)
-				{
-					ft_putstr_fd(str, 1);
-					ft_putstr_fd(" : has an invalid identifier : ", 1);
-					ft_putchar_fd(str[i], 1);
-					ft_putchar_fd('\n', 1);
-				}
-				return (0);
-			}
-			i++;
+			ft_putstr_fd(str, 1);
+			ft_putstr_fd(" : has an invalid identifier\n", 1);
 		}
+		return (0);
+	}
+	return (1);
+}
+
+int sub_is_valid_exp_three(char *str, int f)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '=')
+	{
+		if (is_invalid_identifier(str[i]) == 1)
+		{
+			if (f != 0)
+			{
+				ft_putstr_fd(str, 1);
+				ft_putstr_fd(" : has an invalid identifier : ", 1);
+				ft_putchar_fd(str[i], 1);
+				ft_putchar_fd('\n', 1);
+			}
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int is_valid_exp(char *str, int f)
+{
+	if (ft_strchr(str, '=') == 0)
+	{
+		if (sub_is_valid_exp_one(str, f) == 0)
+			return (0);
+	}
+	else
+	{
+		if (sub_is_valid_exp_two(str, f) == 0)
+			return (0);
+		if (sub_is_valid_exp_three(str, f) == 0)
+			return (0);
 	}
 	return (1);
 }
@@ -93,13 +116,13 @@ int does_match(char *str, int v_flag)
 	i = 0;
 	while (g_global.environ[i] != 0)
 	{
-		if ((ft_strncmp(g_global.environ[i], str, len) == 0 ) && (g_global.environ[i][len] == '='))
+		if ((ft_strncmp(g_global.environ[i], str, len) == 0 ) \
+		&& (g_global.environ[i][len] == '='))
 			return (1);
 		i++;
 	}
 	return (0);
 }
-
 
 int match_and_validate(char **arguments, int *err)
 {
@@ -154,7 +177,8 @@ int is_in_args(char **args, char *str)
 		len++;
 	while (args[i] != 0)
 	{
-		if ((ft_strncmp(args[i], str, len) == 0) && (args[i][len] == '=' || args[i][len] == '\0'))
+		if ((ft_strncmp(args[i], str, len) == 0) && \
+		(args[i][len] == '=' || args[i][len] == '\0'))
 			return (i);
 		i++;
 	}
@@ -200,23 +224,20 @@ char **build_new_env(char **arguments, int size)
 	int j;
 
 	new_env = (char **)malloc(size * sizeof(char *));
-	i = 0;
+	i = -1;
 	j = 1;
-	while (g_global.environ[i] != 0)
+	while (g_global.environ[++i] != 0)
 	{
 		if (is_in_args(arguments, g_global.environ[i]) >= 0)
 			new_env[i] = find_and_add(arguments, g_global.environ[i]);
 		else
 			new_env[i] = ft_strdup(g_global.environ[i]);
-		i++;
 	}
 	while (arguments[j] != 0)
 	{
-		if (is_in_args(g_global.environ, arguments[j]) == -1 && is_valid_exp(arguments[j], 0))
-		{
-			new_env[i] = put_in_env(arguments[j]);
-			i++;
-		}
+		if (is_in_args(g_global.environ, arguments[j]) == -1 \
+		&& is_valid_exp(arguments[j], 0))
+			new_env[i++] = put_in_env(arguments[j]);
 		j++;
 	}
 	new_env[i] = 0;
@@ -230,13 +251,14 @@ int export(char **arguments)
 
 
 	has_error = 0;
-	new_env = build_new_env(arguments, get_new_env_size(arguments, &has_error));
+	new_env = build_new_env(arguments, \
+	get_new_env_size(arguments, &has_error));
 	free_split(g_global.environ);
 	g_global.environ = new_env;
 	return (has_error);
 }
 
-int	ft_export_str(char **str) // double free if = is spaced or no = at all does not add \ before $
+int	ft_export_str(char **str)
 {
 	int	i;
 
@@ -265,7 +287,8 @@ int check_bounds(char *number)
 		return (1);
 	if (ft_strlengnl(number) >= 11 && number[0] != '-')
 		return (1);
-	if (ft_strlengnl(number) == 11 && ft_strncmp("-2147483647", number, 11) < 0)
+	if (ft_strlengnl(number) == 11 && \
+	ft_strncmp("-2147483647", number, 11) < 0)
 		return (1);
 	if (ft_strlengnl(number) >= 12)
 		return (1);
@@ -295,7 +318,8 @@ int handle_exit(char **arguments)
 		printf("exit: invalid number of arguments\n");
 		return (1);
 	}
-	else if (arguments[1] != 0 && (check_char(arguments[1]) || check_bounds(arguments[1])))
+	else if (arguments[1] != 0 && (check_char(arguments[1]) \
+	|| check_bounds(arguments[1])))
 	{
 		printf("exit: %s: numeric value required\n", arguments[1]);
 		g_global.error_status = 2;
@@ -313,11 +337,6 @@ int handle_exit(char **arguments)
 	}
 }
 
-/*
-* ft_is_buitin: check if the command is a builtin
-* @str: the command
-* @return: 1 if it is, 0 if not
-*/
 int	ft_is_buitin(char **str)
 {
 	if (ft_strncmp(str[0], "echo", 4) == 0)
@@ -342,20 +361,20 @@ int	ft_is_buitin(char **str)
 int	ft_execute_command_builtin(char **str)
 {
 	if (ft_strncmp(str[0], "echo", 4) == 0)
-		return (ft_echo(str)); // done
+		return (ft_echo(str));
 	else if (ft_strncmp(str[0], "cd", 2) == 0)
-		return (ft_cd(str)); // done
+		return (ft_cd(str));
 	else if (ft_strncmp(str[0], "pwd", 3) == 0)
-		return (ft_pwd()); // done
+		return (ft_pwd());
 	else if (ft_strncmp(str[0], "export", 6) == 0)
-		return (ft_export_str(str)); //done
+		return (ft_export_str(str));
 	else if (ft_strncmp(str[0], "unset", 5) == 0)
-		return (ft_unset_str(str)); //done
+		return (ft_unset_str(str));
 	else if (ft_strncmp(str[0], "env", 3) == 0)
-		return (ft_env()); // done
+		return (ft_env());
 	else if (ft_strncmp(str[0], "history", 7) == 0)
 	{
-		ft_history(); // done
+		ft_history();
 		return (0);
 	}
 	else if (ft_strncmp(str[0], "exit\0", 5) == 0)

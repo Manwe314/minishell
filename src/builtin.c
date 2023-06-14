@@ -18,54 +18,73 @@ int env_exist(char *str)
 
 	i = -1;
 	while (g_global.environ[++i])
-		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) && g_global.environ[i][ft_strlengnl(str)] == '=')
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) \
+		 && g_global.environ[i][ft_strlengnl(str)] == '=')
 			return (i);
 	return (-1);
 }
 
-/*
-* ft_cd: change the current working directory to the one specified in path
-* will check if the path exists and if the user has the right to access it
-* @param: path: the path to the new working directory
-*/
+int sub_cd_one(void)
+{
+	if (env_exist("HOME") == -1)
+	{
+		ft_putstr_fd("cd: HOME not set\n", 2);
+		return (ERROR);
+	}
+	return (SUCCEED);
+}
+
+char *sub_cd_four(char *str)
+{
+	char *temp;
+
+	if (str != 0)
+		temp = handle_dollar(ft_strjoin(getenv("HOME"), str + 1));
+	else
+		temp = ft_strdup(getenv("HOME"));
+	return (temp);
+}
+
+void sub_cd_two(char *temp)
+{
+	ft_putstr_fd("cd: ", 2);
+	ft_putstr_fd(temp, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+}
+
+int sub_cd_three(char *temp)
+{
+	if (chdir(temp) == -1)
+	{
+		ft_putstr_fd("cd: Error while changing repertories\n", 2);
+		free(temp);
+		return (ERROR);
+	}
+	return (SUCCEED);
+}
+
 int	ft_cd(char **path)
 {
 	char *temp;
 
 	if (path[1] == 0 || path[1][0] == '~')
 	{
-		if (env_exist("HOME") == -1)
-		{
-			ft_putstr_fd("cd: HOME not set\n", 2);
+		if (sub_cd_one() == ERROR)
 			return (ERROR);
-		}
-		if (path[1] != 0)
-			temp = handle_dollar(ft_strjoin(getenv("HOME"), path[1] + 1));
 		else
-			temp = ft_strdup(getenv("HOME"));
-		if (temp == NULL)
-		{
-			ft_putstr_fd("cd: Error while changing repertories\n", 2);
-			return (ERROR);
-		}
+			temp = sub_cd_four(path[1]);
 	}
 	else
 		temp = handle_dollar(ft_strdup(path[1]));
 	if (access(temp, F_OK) != -1)
 	{
-		if (chdir(temp) == -1)
-		{
-			ft_putstr_fd("cd: Error while changing repertories\n", 2);
-			free(temp);
+		if (sub_cd_three(temp) == ERROR)
 			return (ERROR);
-		}
 		free(temp);
 	}
 	else
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(temp, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		sub_cd_two(temp);
 		free(temp);
 		return (ERROR);
 	}
@@ -90,12 +109,7 @@ int is_flaged(char *str)
 		return (1);
 }
 
-/*
-* ft_echo: print the string str to the standard output
-* if n_flag is not 1, it will print a newline at the end of the string
-* @param: str: the string to print
-*/
-int	ft_echo(char **str) //if more then 1 -n is in place it dosent work
+int	ft_echo(char **str)
 {
 	int	i;
 	int flag;
@@ -115,9 +129,6 @@ int	ft_echo(char **str) //if more then 1 -n is in place it dosent work
 	return (SUCCEED);
 }
 
-/*
-* ft_pwd: print the current working directory to the standard output
-*/
 int	ft_pwd(void)
 {
 	char	*pwd;
@@ -135,9 +146,6 @@ int	ft_pwd(void)
 	return (SUCCEED);
 }
 
-/*
-* ft_env: print the environment variables to the standard output
-*/
 int	ft_env(void)
 {
 	int	i;

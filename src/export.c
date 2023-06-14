@@ -15,40 +15,52 @@
 
 #include "minishell.h"
 
+char **sub_print_env_one(void)
+{
+	char **env;
+	int i;
+
+	i = 0;
+	env = (char **)malloc(sizeof(char *) * (split_size(g_global.environ) + 1));
+	if (!env)
+		return (0);
+	while (g_global.environ[i] != 0)
+	{
+		env[i] = ft_strdup(g_global.environ[i]);
+		i++;
+	}
+	env[i] = 0;
+	return (env);
+}
+
+void sub_print_env_two(char **env, int i)
+{
+	int j;
+	char *tmp;
+
+	j = i;
+	while (j > 0 && ft_strncmp(env[j - 1], env[j], ft_strlen(env[j - 1])) > 0)
+	{
+		tmp = ft_strdup(env[j]);
+		free(env[j]);
+		env[j] = ft_strdup(env[j - 1]);
+		free(env[j - 1]);
+		env[j - 1] = ft_strdup(tmp);
+		free(tmp);
+		j--;
+	}
+}
+
 int	ft_print_env_alphabeticaly(void)
 {
 	char	**env;
-	char	*tmp;
 	int		i;
 	int		j;
 
-	i = 0;
-	while (g_global.environ[i])
-		i++;
-	env = malloc(sizeof(char *) * (i + 1));
-	if (!env)
-		return (ERROR);
-	i = -1;
-	while (g_global.environ[++i])
-	{
-		env[i] = ft_strdup(g_global.environ[i]);
-	}
-	env[i] = NULL;
+	env = sub_print_env_one();
 	i = 0;
 	while (env[++i])
-	{
-		j = i;
-		while (j > 0 && ft_strncmp(env[j - 1], env[j], ft_strlen(env[j - 1])) > 0)
-		{
-			tmp = ft_strdup(env[j]);
-			free(env[j]);
-			env[j] = ft_strdup(env[j - 1]);
-			free(env[j - 1]);
-			env[j - 1] = ft_strdup(tmp);
-			free(tmp);
-			j--;
-		}
-	}
+		sub_print_env_two(env, i);
 	i = -1;
 	while (env[++i])
 	{

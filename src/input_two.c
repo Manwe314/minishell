@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/13 21:55:02 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:47:19 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,46 @@ int	is_open_quotes(char *input)
 	return (0);
 }
 
+int sub_check_rt_one(char *input, int i, int save)
+{
+	i++;
+	while (input[i] != '\0' && input[i] == ' ')
+		i++;
+	if (input[i] == '<' || input[i] == '\0')
+		return (1);
+	if (input[i] == '>' && i == save)
+	{
+		i++;
+		while (input[i] != '\0' && input[i] == ' ')
+			i++;
+		if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
+			return (1);
+	}
+	else if (input[i] == '>' && i != save)
+		return (1);
+	return (0);
+}
+
+int sub_check_rt_two(char *input, int i, int save)
+{
+	i++;
+	while (input[i] != '\0' && input[i] == ' ')
+		i++;
+	if (input[i] == '>' || input[i] == '\0')
+		return (1);
+	if (input[i] == '<' && i == save)
+	{
+		i++;
+		while (input[i] != '\0' && input[i] == ' ')
+			i++;
+		if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
+			return (1);
+	}
+	else if (input[i] == '<' && i != save)
+		return (1);
+	return (0);
+}
+
 int check_redirection_token(char *input, int i)
 {
 	int save;
@@ -93,38 +133,12 @@ int check_redirection_token(char *input, int i)
 	save = i + 1;
 	if (input[i] == '>')
 	{
-		i++;
-		while (input[i] != '\0' && input[i] == ' ')
-			i++;
-		if (input[i] == '<' || input[i] == '\0')
-			return (1);
-		if (input[i] == '>' && i == save)
-		{
-			i++;
-			while (input[i] != '\0' && input[i] == ' ')
-				i++;
-			if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
-				return (1);
-		}
-		else if (input[i] == '>' && i != save)
+		if (sub_check_rt_one(input, i, save))
 			return (1);
 	}
 	else if (input[i] == '<')
 	{
-		i++;
-		while (input[i] != '\0' && input[i] == ' ')
-			i++;
-		if (input[i] == '>' || input[i] == '\0')
-			return (1);
-		if (input[i] == '<' && i == save)
-		{
-			i++;
-			while (input[i] != '\0' && input[i] == ' ')
-				i++;
-			if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
-				return (1);
-		}
-		else if (input[i] == '<' && i != save)
+		if (sub_check_rt_two(input, i, save))
 			return (1);
 	}
 	return(0);
@@ -243,11 +257,8 @@ char *finish_piped_input(char *input)
 	return (input);
 }
 
-void handle_heredoc(char *delim)
+void sub_handle_heredoc_one(void)
 {
-	char *input;
-	char *temp;
-
 	if (g_global.here_doc != 0)
 	{
 		free(g_global.here_doc);
@@ -257,6 +268,24 @@ void handle_heredoc(char *delim)
 		error_handler("here_doc", 2);
 	if (dup2(g_global.save_STDOUT, STDOUT_FILENO) < 0)
 		error_handler("here_doc", 2);
+}
+
+void sub_handle_heredoc_two(void)
+{
+	if (g_global.last_out >= 0)
+	{
+		if (dup2(g_global.fds[g_global.last_out], STDOUT_FILENO) < 0)
+			error_handler("dup2 last out", 1);
+		g_global.last_out = -1;
+	}
+}
+
+void handle_heredoc(char *delim)
+{
+	char *input;
+	char *temp;
+
+	sub_handle_heredoc_one();
 	while (1)
 	{
 		input = readline("> ");
@@ -270,12 +299,7 @@ void handle_heredoc(char *delim)
 		free(temp);
 		g_global.here_doc = ft_strjoingnl(g_global.here_doc, input);
 	}
-	if (g_global.last_out >= 0)
-	{
-		if (dup2(g_global.fds[g_global.last_out], STDOUT_FILENO) < 0)
-			error_handler("dup2 last out", 1);
-		g_global.last_out = -1;
-	}
+	sub_handle_heredoc_two();
 	free(delim);
 }
 
@@ -285,10 +309,10 @@ int	*find_quote_pairs(char *input, int start)
 	int j;
 	static int	quote_pair[2];
 
-	i = start;
+	i = start - 1;
 	quote_pair[0] = 0;
 	quote_pair[1] = 0;
-	while (input[i] != '\0')
+	while (input[++i] != '\0')
 	{
 		if (input[i] == 39 || input[i] == 34)
 		{
@@ -304,7 +328,6 @@ int	*find_quote_pairs(char *input, int start)
 				j++;
 			}
 		}
-		i++;
 	}
 	return (quote_pair);
 }
@@ -316,7 +339,7 @@ int	detect_path_executable(char *input)
 
 	i = 0;
 	is_path = 0;
-	while (input[i] != ' ' && input[i] != '\0') // if it starts with space???
+	while (input[i] != ' ' && input[i] != '\0')
 	{
 		if (input[i] == '/')
 		{
@@ -431,40 +454,58 @@ int check_piping(char *input)
 	return (is_piped);
 }
 
-char *clean_redirection_token(char *input, int start, int end)
+char *sub_clean_rt_two(char *token, int i, int j, int *q_pair)
 {
-	int i;
-	int j;
-	int *q_pair;
-	char *token;
+	if (i != j && j <= i)
+		token = ft_strjoingnl(token, \
+		handle_dollar(ft_substr(g_global.input, j, i - j)));
+	if (g_global.input[q_pair[0]] == 34)
+		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input, \
+		q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
+	else
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
+		q_pair[1] - q_pair[0] - 1));
+	return (token);
+}
 
-	q_pair = find_quote_pairs(input, start);
-	i = start;
-	j = start;
-	token = 0;
+char *sub_clean_rt_one(char *token, int i, int end, int *q_pair)
+{
+	int j;
+
+	j = i;
 	while (i != end)
 	{
 		while (i != q_pair[0] && i != end)
 			i++;
 		if (i == q_pair[0] && q_pair[1] != 0)
 		{
-			if (i != j && j <= i)
-				token = ft_strjoingnl(token, handle_dollar(ft_substr(input, j, i - j)));
-			if (input[q_pair[0]] == 34)
-				token = ft_strjoingnl(token, handle_dollar(ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
-			else
-				token = ft_strjoingnl(token, ft_substr(input, q_pair[0] + 1, q_pair[1] - q_pair[0] - 1));
+			token = sub_clean_rt_two(token, i, j, q_pair);
 			i = q_pair[1] + 1;
 			j = i;
-			q_pair = find_quote_pairs(input, i);
+			q_pair = find_quote_pairs(g_global.input, i);
 			if (i == q_pair[0])
 				i--;
 		}
 		else
-			token = ft_strjoingnl(token, handle_dollar(ft_substr(input, j, i - j)));
+			token = ft_strjoingnl(token, \
+			handle_dollar(ft_substr(g_global.input, j, i - j)));
 		if (i != end)
 			i++;
 	}
+	return (token);
+}
+
+char *clean_redirection_token(char *input, int start, int end)
+{
+	int i;
+	int *q_pair;
+	char *token;
+
+	q_pair = find_quote_pairs(input, start);
+	i = start;
+	token = 0;
+	g_global.input = input;
+	token = sub_clean_rt_one(token, i, end, q_pair);
 	return (token);
 }
 
@@ -480,7 +521,8 @@ char *get_fname_delim(char *input, int index)
 	while (input[i] == ' ')
 		i++;
 	j = i;
-	while (input[i] != ' ' && input[i] != '\0' && input[i] != '<' && input[i] != '>')
+	while (input[i] != ' ' && input[i] != '\0' && input[i] \
+	!= '<' && input[i] != '>')
 	{
 		if (i == q_pair[0])
 		{
@@ -568,15 +610,67 @@ int	change_fd(char *input, int i, char *name, int fd)
 	return (++g_global.fd_size);
 }
 
-void redirect(char *input)
+int sub_redirect_one(char *input, int i, int j, char *name)
 {
-	int i;
-	int	j;
-	char *name;
+	g_global.last_in = -1;
+	name = get_fname_delim(input, i);
+	if (change_fd(input, i, name, j) < 0)
+	{
+		error_handler("infile",1);
+		free(name);
+		return (1);
+	}
+	if (name != 0)
+		free(name);
+	return (0);
+}
 
-	i = 0;
-	j = -1;
-	name = 0;
+int sub_redirect_two(char *input, int i, int j, char *name)
+{
+	name = get_fname_delim(input, i);
+	if (change_fd(input, i, name, j) < 0)
+	{
+		error_handler("outfile",1);
+		free(name);
+		return (1);
+	}
+	if (name != 0)
+		free(name);
+	g_global.last_out = j;
+	return (0);
+}
+
+int sub_redirect_three(char *input, int i, int j, char *name)
+{
+	name = get_fname_delim(input, i);
+	if (change_fd(input, i, name, j) < 0)
+	{
+		error_handler("outfile",1);
+		free(name);
+		return (1);
+	}
+	if (name != 0)
+		free(name);
+	g_global.last_out = j;
+	return (0);
+}
+
+int sub_redirect_four(char *input, int i, int j, char *name)
+{
+	if (input[i + 1] == '>')
+	{
+		i++;
+		if (sub_redirect_two(input, i, j, name))
+			return (-1);
+	}
+	else
+		if (sub_redirect_three(input, i, j, name))
+			return (-1);
+	return (i);
+}
+
+void redirect(char *input, int i, int j, char *name)
+{
 	while (input[i] != '\0')
 	{
 		if (input[i] == '<' && !is_quoted(input, i))
@@ -587,48 +681,14 @@ void redirect(char *input)
 				i++;
 			}
 			else
-			{
-				g_global.last_in = -1;
-				name = get_fname_delim(input, i);
-				if (change_fd(input, i, name, ++j) < 0)
-				{
-					error_handler("infile",1);
-					free(name);
+				if (sub_redirect_one(input, i, ++j, name))
 					return ;
-				}
-				if (name != 0)
-					free(name);
-			}
 		}
 		if (input[i] == '>' && !is_quoted(input, i))
 		{
-			if (input[i + 1] == '>')
-			{
-				i++;
-				name = get_fname_delim(input, i);
-				if (change_fd(input, i, name, ++j) < 0)
-				{
-					error_handler("outfile",1);
-					free(name);
-					return ;
-				}
-				if (name != 0)
-					free(name);
-				g_global.last_out = j;
-			}
-			else
-			{
-				name = get_fname_delim(input, i);
-				if (change_fd(input, i, name, ++j) < 0)
-				{
-					error_handler("outfile",1);
-					free(name);
-					return ;
-				}
-				if (name != 0)
-					free(name);
-				g_global.last_out = j;
-			}
+			i = sub_redirect_four(input, i, ++j, name);
+			if (i == -1)
+				return ;
 		}
 		if (input[i] != '\0')
 			i++;
@@ -643,7 +703,7 @@ void do_redirections(char *input)
 		do_heredocs(input);
 	size = get_fd_size(input);
 	g_global.fds = malloc(sizeof(int) * size);
-	redirect(input);
+	redirect(input, 0, -1, 0);
 	if (g_global.last_in == 1)
 	{
 		if (pipe(g_global.f_pipes) < 0)
@@ -680,7 +740,8 @@ int	command_start_index(char *input, int start)
 	int i;
 
 	i = start;
-	while ((input[i] == ' ' || input[i] == '<' || input[i] == '>') && input[i] != '\0')
+	while ((input[i] == ' ' || input[i] == '<' || input[i] == '>') \
+	&& input[i] != '\0')
 	{
 		if (input[i] == '<' || input[i] == '>')
 			i = jump_fdelim(input, i);
@@ -726,18 +787,23 @@ char	*get_command(char *name, char **paths)
 	return (0);
 }
 
-int execute_command(char *command, char **arguments, char **envp)
+void sub_execute_cmd_one(void)
 {
-	pid_t	executable_to_be_done;
-	int		execve_return;
-	int		status;
-
 	if (g_global.last_write_pipe != -1)
 	{
 		if (dup2(g_global.last_write_pipe, STDOUT_FILENO) < 0)
 			perror("dup2 excve:");
 		close(g_global.last_write_pipe);
 	}
+}
+
+int execute_command(char *command, char **arguments, char **envp)
+{
+	pid_t	executable_to_be_done;
+	int		execve_return;
+	int		status;
+
+	sub_execute_cmd_one();
 	execve_return = 1;
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0)
@@ -1016,7 +1082,8 @@ void remove_quotes_from_args(char **arguments)
 		q_pair = find_quote_pairs(arguments[i], 0);
 		if (q_pair[1] != 0)
 		{
-			temp = clean_redirection_token(arguments[i], 0, ft_strlengnl(arguments[i]));
+			temp = clean_redirection_token(arguments[i], \
+			0, ft_strlengnl(arguments[i]));
 			free(arguments[i]);
 			arguments[i] = temp;
 		}
@@ -1024,7 +1091,6 @@ void remove_quotes_from_args(char **arguments)
 			arguments[i] = handle_dollar(arguments[i]);
 		i++;
 	}
-
 }
 
 char **clean_up_split(char **arguments)
@@ -1033,27 +1099,26 @@ char **clean_up_split(char **arguments)
 
 	new_arguments = remove_redirections(arguments);
 	remove_quotes_from_args(new_arguments);
-	/*int i = 0;
-	while (new_arguments[i] != 0)
-	{
-		printf("arg[%d]: %s\n", i, new_arguments[i]);
-		i++;
-	}*/
 	free_split(arguments);
 	return (new_arguments);
 }
 
-void clean_up(char **arguments, char *command, char *input)
+void sub_clean_up_one(char **arguments, char *command, char *input)
 {
-	int i;
-
 	if (arguments != 0)
 		free_split(arguments);
 	if (command != 0)
 		free(command);
 	if (input != 0)
 		free(input);
+}
+
+void clean_up(char **arguments, char *command, char *input)
+{
+	int i;
+
 	i = 0;
+	sub_clean_up_one(arguments, command, input);
 	while (i < g_global.fd_size)
 	{
 		close(g_global.fds[i]);
@@ -1127,15 +1192,10 @@ void piped_command_middle(char *input, int *inpip, int *outpip)
 	exit(g_global.exit_status);
 }
 
-void	pipeline(char **input, int size)
+void sub_pipeline_one(char **input, pid_t *pids, int **pipes, int size)
 {
-	pid_t	*pids;
-	int	i;
-	int	**pipes;
-	int status;
+	int i;
 
-	pids = (pid_t *)malloc(sizeof(pid_t) * size);
-	pipes = (int **)malloc(sizeof(int *) * (size - 1));
 	i = 0;
 	while (input[i] != 0)
 	{
@@ -1159,6 +1219,12 @@ void	pipeline(char **input, int size)
 			close(pipes[i][1]);
 		i++;
 	}
+}
+
+void sub_pipeline_two(int size, int **pipes)
+{
+	int i;
+
 	i = 0;
 	while (i < size - 1)
 	{
@@ -1166,6 +1232,19 @@ void	pipeline(char **input, int size)
 		free(pipes[i]);
 		i++;
 	}
+}
+
+void	pipeline(char **input, int size)
+{
+	pid_t	*pids;
+	int	i;
+	int	**pipes;
+	int status;
+
+	pids = (pid_t *)malloc(sizeof(pid_t) * size);
+	pipes = (int **)malloc(sizeof(int *) * (size - 1));
+	sub_pipeline_one(input,pids, pipes, size);
+	sub_pipeline_two(size, pipes);
 	i = 0;
 	while (i < size)
 	{
@@ -1258,7 +1337,8 @@ int variable_name_size(char *input, int i)
 
 	size = 0;
 
-	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 && input[i] != 39 && input[i] != '|' && input[i] != '<' && input[i] != '/')
+	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 && \
+	input[i] != 39 && input[i] != '|' && input[i] != '<' && input[i] != '/')
 	{
 		size++;
 		i++;
@@ -1279,7 +1359,8 @@ char *get_variable_value(char *name)
 	i = 0;
 	while (g_global.environ[i] != 0)
 	{
-		if (ft_strncmp(name, g_global.environ[i], len) == 0 && g_global.environ[i][len] == '=')
+		if (ft_strncmp(name, g_global.environ[i], len) == 0 \
+		 && g_global.environ[i][len] == '=')
 			return (ft_strdup(g_global.environ[i] + (len + 1)));
 		i++;
 	}
@@ -1323,7 +1404,8 @@ char *handle_dollar(char *input)
 		if (input[j] == '$')
 		{
 			i = i + variable_name_size(input, j);
-			new_input = ft_strjoingnl(new_input, expand_variable(input, j, variable_name_size(input, j)));
+			new_input = ft_strjoingnl(new_input, \
+			expand_variable(input, j, variable_name_size(input, j)));
 		}
 	}
 	free(input);

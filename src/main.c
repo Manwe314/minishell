@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/13 21:23:14 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:53:24 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 t_global g_global;
 
-void ft_init_global()
+void ft_init_global_two(void)
+{
+	g_global.f_pipes[0] = -1;
+	g_global.f_pipes[1] = -1;
+	g_global.last_out = -1;
+	g_global.last_in = 0;
+	g_global.last_write_pipe = -1;
+	g_global.fd_size = 0;
+	g_global.is_piped = 0;
+	g_global.error_status = 0;
+	g_global.exit_status = 0;
+}
+
+void ft_init_global(void)
 {
 	int i;
 	extern char **environ;
@@ -33,16 +46,6 @@ void ft_init_global()
 	g_global.save_STDIN = dup(STDIN_FILENO);
 	g_global.save_STDOUT = dup(STDOUT_FILENO);
 	g_global.here_doc = 0;
-	g_global.f_pipes[0] = -1;
-	g_global.f_pipes[1] = -1;
-	g_global.last_out = -1;
-	g_global.last_in = 0;
-	g_global.last_write_pipe = -1;
-	g_global.quoted_flags = 0;
-	g_global.fd_size = 0;
-	g_global.is_piped = 0;
-	g_global.error_status = 0;
-	g_global.exit_status = 0;
 }
 
 char *ft_remove_n(char *str)
@@ -52,7 +55,7 @@ char *ft_remove_n(char *str)
 	return (str);
 }
 
-void	ft_free_global()
+void	ft_free_global(void)
 {
 	int i;
 
@@ -63,9 +66,6 @@ void	ft_free_global()
 	}
 	free(g_global.environ);
 }
-/*
-! remember that on bash, the prompt is $USER@$HOSTNAME:$PWD$
-*/
 
 int	main(int argc, char *argv[])
 {

@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-/*
-* ft_unset : unset a variable from the environnement
-* @str : the name variable to unset
-*/
-
-/*
-? I don't think knowing if this function succeed or not is useful
-*/
 int ft_unset(char *str)
 {
 	int i;
@@ -27,7 +19,8 @@ int ft_unset(char *str)
 	i = -1;
 	while (g_global.environ[++i])
 	{
-		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) && g_global.environ[i][ft_strlengnl(str)] == '=')
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) \
+		&& g_global.environ[i][ft_strlengnl(str)] == '=')
 		{
 			free(g_global.environ[i]);
 			while(g_global.environ[i + 1])
