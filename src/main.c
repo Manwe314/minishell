@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/14 20:53:24 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:55:39 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ t_global g_global;
 
 void ft_init_global_two(void)
 {
-	g_global.f_pipes[0] = -1;
-	g_global.f_pipes[1] = -1;
-	g_global.last_out = -1;
 	g_global.last_in = 0;
-	g_global.last_write_pipe = -1;
 	g_global.fd_size = 0;
 	g_global.is_piped = 0;
 	g_global.error_status = 0;
@@ -46,6 +42,10 @@ void ft_init_global(void)
 	g_global.save_STDIN = dup(STDIN_FILENO);
 	g_global.save_STDOUT = dup(STDOUT_FILENO);
 	g_global.here_doc = 0;
+	g_global.last_write_pipe = -1;
+	g_global.f_pipes[0] = -1;
+	g_global.f_pipes[1] = -1;
+	g_global.last_out = -1;
 }
 
 char *ft_remove_n(char *str)
@@ -74,7 +74,6 @@ int	main(int argc, char *argv[])
 	char* input;
 
 	ft_init_global();
-
 	handle_signals();
 	while(1)
 	{

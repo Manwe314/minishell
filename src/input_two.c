@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/14 20:47:19 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:51:08 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1113,6 +1113,15 @@ void sub_clean_up_one(char **arguments, char *command, char *input)
 		free(input);
 }
 
+void sub_clean_up_two(void)
+{
+	if (g_global.fds != 0)
+	{
+		free(g_global.fds);
+		g_global.fds = 0;
+	}
+}
+
 void clean_up(char **arguments, char *command, char *input)
 {
 	int i;
@@ -1124,7 +1133,7 @@ void clean_up(char **arguments, char *command, char *input)
 		close(g_global.fds[i]);
 		i++;
 	}
-	free(g_global.fds);
+
 	g_global.fd_size = 0;
 	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
 		error_handler("dup2 clean", 2);
