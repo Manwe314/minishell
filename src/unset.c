@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+int	ft_unset_str(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!str[1])
+		return (0);
+	while (str[++i])
+		j = ft_unset(str[i]);
+	return (j);
+}
+
 int ft_unset(char *str)
 {
 	int i;

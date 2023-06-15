@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/15 21:34:45 by lkukhale         ###   ########.fr       */
+/*   Created: 2023/06/15 21:30:29 by lkukhale          #+#    #+#             */
+/*   Updated: 2023/06/15 21:30:50 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_global g_global;
-
-int	main(int argc, char *argv[])
+int env_exist(char *str)
 {
-	(void)argc;
-	(void)argv;
-	char* input;
+	int	i;
 
-	ft_init_global();
-	handle_signals();
-	while(1)
+	i = -1;
+	while (g_global.environ[++i])
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) \
+		 && g_global.environ[i][ft_strlengnl(str)] == '=')
+			return (i);
+	return (-1);
+}
+
+int	ft_env(void)
+{
+	int	i;
+
+	i = -1;
+	while (g_global.environ[++i] != NULL)
 	{
-		input = get_input();
-		if (input == NULL)
-			break ;
-		if (ft_strlengnl(input) > 0)
-			ft_add_history(input);
-		input_handler(input);
-		if (g_global.error_status == 2)
-			break ;
+		ft_putstr_fd(g_global.environ[i], 1);
+		ft_putstr_fd("\n", 1);
 	}
-	ft_putstr_fd("exit\n", 1);
-	ft_clear_history();
-	ft_free_global();
-	return (g_global.exit_status);
+	return (SUCCEED);
 }
