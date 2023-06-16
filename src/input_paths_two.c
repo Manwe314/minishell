@@ -14,7 +14,7 @@
 
 char	*get_home(char **envp)
 {
-	int	i;
+	int		i;
 	char	*home;
 
 	i = 0;
@@ -49,7 +49,7 @@ char	*return_user(char *path)
 
 int	home_begin_size(char *home)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(home) - 1;
 	while (home[i] != '/')

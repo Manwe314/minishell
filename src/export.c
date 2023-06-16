@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:30:17 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/04/26 15:30:17 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:49:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
 
+#include "minishell.h"
 
 /*
 * ft_print_env_alphabeticaly: print the environment variables in
@@ -18,10 +18,10 @@
 */
 int	ft_print_env_alphabeticaly(void)
 {
-	char **env;
-	char *tmp;
-	int i;
-	int j;
+	char	**env;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -69,9 +69,9 @@ int	ft_print_env_alphabeticaly(void)
 
 int	ft_change_env(char *name, char *value)
 {
-	int i;
-	int j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = -1;
 	while (g_global.environ[++i])
@@ -93,8 +93,8 @@ int	ft_change_env(char *name, char *value)
 
 int	ft_add_env(char *name, char *value)
 {
-	int i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = 0;
 	while (g_global.environ[i])
@@ -134,9 +134,9 @@ int	ft_add_env(char *name, char *value)
 */
 int	ft_export(char *str)
 {
-	char *name;
-	char *value;
-	int return_value;
+	char	*name;
+	char	*value;
+	int		return_value;
 
 	return_value = 0;
 	if (ft_strchr(str, '=') == NULL)

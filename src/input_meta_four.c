@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   input_meta_four.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 20:31:10 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/15 20:25:31 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:50:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int initial_pipe_check(char *input)
+int	initial_pipe_check(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] == ' ' && input[i] != '\0')
@@ -29,13 +28,12 @@ int initial_pipe_check(char *input)
 	if (input[i] == '|') // check quote flag
 		return (1);
 	return (0);
-
 }
 
-char *finish_piped_input(char *input)
+char	*finish_piped_input(char *input)
 {
-	char *added_input;
-	char *temp;
+	char	*added_input;
+	char	*temp;
 
 	while (1)
 	{
@@ -44,7 +42,7 @@ char *finish_piped_input(char *input)
 			if (initial_pipe_check(added_input) != 1)
 				break ;
 		temp = ft_strjoin(input, added_input);
-		free (input);
+		free(input);
 		free(added_input);
 		input = temp;
 	}
@@ -65,7 +63,7 @@ void	piped_command_start(char *input, int *pip)
 	exit(1);
 }
 
-void piped_command_end(char *input, int *pip)
+void	piped_command_end(char *input, int *pip)
 {
 	//printf("pip end: %d & %d\n", pip[0], pip[1]);
 	if (dup2(pip[0], STDIN_FILENO) < 0)
@@ -76,7 +74,7 @@ void piped_command_end(char *input, int *pip)
 	exit(1);
 }
 
-void piped_command_middle(char *input, int *inpip, int *outpip)
+void	piped_command_middle(char *input, int *inpip, int *outpip)
 {
 	//printf("inpip: %d & %d\noutpip: %d & %d\n", inpip[0], inpip[1], outpip[0], outpip[1]);
 	if (dup2(inpip[0], STDIN_FILENO) < 0)

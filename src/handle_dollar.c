@@ -58,8 +58,8 @@ void	ft_handle_interogation(char *str)
 		if (str[i] == 39)
 			while (str[++i] != 39 && str[i] != '\0')
 				;
-		if (str[i] == '?' && (str[i + 1] == ' ' || str[i + 1] == '\0' \
-		|| str[i + 1] == '	'))
+		if (str[i] == '?' && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i
+					+ 1] == '	'))
 		{
 			tmp = ft_itoa(g_global.exit_status);
 			str = ft_str_replace(str, "?", tmp);

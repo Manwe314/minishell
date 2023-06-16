@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:38:55 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/16 17:28:01 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:34:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_input()
+char	*get_input(void)
 {
-	char* input;
+	char	*input;
 
 	input = readline("minishell$ ");
 	if (input == NULL)
@@ -66,17 +66,19 @@ int	is_flaged(int index)
 int	detect_meta_chars(char *input)
 {
 	int	i;
-	int casse;
-				// _ | 1 | 1 2 | 1 2 3 | 2 | 2 3 | 3 | 1 3 / 0 | 1 | 3 | 7 | 2 | 6 | 4 | 5 |
+	int	casse;
+
+	// _ | 1 | 1 2 | 1 2 3 | 2 | 2 3 | 3 | 1 3 / 0 | 1 | 3 | 7 | 2 | 6 | 4 | 5 |
 	casse = 0;
 	i = 0;
 	while (input[i] != '\0')
 	{
 		// quotes ' and " and variables $
-		if ((input[i] == 39 || input[i] == 34 || input[i] == 36) && !is_flaged(i))
+		if ((input[i] == 39 || input[i] == 34 || input[i] == 36)
+			&& !is_flaged(i))
 		{
 			casse += 1;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -87,7 +89,7 @@ int	detect_meta_chars(char *input)
 		if ((input[i] == 60 || input[i] == 62) && !is_flaged(i))
 		{
 			casse += 2;
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -98,14 +100,14 @@ int	detect_meta_chars(char *input)
 		if (input[i] == 124 && !is_flaged(i))
 		{
 			casse += 4;
-			break;
+			break ;
 		}
 		i++;
 	}
 	return (casse);
 }
 
-void do_meta_chars(char *input, int casse, char **envp)
+void	do_meta_chars(char *input, int casse, char **envp)
 {
 	if (casse == 1)
 		execute_case_one(input, envp);
@@ -123,24 +125,26 @@ void do_meta_chars(char *input, int casse, char **envp)
 		execute_case_one(input, envp);
 }
 
-int get_revert_size(char *input)
+int	get_revert_size(char *input)
 {
-	int i;
+	int	i;
 	int	size;
 
 	i = 0;
-	size  = 0;
+	size = 0;
 	while (input[i] != '\0')
 	{
-		if (input[i] == '*'  || input[i] == ';' || input[i] == '&' || input[i] == '(' || input[i] == ')' || input[i] == '!')
+		if (input[i] == '*' || input[i] == ';' || input[i] == '&'
+			|| input[i] == '(' || input[i] == ')' || input[i] == '!')
 			size++;
 		i++;
 	}
 	return (size);
 }
+
 int	uinteger_array_size(int *array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!array)
@@ -152,7 +156,7 @@ int	uinteger_array_size(int *array)
 
 void	revert_quoted_chars(char *input)
 {
-	int i;
+	int	i;
 	int	j;
 	int	size;
 
@@ -207,28 +211,32 @@ void	revert_quoted_chars(char *input)
 	g_global.quoted_flags[j] = -1;
 }
 
-void handle_input(char *input, char **envp)
+void	handle_input(char *input, char **envp)
 {
+	int	casse;
+	int	is_meta;
+
 	//printf("handle input\n");
 	/*parse for metacharacters
-	  if there are some, then act according to those and exit this function here
-	  if there are none, then:
-	  parse for relative path or absolute path executables
-	  if it is a absolute or relative path command to an executable, handle that case and exit this function here
-	  if it is neither a metacharacter input nor a relative/absolute path input then it must be a general executable
-	  therefore try to execute the input normally
+		if there are some,
+		then act according to those and exit this function here
+		if there are none, then:
+		parse for relative path or absolute path executables
+		if it is a absolute or relative path command to an executable,
+		handle that case and exit this function here
+		if it is neither a metacharacter input nor a relative/absolute path input then it must be a general executable
+		therefore try to execute the input normally
 	*/
 	/*printf("\n----------\n");
 	printf("%s", input);
 	printf("\n----------\n");*/
 	revert_quoted_chars(input);
-	int	casse;
-	int	is_meta;
 	is_meta = detect_meta_chars(input);
 	//printf("%d\n", is_meta);
 	if (is_meta > 0)
 	{
-		do_meta_chars(input, is_meta, envp); // backslash in compleate pipes end chrashes.
+		do_meta_chars(input, is_meta, envp);
+			// backslash in compleate pipes end chrashes.
 		return ;
 	}
 	casse = detect_path_executable(input);
@@ -236,7 +244,7 @@ void handle_input(char *input, char **envp)
 	if (casse > 0)
 	{
 		do_pathed_executable(input, casse, envp);
-		return;
+		return ;
 	}
 	do_base_case(input, envp);
 }

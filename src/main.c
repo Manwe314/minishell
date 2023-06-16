@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/05/15 19:34:30 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:56:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_init_global(void)
 	g_global.exit_status = 0;
 	g_global.last_write_pipe = -1;
 	g_global.quoted_flags = 0;
+	g_global.is_cat = 0;
 }
 
 char	*ft_remove_n(char *str)
@@ -77,7 +78,8 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_add_history(input);
 		//g_global.exit_status = handle_input(input, envp);
 		// add error for * ; &
-		if (ft_strncmp(input, "exit", 4) == 0 && (input[4] == ' ' || input[4] == '\0'))
+		if (ft_strncmp(input, "exit", 4) == 0 && (input[4] == ' '
+				|| input[4] == '\0'))
 		{
 			free(input);
 			break ;

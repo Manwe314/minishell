@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void do_pathed_executable(char *input, int casse, char **envp)
+void	do_pathed_executable(char *input, int casse, char **envp)
 {
-	char **arguments;
-	char *path;
+	char	**arguments;
+	char	*path;
 
 	arguments = ft_split(input, ' ');
 	if (casse == 1)
@@ -40,10 +40,10 @@ void do_pathed_executable(char *input, int casse, char **envp)
 	free_split(arguments);
 }
 
-void remove_path(char **arguments)
+void	remove_path(char **arguments)
 {
 	int	i;
-	int is_slash;
+	int	is_slash;
 
 	i = 0;
 	is_slash = 0;
@@ -66,7 +66,6 @@ char	*expand_home_directory(char *path, char **envp)
 	char	*home;
 	char	*new_path;
 
-
 	home = get_home(envp);
 	new_path = ft_strdup(path + 1);
 	new_path = ft_strjoin(home, new_path);
@@ -76,11 +75,10 @@ char	*expand_home_directory(char *path, char **envp)
 
 char	*clean_home_path(char *path, char **envp)
 {
-	char	*home;
-	char	*user;
-	char	*new_path;
-	int		sub_size;
-
+	char *home;
+	char *user;
+	char *new_path;
+	int sub_size;
 
 	home = get_home(envp);
 	user = return_user(path);

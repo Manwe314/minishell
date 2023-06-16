@@ -12,13 +12,12 @@
 
 #include "minishell.h"
 
-
 /*
 * ft_history() displays the history of the shell
 */
 int	ft_history(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (g_global.history[++i])
@@ -38,9 +37,9 @@ int	ft_history(void)
 */
 int	ft_add_history(char *line)
 {
-	static int nb_history;
-	int i;
-	char **tmp;
+	static int	nb_history;
+	int			i;
+	char		**tmp;
 
 	if (!line)
 		return (ERROR);
@@ -64,7 +63,7 @@ int	ft_add_history(char *line)
 
 void	ft_clear_history(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	clear_history();

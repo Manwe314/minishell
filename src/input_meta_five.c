@@ -33,8 +33,8 @@ int	is_all_space(char *input)
 void	pipeline(char **input, int size)
 {
 	pid_t	*pids;
-	int	i;
-	int	**pipes;
+	int		i;
+	int		**pipes;
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * size);
 	pipes = (int **)malloc(sizeof(int *) * (size - 1));
@@ -57,7 +57,7 @@ void	pipeline(char **input, int size)
 		if (i == size - 1 && pids[i] == 0)
 			piped_command_end(input[i], pipes[size - 2]);
 		if (i < size - 1)
-		close(pipes[i][1]);
+			close(pipes[i][1]);
 		i++;
 	}
 	i = 0;
@@ -84,8 +84,8 @@ void	pipeline(char **input, int size)
 void	execute_case_four(char *input)
 {
 	char **new_input;
-	int	i;
-	int	size;
+	int i;
+	int size;
 
 	change_quoted_char(input);
 	i = initial_pipe_check(input);
@@ -105,7 +105,7 @@ void	execute_case_four(char *input)
 		if (is_all_space(new_input[i]))
 		{
 			perror("Syntax error"); // best have error mesinger
-			break;
+			break ;
 		}
 		i++;
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/15 20:21:44 by lkukhale         ###   ########.fr       */
+/*   Created: 2023/06/16 14:35:41 by marvin            #+#    #+#             */
+/*   Updated: 2023/06/16 14:53:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int split_size(char **split)
+int	split_size(char **split)
 {
 	int	i;
 
@@ -36,10 +36,9 @@ void	free_split(char **split)
 	free(split);
 }
 
-
 int	is_begining(char *input, int index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] == ' ')
@@ -47,13 +46,12 @@ int	is_begining(char *input, int index)
 	if (i >= index && input[index] == ' ')
 		return (1);
 	return (0);
-
 }
 
 int	*find_quote_pairs(char *input, int start)
 {
-	int	i;
-	int j;
+	int			i;
+	int			j;
 	static int	quote_pair[2];
 
 	i = start;
@@ -110,9 +108,9 @@ void execute_command(char *command, char **arguments, char **envp)
 	waitpid(executable_to_be_done, NULL, 0);
 }
 
-void change_quoted_char(char *input)
+void	change_quoted_char(char *input)
 {
-	int i;
+	int	i;
 
 	if (g_global.quoted_flags == 0)
 		return ;

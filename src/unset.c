@@ -15,7 +15,6 @@
 
 #include "minishell.h"
 
-
 /*
 * ft_unset : unset a variable from the environnement
 * @str : the name variable to unset
@@ -26,7 +25,7 @@
 */
 int	ft_unset(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (str == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_meta_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:10:13 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/05/15 20:51:18 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:50:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,31 @@
 
 int	get_insert_size(char *input)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
-	while(input[i] != '\0')
+	while (input[i] != '\0')
 	{
 		if (input[i] == '>')
 		{
-			if (i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '>' && input[i - 1] != '<')
+			if (i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '>'
+				&& input[i - 1] != '<')
 				size++;
-			if (i + 1 < ft_strlengnl(input) && input[i + 1] != ' ' && input[i + 1] != '>')
+			if (i + 1 < ft_strlengnl(input) && input[i + 1] != ' ' && input[i
+				+ 1] != '>')
 				size++;
 			size++;
 			i++;
 		}
 		if (input[i] == '<')
 		{
-			if ( i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '<' && input[i - 1] != '>')
+			if (i - 1 >= 0 && input[i - 1] != ' ' && input[i - 1] != '<'
+				&& input[i - 1] != '>')
 				size++;
-			if ( i + 1 < ft_strlengnl(input)  && input[i + 1] != ' ' && input[i + 1] != '<')
+			if (i + 1 < ft_strlengnl(input) && input[i + 1] != ' ' && input[i
+				+ 1] != '<')
 				size++;
 			size++;
 			i++;
@@ -50,9 +54,9 @@ int	get_insert_size(char *input)
 
 char	*insert_spaces(char *input)
 {
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		j;
+	int		size;
 	char	*new_input;
 
 	size = get_insert_size(input);
@@ -85,14 +89,16 @@ char	*insert_spaces(char *input)
 		j++;
 	}
 	new_input[j] = '\0';
-	return(new_input);
+	return (new_input);
 }
 
 int	redirect_case(char **arguments, int i)
 {
-	if (ft_strlengnl(arguments[i]) == 1 && (arguments[i][0] == '>' || arguments[i][0] == '<'))
+	if (ft_strlengnl(arguments[i]) == 1 && (arguments[i][0] == '>'
+			|| arguments[i][0] == '<'))
 		return (1);
-	if (ft_strlengnl(arguments[i]) > 1 && (arguments[i][0] == '>' || arguments[i][0] == '<'))
+	if (ft_strlengnl(arguments[i]) > 1 && (arguments[i][0] == '>'
+			|| arguments[i][0] == '<'))
 		return (2);
 	if (i != 0 && (arguments[i - 1][0] == '>' || arguments[i - 1][0] == '<'))
 		return (-1);
@@ -101,8 +107,8 @@ int	redirect_case(char **arguments, int i)
 
 int	get_fd_size(char **arguments)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
@@ -115,7 +121,7 @@ int	get_fd_size(char **arguments)
 	return (size);
 }
 
-void handle_heredoc(char *delim)
+void	handle_heredoc(char *delim)
 {
 	char *input;
 	char *temp;
@@ -132,7 +138,8 @@ void handle_heredoc(char *delim)
 	while (1)
 	{
 		input = readline("> ");
-		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0 && ft_strlen(delim) == ft_strlen(input)) || input == NULL)
+		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
+				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL)
 		{
 			free(input);
 			break ;
