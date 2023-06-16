@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/16 15:53:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/16 16:53:38 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_global
 }	t_global;
 extern t_global g_global;
 
+void	rl_replace_line(const char *text, int clear_undo);
 int input_handler(char *input);
 char *handle_dollar(char *input);
 char *expand_variable(char *input, int i, int varibale_size);
