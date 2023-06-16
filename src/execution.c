@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:00:52 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/16 15:56:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/16 17:50:00 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int execute_command(char *command, char **arguments, char **envp)
 	int		execve_return;
 	int		status;
 
-	if (ft_strncmp(command, "/usr/bin/cat", 12) == 0)
+	if (ft_strncmp(arguments[0], "cat\0", 4) == 0)
 		g_global.is_cat = 1;
 	sub_execute_cmd_one();
 	execve_return = 1;
