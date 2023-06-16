@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int split_size(char **split)
+int	split_size(char **split)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int split_size(char **split)
 
 void	free_split(char **split)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (split[i] != 0)

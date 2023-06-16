@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-t_global g_global;
+t_global	g_global;
 
 int	main(int argc, char *argv[])
 {
+	char	*input;
+
 	(void)argc;
 	(void)argv;
-	char* input;
-
 	ft_init_global();
 	handle_signals();
-	while(1)
+	while (1)
 	{
 		input = get_input();
 		if (input == NULL)

@@ -12,23 +12,24 @@
 
 #include "minishell.h"
 
-char *sub_clean_rt_two(char *token, int i, int j, int *q_pair)
+char	*sub_clean_rt_two(char *token, int i, int j, int *q_pair)
 {
 	if (i != j && j <= i)
-		token = ft_strjoingnl(token, \
-		handle_dollar(ft_substr(g_global.input, j, i - j)));
+		token = ft_strjoingnl(token,
+								handle_dollar(ft_substr(g_global.input, j, i
+											- j)));
 	if (g_global.input[q_pair[0]] == 34)
-		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input, \
-		q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
+		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input,
+						q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
 	else
-		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
-		q_pair[1] - q_pair[0] - 1));
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
+					q_pair[1] - q_pair[0] - 1));
 	return (token);
 }
 
-char *sub_clean_rt_one(char *token, int i, int end, int *q_pair)
+char	*sub_clean_rt_one(char *token, int i, int end, int *q_pair)
 {
-	int j;
+	int	j;
 
 	j = i;
 	while (i != end)
@@ -45,15 +46,16 @@ char *sub_clean_rt_one(char *token, int i, int end, int *q_pair)
 				i--;
 		}
 		else
-			token = ft_strjoingnl(token, \
-			handle_dollar(ft_substr(g_global.input, j, i - j)));
+			token = ft_strjoingnl(token,
+									handle_dollar(ft_substr(g_global.input, j, i
+												- j)));
 		if (i != end)
 			i++;
 	}
 	return (token);
 }
 
-char *clean_redirection_token(char *input, int start, int end)
+char	*clean_redirection_token(char *input, int start, int end)
 {
 	int i;
 	int *q_pair;

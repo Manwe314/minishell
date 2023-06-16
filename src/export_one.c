@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int is_in_args(char **args, char *str)
+int	is_in_args(char **args, char *str)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 1;
 	len = 0;
@@ -23,19 +23,19 @@ int is_in_args(char **args, char *str)
 		len++;
 	while (args[i] != 0)
 	{
-		if ((ft_strncmp(args[i], str, len) == 0) && \
-		(args[i][len] == '=' || args[i][len] == '\0'))
+		if ((ft_strncmp(args[i], str, len) == 0) &&
+			(args[i][len] == '=' || args[i][len] == '\0'))
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-char *find_and_add(char **args, char *str)
+char	*find_and_add(char **args, char *str)
 {
-	int id;
-	char *new;
-	char *tmp;
+	int		id;
+	char	*new;
+	char	*tmp;
 
 	id = is_in_args(args, str);
 	new = ft_strdup(args[id]);
@@ -48,10 +48,10 @@ char *find_and_add(char **args, char *str)
 	return (new);
 }
 
-char *put_in_env(char *str)
+char	*put_in_env(char *str)
 {
-	char *new;
-	char *tmp;
+	char	*new;
+	char	*tmp;
 
 	new = ft_strdup(str);
 	if (ft_strchr(new, '=') == 0)
@@ -63,11 +63,11 @@ char *put_in_env(char *str)
 	return (new);
 }
 
-char **build_new_env(char **arguments, int size)
+char	**build_new_env(char **arguments, int size)
 {
-	char **new_env;
-	int i;
-	int j;
+	char	**new_env;
+	int		i;
+	int		j;
 
 	new_env = (char **)malloc(size * sizeof(char *));
 	i = -1;
@@ -81,8 +81,8 @@ char **build_new_env(char **arguments, int size)
 	}
 	while (arguments[j] != 0)
 	{
-		if (is_in_args(g_global.environ, arguments[j]) == -1 \
-		&& is_valid_exp(arguments[j], 0))
+		if (is_in_args(g_global.environ, arguments[j]) == -1
+			&& is_valid_exp(arguments[j], 0))
 			new_env[i++] = put_in_env(arguments[j]);
 		j++;
 	}
@@ -90,15 +90,14 @@ char **build_new_env(char **arguments, int size)
 	return (new_env);
 }
 
-int export(char **arguments)
+int	export(char **arguments)
 {
 	int has_error;
 	char **new_env;
 
-
 	has_error = 0;
-	new_env = build_new_env(arguments, \
-	get_new_env_size(arguments, &has_error));
+	new_env = build_new_env(arguments,
+							get_new_env_size(arguments, &has_error));
 	free_split(g_global.environ);
 	g_global.environ = new_env;
 	return (has_error);

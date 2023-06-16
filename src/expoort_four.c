@@ -12,23 +12,23 @@
 
 #include "minishell.h"
 
-int check_bounds(char *number)
+int	check_bounds(char *number)
 {
 	if (ft_strlengnl(number) == 10 && ft_strncmp("2147483647", number, 10) < 0)
 		return (1);
 	if (ft_strlengnl(number) >= 11 && number[0] != '-')
 		return (1);
-	if (ft_strlengnl(number) == 11 && \
-	ft_strncmp("-2147483647", number, 11) < 0)
+	if (ft_strlengnl(number) == 11 &&
+		ft_strncmp("-2147483647", number, 11) < 0)
 		return (1);
 	if (ft_strlengnl(number) >= 12)
 		return (1);
 	return (0);
 }
 
-int check_char(char *number)
+int	check_char(char *number)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (number[0] == '-')

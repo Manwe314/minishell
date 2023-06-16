@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int sub_cd_one(void)
+int	sub_cd_one(void)
 {
 	if (env_exist("HOME") == -1)
 	{
@@ -22,9 +22,9 @@ int sub_cd_one(void)
 	return (SUCCEED);
 }
 
-char *sub_cd_four(char *str)
+char	*sub_cd_four(char *str)
 {
-	char *temp;
+	char	*temp;
 
 	if (str != 0)
 		temp = handle_dollar(ft_strjoin(getenv("HOME"), str + 1));
@@ -33,14 +33,14 @@ char *sub_cd_four(char *str)
 	return (temp);
 }
 
-void sub_cd_two(char *temp)
+void	sub_cd_two(char *temp)
 {
 	ft_putstr_fd("cd: ", 2);
 	ft_putstr_fd(temp, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
-int sub_cd_three(char *temp)
+int	sub_cd_three(char *temp)
 {
 	if (chdir(temp) == -1)
 	{

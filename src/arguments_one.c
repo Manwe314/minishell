@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int get_new_arguments_size(char **arguments)
+int	get_new_arguments_size(char **arguments)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
@@ -32,11 +32,11 @@ int get_new_arguments_size(char **arguments)
 	return (size);
 }
 
-char **make_new_arguments(char **old, int size)
+char	**make_new_arguments(char **old, int size)
 {
-	int i;
-	int j;
-	char **new;
+	int		i;
+	int		j;
+	char	**new;
 
 	i = 0;
 	j = 0;
@@ -58,21 +58,21 @@ char **make_new_arguments(char **old, int size)
 	return (new);
 }
 
-char **remove_redirections(char **arguments)
+char	**remove_redirections(char **arguments)
 {
-	int size;
-	char **new_arguments;
+	int		size;
+	char	**new_arguments;
 
 	size = get_new_arguments_size(arguments);
 	new_arguments = make_new_arguments(arguments, size);
 	return (new_arguments);
 }
 
-void remove_quotes_from_args(char **arguments)
+void	remove_quotes_from_args(char **arguments)
 {
-	int i;
-	int *q_pair;
-	char *temp;
+	int		i;
+	int		*q_pair;
+	char	*temp;
 
 	i = 0;
 	temp = 0;
@@ -81,8 +81,9 @@ void remove_quotes_from_args(char **arguments)
 		q_pair = find_quote_pairs(arguments[i], 0);
 		if (q_pair[1] != 0)
 		{
-			temp = clean_redirection_token(arguments[i], \
-			0, ft_strlengnl(arguments[i]));
+			temp = clean_redirection_token(arguments[i],
+											0,
+											ft_strlengnl(arguments[i]));
 			free(arguments[i]);
 			arguments[i] = temp;
 		}
@@ -92,7 +93,7 @@ void remove_quotes_from_args(char **arguments)
 	}
 }
 
-char **clean_up_split(char **arguments)
+char	**clean_up_split(char **arguments)
 {
 	char **new_arguments;
 

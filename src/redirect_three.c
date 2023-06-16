@@ -14,8 +14,8 @@
 
 int	get_fd_size(char *input)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;

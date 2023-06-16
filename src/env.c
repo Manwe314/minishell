@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-int env_exist(char *str)
+int	env_exist(char *str)
 {
 	int	i;
 
 	i = -1;
 	while (g_global.environ[++i])
-		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) \
-		 && g_global.environ[i][ft_strlengnl(str)] == '=')
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0)
+			&& g_global.environ[i][ft_strlengnl(str)] == '=')
 			return (i);
 	return (-1);
 }
 
 int	ft_env(void)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (g_global.environ[++i] != NULL)

@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-int sub_redirect_one(char *input, int i, int j, char *name)
+int	sub_redirect_one(char *input, int i, int j, char *name)
 {
 	g_global.last_in = -1;
 	name = get_fname_delim(input, i);
 	if (change_fd(input, i, name, j) < 0)
 	{
-		error_handler("infile",1);
+		error_handler("infile", 1);
 		free(name);
 		return (1);
 	}
@@ -27,12 +27,12 @@ int sub_redirect_one(char *input, int i, int j, char *name)
 	return (0);
 }
 
-int sub_redirect_two(char *input, int i, int j, char *name)
+int	sub_redirect_two(char *input, int i, int j, char *name)
 {
 	name = get_fname_delim(input, i);
 	if (change_fd(input, i, name, j) < 0)
 	{
-		error_handler("outfile",1);
+		error_handler("outfile", 1);
 		free(name);
 		return (1);
 	}
@@ -42,12 +42,12 @@ int sub_redirect_two(char *input, int i, int j, char *name)
 	return (0);
 }
 
-int sub_redirect_three(char *input, int i, int j, char *name)
+int	sub_redirect_three(char *input, int i, int j, char *name)
 {
 	name = get_fname_delim(input, i);
 	if (change_fd(input, i, name, j) < 0)
 	{
-		error_handler("outfile",1);
+		error_handler("outfile", 1);
 		free(name);
 		return (1);
 	}
@@ -57,7 +57,7 @@ int sub_redirect_three(char *input, int i, int j, char *name)
 	return (0);
 }
 
-int sub_redirect_four(char *input, int i, int j, char *name)
+int	sub_redirect_four(char *input, int i, int j, char *name)
 {
 	if (input[i + 1] == '>')
 	{
@@ -65,13 +65,12 @@ int sub_redirect_four(char *input, int i, int j, char *name)
 		if (sub_redirect_two(input, i, j, name))
 			return (-1);
 	}
-	else
-		if (sub_redirect_three(input, i, j, name))
-			return (-1);
+	else if (sub_redirect_three(input, i, j, name))
+		return (-1);
 	return (i);
 }
 
-void redirect(char *input, int i, int j, char *name)
+void	redirect(char *input, int i, int j, char *name)
 {
 	while (input[i] != '\0')
 	{
@@ -82,9 +81,8 @@ void redirect(char *input, int i, int j, char *name)
 				g_global.last_in = 1;
 				i++;
 			}
-			else
-				if (sub_redirect_one(input, i, ++j, name))
-					return ;
+			else if (sub_redirect_one(input, i, ++j, name))
+				return ;
 		}
 		if (input[i] == '>' && !is_quoted(input, i))
 		{

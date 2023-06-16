@@ -12,8 +12,7 @@
 
 #include "minishell.h"
 
-
-int is_invalid_identifier(char a)
+int	is_invalid_identifier(char a)
 {
 	if (a >= 0 && a <= 47)
 		return (1);
@@ -26,10 +25,10 @@ int is_invalid_identifier(char a)
 	return (0);
 }
 
-int does_match(char *str, int v_flag)
+int	does_match(char *str, int v_flag)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	if (str == 0 || v_flag == 1)
@@ -40,19 +39,19 @@ int does_match(char *str, int v_flag)
 	i = 0;
 	while (g_global.environ[i] != 0)
 	{
-		if ((ft_strncmp(g_global.environ[i], str, len) == 0 ) \
-		&& (g_global.environ[i][len] == '='))
+		if ((ft_strncmp(g_global.environ[i], str, len) == 0)
+			&& (g_global.environ[i][len] == '='))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int match_and_validate(char **arguments, int *err)
+int	match_and_validate(char **arguments, int *err)
 {
-	int i;
-	int size;
-	int v_flag;
+	int	i;
+	int	size;
+	int	v_flag;
 
 	i = 1;
 	size = 0;
@@ -73,7 +72,7 @@ int match_and_validate(char **arguments, int *err)
 	return (size);
 }
 
-int get_new_env_size(char **arguments, int *err)
+int	get_new_env_size(char **arguments, int *err)
 {
 	int env_size;
 	int removal_size;

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int sub_check_rt_one(char *input, int i, int save)
+int	sub_check_rt_one(char *input, int i, int save)
 {
 	i++;
 	while (input[i] != '\0' && input[i] == ' ')
@@ -24,7 +24,8 @@ int sub_check_rt_one(char *input, int i, int save)
 		i++;
 		while (input[i] != '\0' && input[i] == ' ')
 			i++;
-		if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
+		if (input[i] == '<' || input[i] == '\0' || input[i] == '>'
+			|| input[i] == '|')
 			return (1);
 	}
 	else if (input[i] == '>' && i != save)
@@ -32,7 +33,7 @@ int sub_check_rt_one(char *input, int i, int save)
 	return (0);
 }
 
-int sub_check_rt_two(char *input, int i, int save)
+int	sub_check_rt_two(char *input, int i, int save)
 {
 	i++;
 	while (input[i] != '\0' && input[i] == ' ')
@@ -44,7 +45,8 @@ int sub_check_rt_two(char *input, int i, int save)
 		i++;
 		while (input[i] != '\0' && input[i] == ' ')
 			i++;
-		if (input[i] == '<' || input[i] == '\0' || input[i] == '>' || input[i] == '|')
+		if (input[i] == '<' || input[i] == '\0' || input[i] == '>'
+			|| input[i] == '|')
 			return (1);
 	}
 	else if (input[i] == '<' && i != save)
@@ -52,7 +54,7 @@ int sub_check_rt_two(char *input, int i, int save)
 	return (0);
 }
 
-int check_redirection_token(char *input, int i)
+int	check_redirection_token(char *input, int i)
 {
 	int save;
 
@@ -67,5 +69,5 @@ int check_redirection_token(char *input, int i)
 		if (sub_check_rt_two(input, i, save))
 			return (1);
 	}
-	return(0);
+	return (0);
 }

@@ -19,8 +19,8 @@ int	ft_pwd(void)
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		ft_putstr_fd(\
-		"pwd: Error while getting the current working directory\n", 2);
+		ft_putstr_fd(
+			"pwd: Error while getting the current working directory\n", 2);
 		return (ERROR);
 	}
 	ft_putstr_fd(pwd, 1);

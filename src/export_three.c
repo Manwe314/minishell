@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int sub_is_valid_exp_one(char *str, int f)
+int	sub_is_valid_exp_one(char *str, int f)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -35,11 +35,11 @@ int sub_is_valid_exp_one(char *str, int f)
 	return (1);
 }
 
-int sub_is_valid_exp_two(char *str, int f)
+int	sub_is_valid_exp_two(char *str, int f)
 {
 	if (str[0] == '=')
 	{
-		if ( f != 0)
+		if (f != 0)
 		{
 			ft_putstr_fd(str, 1);
 			ft_putstr_fd(" : has an invalid identifier\n", 1);
@@ -49,9 +49,9 @@ int sub_is_valid_exp_two(char *str, int f)
 	return (1);
 }
 
-int sub_is_valid_exp_three(char *str, int f)
+int	sub_is_valid_exp_three(char *str, int f)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '=')
@@ -72,7 +72,7 @@ int sub_is_valid_exp_three(char *str, int f)
 	return (1);
 }
 
-int is_valid_exp(char *str, int f)
+int	is_valid_exp(char *str, int f)
 {
 	if (ft_strchr(str, '=') == 0)
 	{

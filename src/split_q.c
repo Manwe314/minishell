@@ -92,8 +92,8 @@ void	make_strings_q(char *s, char c, char **strings)
 
 char	**ft_split_q(char *s, char c)
 {
-	char	**strings;
-	int		words;
+	char **strings;
+	int words;
 
 	if (!s)
 		return (0);

@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char *get_input()
+char	*get_input(void)
 {
-	char* input;
+	char	*input;
 
 	input = readline("minishell$ ");
 	if (input == NULL)
@@ -22,7 +22,7 @@ char *get_input()
 	return (input);
 }
 
-int input_handler(char *input)
+int	input_handler(char *input)
 {
 	char **arguments;
 	char *command;
@@ -47,6 +47,6 @@ int input_handler(char *input)
 		clean_up(arguments, command, input);
 	}
 	else
-		clean_up(0,0,input);
-	return 0;
+		clean_up(0, 0, input);
+	return (0);
 }

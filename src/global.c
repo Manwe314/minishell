@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void ft_init_global_two(void)
+void	ft_init_global_two(void)
 {
 	g_global.last_in = 0;
 	g_global.fd_size = 0;
@@ -21,16 +21,18 @@ void ft_init_global_two(void)
 	g_global.exit_status = 0;
 }
 
-void ft_init_global(void)
+void	ft_init_global(void)
 {
-	int i;
-	extern char **environ;
+	int			i;
+	extern char	**environ;
+
 	i = 0;
 	while (environ[i])
 		i++;
 	g_global.environ = malloc(sizeof(char *) * (i + 1));
 	i = -1;
-	while (environ[++i]){
+	while (environ[++i])
+	{
 		g_global.environ[i] = ft_strdup(environ[i]);
 	}
 	g_global.history = malloc(sizeof(char *) * 1);
@@ -47,7 +49,7 @@ void ft_init_global(void)
 	g_global.is_cat = 0;
 }
 
-char *ft_remove_n(char *str)
+char	*ft_remove_n(char *str)
 {
 	if (str[ft_strlen(str) - 1] == '\n')
 		str[ft_strlen(str) - 1] = '\0';
