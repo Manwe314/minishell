@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:34:41 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:54:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void ft_init_global(void)
 	g_global.f_pipes[0] = -1;
 	g_global.f_pipes[1] = -1;
 	g_global.last_out = -1;
+	g_global.is_cat = 0;
 }
 
 char *ft_remove_n(char *str)

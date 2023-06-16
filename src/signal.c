@@ -14,15 +14,12 @@
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;
-	ft_putstr_fd("\nminishell$ ", 1);
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	ft_putstr_fd("\n", 1);
-    rl_on_new_line();
-    rl_redisplay();
-	//g_global.ctrl_c = 1;
-	//g_global.input = 0;
-	//fflush(stdin);
-	//fflush(stdout);
+	rl_on_new_line();
+	if (g_global.is_cat == 0)
+		rl_redisplay();
+	g_global.is_cat = 0;
 }
 
 void	handle_ctrl_d(int sig)

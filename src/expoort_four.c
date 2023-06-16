@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expoort_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:28:49 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:29:37 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:51:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ int check_char(char *number)
 
 int	ft_export_str(char **str)
 {
-	int	i;
-
-	i = 0;
 	if (!str[1])
 		return (ft_print_env_alphabeticaly());
 	return (export(str));
