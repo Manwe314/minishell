@@ -6,7 +6,7 @@
 #    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/06/15 22:01:30 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/06/16 17:13:03 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME 		= minishell
 USER		= lkukhale
 SRCS 		= ${shell find ./src -iname "*.c"}
 
-HEADERS		= -I ./includes/
-LIBS		= ${LIBFT}/libft.a
+HEADERS		= -I ./includes/ -I ~/.brew/opt/readline/include/readline/
+LIBS		= ${LIBFT}/libft.a -L ~/.brew/opt/readline/lib/
 LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror -g
 OBJS		= ${SRCS:.c=.o}
