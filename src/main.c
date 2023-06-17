@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/15 21:34:45 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/17 09:37:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	ft_init_global();
 	handle_signals();
+	
 	while (1)
 	{
+		g_global.is_cat = 0;
+		g_global.ctrl_c = 0;
+		g_global.command = NULL;
 		input = get_input();
 		if (input == NULL)
 			break ;
+		g_global.command = input;
 		if (ft_strlengnl(input) > 0)
 			ft_add_history(input);
 		input_handler(input);

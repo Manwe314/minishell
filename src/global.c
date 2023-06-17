@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/16 15:54:09 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/17 09:25:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_init_global(void)
 	g_global.f_pipes[1] = -1;
 	g_global.last_out = -1;
 	g_global.is_cat = 0;
+	g_global.pid = getpid();
 }
 
 char	*ft_remove_n(char *str)

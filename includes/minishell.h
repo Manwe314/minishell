@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/16 15:53:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/17 09:36:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_global
 	char		*input;
 	char		*here_doc;
 	int			is_cat;
+	int			ctrl_c;
+	char 		*command;
+	int			pid;
 }				t_global;
 extern t_global	g_global;
 
