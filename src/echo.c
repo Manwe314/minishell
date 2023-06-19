@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int is_flaged(char *str)
+int	is_flaged(char *str)
 {
-	int i;
+	int	i;
 
 	if (str == 0)
 		return (0);
@@ -32,7 +32,7 @@ int is_flaged(char *str)
 
 int	ft_echo(char **str)
 {
-	int	i;
+	int i;
 	int flag;
 
 	i = 0;

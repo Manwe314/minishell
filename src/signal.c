@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/03/24 21:02:00 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:07:26 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 void	handle_ctrl_c(int sig)
 {
 	(void)sig;
-	rl_replace_line("", 0);
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
+	g_global.ctrl_c = 1;
+	if (g_global.pid == getpid())
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		ft_putstr_fd("\n", 1);
+	}
 	if (g_global.is_cat == 0)
 		rl_redisplay();
-	g_global.is_cat = 0;
+
+
+
 }
 
 void	handle_ctrl_d(int sig)

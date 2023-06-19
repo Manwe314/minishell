@@ -6,13 +6,13 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 23:00:04 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:07:04 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sub_handle_heredoc_one(void)
+void	sub_handle_heredoc_one(void)
 {
 	if (g_global.here_doc != 0)
 	{
@@ -25,7 +25,7 @@ void sub_handle_heredoc_one(void)
 		error_handler("here_doc", 2);
 }
 
-void sub_handle_heredoc_two(void)
+void	sub_handle_heredoc_two(void)
 {
 	if (g_global.last_out >= 0)
 	{
@@ -35,17 +35,20 @@ void sub_handle_heredoc_two(void)
 	}
 }
 
-void handle_heredoc(char *delim)
+void	handle_heredoc(char *delim)
 {
-	char *input;
-	char *temp;
+	char	*input;
+	char	*temp;
 
 	sub_handle_heredoc_one();
 	while (1)
 	{
+		if (g_global.ctrl_c == 1)
+			break ;
 		input = readline("> ");
-		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0 \
-		&& ft_strlen(delim) == ft_strlen(input)) || input == NULL)
+		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
+				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
+				|| g_global.ctrl_c == 1)
 		{
 			free(input);
 			break ;
@@ -61,8 +64,8 @@ void handle_heredoc(char *delim)
 
 void	do_heredocs(char *input)
 {
-	int i;
-	char *delim;
+	int		i;
+	char	*delim;
 
 	i = 0;
 	while (input[i] != '\0')
@@ -78,7 +81,7 @@ void	do_heredocs(char *input)
 	}
 }
 
-void do_redirections(char *input)
+void	do_redirections(char *input)
 {
 	int size;
 

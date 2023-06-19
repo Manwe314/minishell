@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int error_handler(char *msg, int flag)
+int	error_handler(char *msg, int flag)
 {
 	if (flag == 0)
 	{
@@ -36,9 +36,9 @@ int error_handler(char *msg, int flag)
 	return (0);
 }
 
-int is_quoted(char *input, int index)
+int	is_quoted(char *input, int index)
 {
-	int *quote_pairs;
+	int	*quote_pairs;
 
 	quote_pairs = find_quote_pairs(input, 0);
 	if (quote_pairs[1] == 0)
@@ -77,9 +77,9 @@ int	is_all_space(char *input)
 
 int	*find_quote_pairs(char *input, int start)
 {
-	int	i;
+	int i;
 	int j;
-	static int	quote_pair[2];
+	static int quote_pair[2];
 
 	i = start - 1;
 	quote_pair[0] = 0;

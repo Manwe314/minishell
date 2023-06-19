@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 void	piped_command_start(char *input, int *pip)
 {
 	if (dup2(pip[1], STDOUT_FILENO) < 0)
@@ -24,7 +23,7 @@ void	piped_command_start(char *input, int *pip)
 	exit(g_global.exit_status);
 }
 
-void piped_command_end(char *input, int *pip)
+void	piped_command_end(char *input, int *pip)
 {
 	if (dup2(pip[0], STDIN_FILENO) < 0)
 		error_handler("dup PcE:", 1);
@@ -34,7 +33,7 @@ void piped_command_end(char *input, int *pip)
 	exit(g_global.exit_status);
 }
 
-void piped_command_middle(char *input, int *inpip, int *outpip)
+void	piped_command_middle(char *input, int *inpip, int *outpip)
 {
 	if (dup2(inpip[0], STDIN_FILENO) < 0)
 		error_handler("dup PcM-i:", 1);
@@ -51,8 +50,8 @@ void piped_command_middle(char *input, int *inpip, int *outpip)
 
 void	piping(char *input)
 {
-	int size;
-	char **pipe_split;
+	int		size;
+	char	**pipe_split;
 
 	pipe_split = ft_split_q(input, '|');
 	size = split_size(pipe_split);
@@ -61,7 +60,7 @@ void	piping(char *input)
 	free_split(pipe_split);
 }
 
-char *set_up_piping(char *input)
+char	*set_up_piping(char *input)
 {
 	char *temp;
 

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void sub_clean_up_one(char **arguments, char *command, char *input)
+void	sub_clean_up_one(char **arguments, char *command, char *input)
 {
 	if (arguments != 0)
 		free_split(arguments);
@@ -22,7 +22,7 @@ void sub_clean_up_one(char **arguments, char *command, char *input)
 		free(input);
 }
 
-void sub_clean_up_two(void)
+void	sub_clean_up_two(void)
 {
 	if (g_global.fds != 0)
 	{
@@ -31,7 +31,7 @@ void sub_clean_up_two(void)
 	}
 }
 
-void clean_up(char **arguments, char *command, char *input)
+void	clean_up(char **arguments, char *command, char *input)
 {
 	int i;
 

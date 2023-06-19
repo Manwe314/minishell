@@ -14,11 +14,11 @@
 
 int	command_start_index(char *input, int start)
 {
-	int i;
+	int	i;
 
 	i = start;
-	while ((input[i] == ' ' || input[i] == '<' || input[i] == '>') \
-	&& input[i] != '\0')
+	while ((input[i] == ' ' || input[i] == '<' || input[i] == '>')
+		&& input[i] != '\0')
 	{
 		if (input[i] == '<' || input[i] == '>')
 			i = jump_fdelim(input, i);
@@ -30,7 +30,7 @@ int	command_start_index(char *input, int start)
 
 char	*get_path(char **envp)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (envp[i] != 0 && ft_strncmp(envp[i], "PATH=", 5) != 0)

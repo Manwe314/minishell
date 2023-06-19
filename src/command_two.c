@@ -17,7 +17,6 @@ char	*expand_home_directory(char *path, char **envp)
 	char	*home;
 	char	*new_path;
 
-
 	home = get_home(envp);
 	new_path = ft_strdup(path + 1);
 	new_path = ft_strjoin(home, new_path);
@@ -27,7 +26,7 @@ char	*expand_home_directory(char *path, char **envp)
 
 char	*get_home(char **envp)
 {
-	int	i;
+	int		i;
 	char	*home;
 
 	i = 0;
@@ -62,7 +61,7 @@ char	*return_user(char *path)
 
 int	home_begin_size(char *home)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(home) - 1;
 	while (home[i] != '/')
@@ -72,11 +71,10 @@ int	home_begin_size(char *home)
 
 char	*clean_home_path(char *path, char **envp)
 {
-	char	*home;
-	char	*user;
-	char	*new_path;
-	int		sub_size;
-
+	char *home;
+	char *user;
+	char *new_path;
+	int sub_size;
 
 	home = get_home(envp);
 	user = return_user(path);

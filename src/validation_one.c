@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int check_piping(char *input)
+int	check_piping(char *input)
 {
-	int i;
-	int is_piped;
+	int	i;
+	int	is_piped;
 
 	i = 0;
 	is_piped = 0;
@@ -31,9 +31,9 @@ int check_piping(char *input)
 	return (is_piped);
 }
 
-int initial_pipe_check(char *input)
+int	initial_pipe_check(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] == ' ' && input[i] != '\0')
@@ -51,7 +51,7 @@ int initial_pipe_check(char *input)
 
 int	is_open_quotes(char *input)
 {
-	int *quote_pair;
+	int	*quote_pair;
 
 	quote_pair = find_quote_pairs(input, 0);
 	if (quote_pair[0] != 0 && quote_pair[1] == 0)
@@ -65,7 +65,7 @@ int	is_open_quotes(char *input)
 	return (0);
 }
 
-int check_pipe_token(char *input, int i)
+int	check_pipe_token(char *input, int i)
 {
 	i++;
 	while (input[i] != '\0' && input[i] == ' ')

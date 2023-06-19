@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char *finish_piped_input(char *input)
+char	*finish_piped_input(char *input)
 {
-	char *added_input;
+	char	*added_input;
 
 	while (1)
 	{
@@ -28,9 +28,9 @@ char *finish_piped_input(char *input)
 	return (input);
 }
 
-void sub_pipeline_one(char **input, pid_t *pids, int **pipes, int size)
+void	sub_pipeline_one(char **input, pid_t *pids, int **pipes, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] != 0)
@@ -57,9 +57,9 @@ void sub_pipeline_one(char **input, pid_t *pids, int **pipes, int size)
 	}
 }
 
-void sub_pipeline_two(int size, int **pipes)
+void	sub_pipeline_two(int size, int **pipes)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size - 1)
@@ -72,14 +72,14 @@ void sub_pipeline_two(int size, int **pipes)
 
 void	pipeline(char **input, int size)
 {
-	pid_t	*pids;
-	int	i;
-	int	**pipes;
+	pid_t *pids;
+	int i;
+	int **pipes;
 	int status;
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * size);
 	pipes = (int **)malloc(sizeof(int *) * (size - 1));
-	sub_pipeline_one(input,pids, pipes, size);
+	sub_pipeline_one(input, pids, pipes, size);
 	sub_pipeline_two(size, pipes);
 	i = 0;
 	while (i < size)

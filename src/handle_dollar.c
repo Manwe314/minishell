@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int has_dollar(char *input)
+int	has_dollar(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] != '\0')
@@ -26,14 +26,14 @@ int has_dollar(char *input)
 	return (0);
 }
 
-int variable_name_size(char *input, int i)
+int	variable_name_size(char *input, int i)
 {
-	int size;
+	int	size;
 
 	size = 0;
-
-	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 && \
-	input[i] != 39 && input[i] != '|' && input[i] != '<' && input[i] != '/')
+	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 &&
+			input[i] != 39 && input[i] != '|' && input[i] != '<'
+				&& input[i] != '/')
 	{
 		size++;
 		i++;
@@ -41,10 +41,10 @@ int variable_name_size(char *input, int i)
 	return (size);
 }
 
-char *get_variable_value(char *name)
+char	*get_variable_value(char *name)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	len = ft_strlengnl(name);
 	if (len == 0)
@@ -54,18 +54,18 @@ char *get_variable_value(char *name)
 	i = 0;
 	while (g_global.environ[i] != 0)
 	{
-		if (ft_strncmp(name, g_global.environ[i], len) == 0 \
-		 && g_global.environ[i][len] == '=')
+		if (ft_strncmp(name, g_global.environ[i], len) == 0
+			&& g_global.environ[i][len] == '=')
 			return (ft_strdup(g_global.environ[i] + (len + 1)));
 		i++;
 	}
 	return (ft_strdup(""));
 }
 
-char *expand_variable(char *input, int i, int varibale_size)
+char	*expand_variable(char *input, int i, int varibale_size)
 {
-	char *name;
-	char *value;
+	char	*name;
+	char	*value;
 
 	name = ft_substr(input, ++i, --varibale_size);
 	if (ft_strncmp(name, "?", 1) == 0 && ft_strlen(name) == 1)
@@ -79,7 +79,7 @@ char *expand_variable(char *input, int i, int varibale_size)
 	return (value);
 }
 
-char *handle_dollar(char *input)
+char	*handle_dollar(char *input)
 {
 	char *new_input;
 	int i;
@@ -99,8 +99,9 @@ char *handle_dollar(char *input)
 		if (input[j] == '$')
 		{
 			i = i + variable_name_size(input, j);
-			new_input = ft_strjoingnl(new_input, \
-			expand_variable(input, j, variable_name_size(input, j)));
+			new_input = ft_strjoingnl(new_input,
+										expand_variable(input, j,
+												variable_name_size(input, j)));
 		}
 	}
 	free(input);

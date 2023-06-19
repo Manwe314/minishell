@@ -25,18 +25,18 @@ int	ft_unset_str(char **str)
 	return (j);
 }
 
-int ft_unset(char *str)
+int	ft_unset(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (g_global.environ[++i])
 	{
-		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0) \
-		&& g_global.environ[i][ft_strlengnl(str)] == '=')
+		if ((ft_strncmp(g_global.environ[i], str, ft_strlen(str)) == 0)
+			&& g_global.environ[i][ft_strlengnl(str)] == '=')
 		{
 			free(g_global.environ[i]);
-			while(g_global.environ[i + 1])
+			while (g_global.environ[i + 1])
 			{
 				g_global.environ[i] = ft_strdup(g_global.environ[i + 1]);
 				free(g_global.environ[i + 1]);
@@ -48,4 +48,3 @@ int ft_unset(char *str)
 	}
 	return (ERROR);
 }
-

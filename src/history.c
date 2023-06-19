@@ -17,7 +17,7 @@
 
 void	ft_history(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (g_global.history[++i])
@@ -32,9 +32,9 @@ void	ft_history(void)
 
 int	ft_add_history(char *line)
 {
-	static int nb_history;
-	int i;
-	char **tmp;
+	static int	nb_history;
+	int			i;
+	char		**tmp;
 
 	if (!line)
 		return (ERROR);
@@ -58,7 +58,7 @@ int	ft_add_history(char *line)
 
 void	ft_clear_history(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	clear_history();

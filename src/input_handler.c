@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 22:01:23 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/17 09:29:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_input()
+char	*get_input(void)
 {
-	char* input;
+	char	*input;
 
 	input = readline("minishell$ ");
 	if (input == NULL)
@@ -22,7 +22,7 @@ char *get_input()
 	return (input);
 }
 
-int input_handler(char *input)
+int	input_handler(char *input)
 {
 	char **arguments;
 	char *command;
@@ -47,6 +47,6 @@ int input_handler(char *input)
 		clean_up(arguments, command, input);
 	}
 	else
-		clean_up(0,0,input);
-	return 0;
+		clean_up(0, 0, input);
+	return (0);
 }

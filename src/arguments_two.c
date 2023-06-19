@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int is_after_redirect(char **arguments, int index)
+int	is_after_redirect(char **arguments, int index)
 {
-	int i;
+	int	i;
 
 	if (index == 0)
 		return (0);
@@ -25,14 +25,15 @@ int is_after_redirect(char **arguments, int index)
 	return (0);
 }
 
-int has_command(char **arguments, int index)
+int	has_command(char **arguments, int index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arguments[index][i] != '\0')
 	{
-		if ((arguments[index][i] == '<' || arguments[index][i] == '>') && !is_quoted(arguments[index], i))
+		if ((arguments[index][i] == '<' || arguments[index][i] == '>')
+			&& !is_quoted(arguments[index], i))
 			break ;
 		i++;
 	}
@@ -42,7 +43,7 @@ int has_command(char **arguments, int index)
 		return (1);
 }
 
-char *take_command(char *input)
+char	*take_command(char *input)
 {
 	int i;
 	char *command;

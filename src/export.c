@@ -15,10 +15,10 @@
 
 #include "minishell.h"
 
-char **sub_print_env_one(void)
+char	**sub_print_env_one(void)
 {
-	char **env;
-	int i;
+	char	**env;
+	int		i;
 
 	i = 0;
 	env = (char **)malloc(sizeof(char *) * (split_size(g_global.environ) + 1));
@@ -33,10 +33,10 @@ char **sub_print_env_one(void)
 	return (env);
 }
 
-void sub_print_env_two(char **env, int i)
+void	sub_print_env_two(char **env, int i)
 {
-	int j;
-	char *tmp;
+	int		j;
+	char	*tmp;
 
 	j = i;
 	while (j > 0 && ft_strncmp(env[j - 1], env[j], ft_strlen(env[j - 1])) > 0)

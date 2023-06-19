@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:55:26 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 18:48:06 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:06:09 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ char	*get_command(char *name, char **paths)
 		{
 			temp = ft_strjoin(paths[i], "/");
 			command = ft_strjoin(temp, name);
-			free (temp);
+			free(temp);
 			if (access(command, 0) == 0)
 			{
 				free_split(paths);
 				return (command);
 			}
-			free (command);
+			free(command);
 			i++;
 		}
 	}
@@ -64,11 +64,11 @@ int	detect_path_executable(char *input)
 	return (is_path);
 }
 
-char *remove_path(char *command)
+char	*remove_path(char *command)
 {
-	int	i;
-	int is_slash;
-	char *name;
+	int		i;
+	int		is_slash;
+	char	*name;
 
 	i = 0;
 	is_slash = 0;
@@ -88,9 +88,9 @@ char *remove_path(char *command)
 	return (name);
 }
 
-char *clean_command(char *command, int casse)
+char	*clean_command(char *command, int casse)
 {
-	char *path;
+	char	*path;
 
 	if (casse == 1)
 	{
@@ -112,7 +112,7 @@ char *clean_command(char *command, int casse)
 	return (path);
 }
 
-char *get_clean_command(char **arguments)
+char	*get_clean_command(char **arguments)
 {
 	char *command;
 
