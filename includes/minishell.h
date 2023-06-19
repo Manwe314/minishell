@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/19 23:11:58 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:15:52 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,9 @@ void			handle_ctrl_d(int sig);
 void			handle_ctrl_backslash(int sig);
 void			handle_signals(void);
 int				ft_unset(char *str);
-void update_pwd(char *pwd, int flag);
-char *get_fname_delim_hdoc(char *input, int index);
-char *clean_redirection_token_hdoc(char *input, int start, int end);
-int				rl_replace_line(const char *name);
+void			update_pwd(char *pwd, int flag);
+char			*get_fname_delim_hdoc(char *input, int index);
+char			*clean_redirection_token_hdoc(char *input, int start, int end);
+void			rl_replace_line(const char *text, int clear_undo);
 
 #endif
