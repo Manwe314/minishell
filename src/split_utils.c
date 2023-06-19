@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:40:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:40:34 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:46:10 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	free_split(char **split)
 	int	i;
 
 	i = 0;
+	if (split == 0)
+		return ;
 	while (split[i] != 0)
 	{
 		free(split[i]);

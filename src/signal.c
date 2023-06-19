@@ -33,6 +33,7 @@ void	handle_ctrl_backslash(int sig)
 {
 	rl_on_new_line();
 	rl_redisplay();
+	g_global.exit_status = 131;
 	(void)sig;
 }
 

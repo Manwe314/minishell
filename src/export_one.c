@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:25:30 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:26:10 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:01:17 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int is_in_args(char **args, char *str)
 
 	i = 1;
 	len = 0;
+	if (args[0] == 0)
+		return (-1);
 	while (str[len] != '=' && str[len] != '\0')
 		len++;
 	while (args[i] != 0)

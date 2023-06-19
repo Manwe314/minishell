@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:26:20 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:27:07 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:54:35 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 int is_invalid_identifier(char a)
 {
-	if (a >= 0 && a <= 47)
-		return (1);
-	if (a >= 58 && a <= 64)
+	if (a >= 0 && a <= 64)
 		return (1);
 	if (a >= 91 && a <= 96)
 		return (1);

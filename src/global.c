@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/16 15:54:09 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/19 20:50:08 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void ft_init_global(void)
 {
 	int i;
 	extern char **environ;
+
 	i = 0;
 	while (environ[i])
 		i++;

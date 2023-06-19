@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:55:26 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:57:57 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:48:06 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,24 @@ char	*get_command(char *name, char **paths)
 	int		i;
 
 	i = 0;
-	while (paths[i] != 0)
+	if (paths != 0)
 	{
-		temp = ft_strjoin(paths[i], "/");
-		command = ft_strjoin(temp, name);
-		free (temp);
-		if (access(command, 0) == 0)
+		while (paths[i] != 0)
 		{
-			free_split(paths);
-			return (command);
+			temp = ft_strjoin(paths[i], "/");
+			command = ft_strjoin(temp, name);
+			free (temp);
+			if (access(command, 0) == 0)
+			{
+				free_split(paths);
+				return (command);
+			}
+			free (command);
+			i++;
 		}
-		free (command);
-		i++;
 	}
 	printf("minishell: %s: command not found\n", name);
-	g_global.exit_status = 1;
+	g_global.exit_status = 127;
 	free_split(paths);
 	return (0);
 }
