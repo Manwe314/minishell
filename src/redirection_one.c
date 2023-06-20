@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/17 10:33:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:40:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ void	handle_heredoc(char *delim)
 	char	*temp;
 
 	sub_handle_heredoc_one();
-	while (1)
+
+	signal(SIGINT, handle_ctrl_c);
+	while (g_global.ctrl_c == 0)
 	{
-		if (g_global.ctrl_c == 1)
-			break ;
+
 		input = readline("> ");
 		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
 				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
@@ -61,6 +62,7 @@ void	handle_heredoc(char *delim)
 	sub_handle_heredoc_two();
 	free(delim);
 }
+
 
 void	do_heredocs(char *input)
 {

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/17 10:38:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/19 10:08:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ typedef struct s_global
 	char		*input;
 	char		*here_doc;
 	int			is_cat;
+	int			is_heredoc;
 	int			ctrl_c;
 	char 		*command;
 	int			pid;
 }				t_global;
 extern t_global	g_global;
+void	sub_handle_heredoc_two(void);
+void	sub_handle_heredoc_one(void);
 
 int				input_handler(char *input);
 char			*handle_dollar(char *input);
