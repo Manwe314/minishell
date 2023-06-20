@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/20 15:42:41 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/20 17:24:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,16 @@ int	main(int argc, char *argv[])
 
 	(void)argc;
 	(void)argv;
+
 	ft_init_global();
 	handle_signals();
 
+    struct termios term_settings;
+    tcgetattr(STDIN_FILENO, &term_settings);
+
+    // Désactiver l'affichage du caractère d'interruption (Ctrl+C)
+    term_settings.c_lflag &= ~ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term_settings);
 	while (1)
 	{
 		g_global.is_cat = 0;
@@ -30,9 +37,14 @@ int	main(int argc, char *argv[])
 		g_global.ctrl_c = 0;
 		g_global.command = NULL;
 		g_global.pid = getpid();
-		input = get_input();
+		term_settings.c_lflag |= ECHO;
+        tcsetattr(STDIN_FILENO, TCSANOW, &term_settings);
+        input = readline("minishell$ ");
 		if (input == NULL)
 			break ;
+        term_settings.c_lflag &= ~ECHO;
+        tcsetattr(STDIN_FILENO, TCSANOW, &term_settings);
+
 		g_global.command = input;
 		if (ft_strlengnl(input) > 0)
 			ft_add_history(input);
