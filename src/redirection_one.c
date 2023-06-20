@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/20 15:40:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:41:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	do_heredocs(char *input)
 		if (input[i] == '<' && !is_quoted(input, i))
 			if (input[i + 1] == '<')
 			{
-				delim = get_fname_delim(input, i + 1);
+				delim = get_fname_delim_hdoc(input, i + 1);
 				if (delim != 0)
 					handle_heredoc(delim);
 			}

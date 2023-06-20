@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:22:58 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:23:50 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:07:33 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,18 @@ void	sub_cd_two(char *temp)
 
 int	sub_cd_three(char *temp)
 {
+	char *pwd;
+
+	pwd = getcwd(NULL, 0);
+	update_pwd(pwd, 0);
 	if (chdir(temp) == -1)
 	{
 		ft_putstr_fd("cd: Error while changing repertories\n", 2);
 		free(temp);
 		return (ERROR);
 	}
+	pwd = getcwd(NULL, 0);
+	update_pwd(pwd,1);
 	return (SUCCEED);
 }
 

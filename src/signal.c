@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/19 10:38:18 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:47:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	handle_ctrl_c(int sig)
 			}
 		}
 	}
+
+
+
 }
 
 void	handle_ctrl_d(int sig)
@@ -57,6 +60,7 @@ void	handle_ctrl_backslash(int sig)
 {
 	rl_on_new_line();
 	rl_redisplay();
+	g_global.exit_status = 131;
 	(void)sig;
 }
 

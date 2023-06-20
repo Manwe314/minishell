@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:59:08 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:59:42 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:48:01 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ char	*get_path(char **envp)
 	int i;
 
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
+	while (envp[i] != 0 && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
+	if (envp[i] == 0)
+		return (0);
 	return (envp[i] + 5);
 }
