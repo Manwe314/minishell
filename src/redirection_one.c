@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 23:07:04 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:03:20 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,52 @@ void	handle_heredoc(char *delim)
 {
 	char	*input;
 	char	*temp;
+	char	*buff;
+	int		pip[2];
 
 	sub_handle_heredoc_one();
-	while (1)
+	pipe(pip);
+	g_global.hdoc = 1;
+	g_global.h_pid = fork();
+	if (g_global.h_pid == 0)
 	{
-		if (g_global.ctrl_c == 1)
-			break ;
-		input = readline("> ");
-		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
-				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
-				|| g_global.ctrl_c == 1)
+		while (1)
 		{
-			free(input);
-			break ;
+			close(pip[0]);
+			input = readline("> ");
+			if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
+					&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
+					|| g_global.ctrl_c == 1)
+			{
+				free(input);
+				break ;
+			}
+			temp = input;
+			input = ft_strjoin(input, "\n");
+			free(temp);
+			g_global.here_doc = ft_strjoingnl(g_global.here_doc, input);
 		}
-		temp = input;
-		input = ft_strjoin(input, "\n");
-		free(temp);
-		g_global.here_doc = ft_strjoingnl(g_global.here_doc, input);
+		ft_putstr_fd(g_global.here_doc, pip[1]);
+		close (pip[1]);
+		exit(0);
 	}
+	else
+	{
+		close(pip[1]);
+		waitpid(g_global.h_pid, NULL, 0);
+		if (g_global.ctrl_c != 1)
+		{
+			buff = ft_strdup(" ");
+			while (read(pip[0], buff, 1) > 0)
+			{
+				g_global.here_doc = ft_strjoingnl(g_global.here_doc, buff);
+				buff = ft_strdup(" ");
+			}
+			free(buff);
+		}
+		close(pip[0]);
+	}
+	g_global.hdoc = 0;
 	sub_handle_heredoc_two();
 	free(delim);
 }
@@ -87,17 +114,20 @@ void	do_redirections(char *input)
 
 	if (g_global.is_piped == 0)
 		do_heredocs(input);
-	size = get_fd_size(input);
-	g_global.fds = malloc(sizeof(int) * size);
-	redirect(input, 0, -1, 0);
-	if (g_global.last_in == 1)
+	if (g_global.ctrl_c != 1)
 	{
-		if (pipe(g_global.f_pipes) < 0)
-			error_handler("here_doc", 1);
-		if (dup2(g_global.f_pipes[0], STDIN_FILENO) < 0)
-			error_handler("here_doc dup2", 1);
-		ft_putstr_fd(g_global.here_doc, g_global.f_pipes[1]);
-		close(g_global.f_pipes[1]);
-		g_global.f_pipes[1] = -1;
+		size = get_fd_size(input);
+		g_global.fds = malloc(sizeof(int) * size);
+		redirect(input, 0, -1, 0);
+		if (g_global.last_in == 1)
+		{
+			if (pipe(g_global.f_pipes) < 0)
+				error_handler("here_doc", 1);
+			if (dup2(g_global.f_pipes[0], STDIN_FILENO) < 0)
+				error_handler("here_doc dup2", 1);
+			ft_putstr_fd(g_global.here_doc, g_global.f_pipes[1]);
+			close(g_global.f_pipes[1]);
+			g_global.f_pipes[1] = -1;
+		}
 	}
 }

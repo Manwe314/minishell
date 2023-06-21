@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:29:39 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:30:09 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:05:15 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	ft_echo(char **str)
 	}
 	if (flag != 1)
 		ft_putstr_fd("\n", 1);
-	return (SUCCEED);
+	return (0);
 }

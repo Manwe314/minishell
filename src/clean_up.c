@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:45:21 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:39:55 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	clean_up(char **arguments, char *command, char *input)
 		close(g_global.fds[i]);
 		i++;
 	}
-
 	g_global.fd_size = 0;
 	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
 		error_handler("dup2 clean", 2);
@@ -56,4 +55,7 @@ void	clean_up(char **arguments, char *command, char *input)
 	}
 	g_global.last_in = 0;
 	g_global.last_out = -1;
+	g_global.ctrl_c = 0;
+	g_global.h_pid = -1;
+	g_global.ctrl_c = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/19 23:15:52 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:43:07 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_global
 	int			ctrl_c;
 	char 		*command;
 	int			pid;
+	int			hdoc;
+	pid_t		h_pid;
 }				t_global;
 extern t_global	g_global;
 

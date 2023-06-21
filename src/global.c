@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 23:06:34 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:39:47 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_init_global(void)
 	g_global.last_out = -1;
 	g_global.is_cat = 0;
 	g_global.pid = getpid();
+	g_global.h_pid = -1;
+	g_global.ctrl_c = 0;
 }
 
 char	*ft_remove_n(char *str)

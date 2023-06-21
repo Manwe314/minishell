@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/19 23:06:46 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:41:20 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char *argv[])
 	while (1)
 	{
 		g_global.is_cat = 0;
-		g_global.ctrl_c = 0;
 		g_global.command = NULL;
 		input = get_input();
 		if (input == NULL)
