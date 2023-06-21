@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/20 16:39:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/21 18:38:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	handle_heredoc(char *delim)
 	char	*temp;
 
 	sub_handle_heredoc_one();
-	signal(SIGINT, handle_ctrl_c);
 	while (g_global.ctrl_c == 0)
 	{
 

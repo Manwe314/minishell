@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/20 15:43:50 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/21 10:55:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_global
 	char		*here_doc;
 	int			is_cat;
 	int			is_heredoc;
+	char		*heredoc_input;
+	char		*heredoc_delim;
 	int			ctrl_c;
 	char 		*command;
 	int			pid;
