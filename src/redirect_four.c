@@ -3,33 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_four.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 22:58:39 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 22:59:40 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:17:18 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-char *sub_clean_rt_two_hdoc(char *token, int i, int j, int *q_pair)
+char	*sub_clean_rt_two_hdoc(char *token, int i, int j, int *q_pair)
 {
 	if (i != j && j <= i)
-		token = ft_strjoingnl(token, \
-			ft_substr(g_global.input, j, i - j));
+		token = ft_strjoingnl(token,
+								ft_substr(g_global.input, j, i - j));
 	if (g_global.input[q_pair[0]] == 34)
-		token = ft_strjoingnl(token, ft_substr(g_global.input, \
-		q_pair[0] + 1, q_pair[1] - q_pair[0] - 1));
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
+					q_pair[1] - q_pair[0] - 1));
 	else
-		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
-		q_pair[1] - q_pair[0] - 1));
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
+					q_pair[1] - q_pair[0] - 1));
 	return (token);
 }
 
-char *sub_clean_rt_one_hdoc(char *token, int i, int end, int *q_pair)
+char	*sub_clean_rt_one_hdoc(char *token, int i, int end, int *q_pair)
 {
-	int j;
+	int	j;
 
 	j = i;
 	while (i != end)
@@ -46,19 +45,19 @@ char *sub_clean_rt_one_hdoc(char *token, int i, int end, int *q_pair)
 				i--;
 		}
 		else
-			token = ft_strjoingnl(token, \
-			 ft_substr(g_global.input, j, i - j));
+			token = ft_strjoingnl(token,
+									ft_substr(g_global.input, j, i - j));
 		if (i != end)
 			i++;
 	}
 	return (token);
 }
 
-char *clean_redirection_token_hdoc(char *input, int start, int end)
+char	*clean_redirection_token_hdoc(char *input, int start, int end)
 {
-	int i;
-	int *q_pair;
-	char *token;
+	int		i;
+	int		*q_pair;
+	char	*token;
 
 	q_pair = find_quote_pairs(input, start);
 	i = start;
@@ -68,10 +67,10 @@ char *clean_redirection_token_hdoc(char *input, int start, int end)
 	return (token);
 }
 
-char *get_fname_delim_hdoc(char *input, int index)
+char	*get_fname_delim_hdoc(char *input, int index)
 {
 	int i;
-	int	j;
+	int j;
 	char *fdelim;
 	int *q_pair;
 
@@ -80,8 +79,8 @@ char *get_fname_delim_hdoc(char *input, int index)
 	while (input[i] == ' ')
 		i++;
 	j = i;
-	while (input[i] != ' ' && input[i] != '\0' && input[i] \
-	!= '<' && input[i] != '>')
+	while (input[i] != ' ' && input[i] != '\0' && input[i] != '<'
+		&& input[i] != '>')
 	{
 		if (i == q_pair[0])
 		{

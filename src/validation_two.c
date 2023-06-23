@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:37:21 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:37:50 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:18:33 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	sub_check_rt_two(char *input, int i, int save)
 
 int	check_redirection_token(char *input, int i)
 {
-	int save;
+	int	save;
 
 	save = i + 1;
 	if (input[i] == '>')

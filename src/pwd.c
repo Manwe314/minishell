@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:31:04 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 22:07:25 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:17:15 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_old_pwd(void)
+int	find_old_pwd(void)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (g_global.environ[i] != 0)
@@ -26,9 +26,9 @@ int find_old_pwd(void)
 	return (-1);
 }
 
-int find_pwd(void)
+int	find_pwd(void)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (g_global.environ[i] != 0)
@@ -40,17 +40,17 @@ int find_pwd(void)
 	return (-1);
 }
 
-void make_pwd(char *pwd, int flag)
+void	make_pwd(char *pwd, int flag)
 {
-	int i;
-	char *variable;
-	char **env;
+	int		i;
+	char	*variable;
+	char	**env;
 
 	if (flag == 0)
 		variable = ft_strjoin("OLDPWD=", pwd);
 	if (flag == 1)
 		variable = ft_strjoin("PWD=", pwd);
-	env = (char **)malloc(sizeof(char *) *  (split_size(g_global.environ) + 2));
+	env = (char **)malloc(sizeof(char *) * (split_size(g_global.environ) + 2));
 	i = -1;
 	while (g_global.environ[++i] != 0)
 		env[i] = ft_strdup(g_global.environ[i]);
@@ -60,10 +60,10 @@ void make_pwd(char *pwd, int flag)
 	g_global.environ = env;
 }
 
-void update_pwd(char *pwd, int flag)
+void	update_pwd(char *pwd, int flag)
 {
-	int i;
-	char *temp;
+	int		i;
+	char	*temp;
 
 	if (flag == 0)
 		i = find_old_pwd();
@@ -85,7 +85,7 @@ void update_pwd(char *pwd, int flag)
 
 int	ft_pwd(void)
 {
-	int i;
+	int		i;
 	char	*pwd;
 
 	i = -1;

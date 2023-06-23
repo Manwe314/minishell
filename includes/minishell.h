@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/21 21:43:07 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 23:16:50 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_global
 	char		*input;
 	char		*here_doc;
 	int			is_cat;
+	int			is_heredoc;
+	char		*heredoc_input;
+	char		*heredoc_delim;
 	int			ctrl_c;
 	char 		*command;
 	int			pid;
@@ -58,6 +61,8 @@ typedef struct s_global
 	pid_t		h_pid;
 }				t_global;
 extern t_global	g_global;
+void	sub_handle_heredoc_two(void);
+void	sub_handle_heredoc_one(void);
 
 int				input_handler(char *input);
 char			*handle_dollar(char *input);
