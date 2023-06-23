@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_one.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:49:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:50:21 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:55:06 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_fname_delim(char *input, int index)
 
 int	jump_fdelim(char *input, int i)
 {
-	int *q_pair;
+	int	*q_pair;
 
 	q_pair = find_quote_pairs(input, i);
 	while (input[i] == ' ' || input[i] == '<' || input[i] == '>')

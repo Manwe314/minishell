@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:50:39 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:51:02 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:54:45 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 char	*sub_clean_rt_two(char *token, int i, int j, int *q_pair)
 {
 	if (i != j && j <= i)
-		token = ft_strjoingnl(token,
-								handle_dollar(ft_substr(g_global.input, j, i
-											- j)));
+		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input, \
+		j, i - j)));
 	if (g_global.input[q_pair[0]] == 34)
-		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input,
+		token = ft_strjoingnl(token, handle_dollar(ft_substr(g_global.input, \
 						q_pair[0] + 1, q_pair[1] - q_pair[0] - 1)));
 	else
-		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
 					q_pair[1] - q_pair[0] - 1));
 	return (token);
 }
@@ -46,9 +45,8 @@ char	*sub_clean_rt_one(char *token, int i, int end, int *q_pair)
 				i--;
 		}
 		else
-			token = ft_strjoingnl(token,
-									handle_dollar(ft_substr(g_global.input, j, i
-												- j)));
+			token = ft_strjoingnl(token, handle_dollar(ft_substr(\
+			g_global.input, j, i - j)));
 		if (i != end)
 			i++;
 	}
@@ -57,9 +55,9 @@ char	*sub_clean_rt_one(char *token, int i, int end, int *q_pair)
 
 char	*clean_redirection_token(char *input, int start, int end)
 {
-	int i;
-	int *q_pair;
-	char *token;
+	int		i;
+	int		*q_pair;
+	char	*token;
 
 	q_pair = find_quote_pairs(input, start);
 	i = start;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_two.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:26:20 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 20:54:35 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:04:32 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	match_and_validate(char **arguments, int *err)
 
 int	get_new_env_size(char **arguments, int *err)
 {
-	int env_size;
-	int removal_size;
-	int i;
+	int	env_size;
+	int	removal_size;
+	int	i;
 
 	env_size = 0;
 	while (g_global.environ[env_size] != 0)

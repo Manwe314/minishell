@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expoort_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:28:49 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/16 15:51:11 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/24 01:06:58 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	check_bounds(char *number)
 		return (1);
 	if (ft_strlengnl(number) >= 11 && number[0] != '-')
 		return (1);
-	if (ft_strlengnl(number) == 11 &&
-		ft_strncmp("-2147483647", number, 11) < 0)
+	if (ft_strlengnl(number) == 11 \
+	&& ft_strncmp("-2147483647", number, 11) < 0)
 		return (1);
 	if (ft_strlengnl(number) >= 12)
 		return (1);

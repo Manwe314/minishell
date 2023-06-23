@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 23:12:46 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_init_global(void)
 	g_global.history[0] = NULL;
 	g_global.environ[i] = NULL;
 	g_global.fds = 0;
-	g_global.save_STDIN = dup(STDIN_FILENO);
-	g_global.save_STDOUT = dup(STDOUT_FILENO);
+	g_global.save_stdin = dup(STDIN_FILENO);
+	g_global.save_stdout = dup(STDOUT_FILENO);
 	g_global.here_doc = 0;
 	g_global.last_write_pipe = -1;
 	g_global.f_pipes[0] = -1;
@@ -61,7 +61,7 @@ char	*ft_remove_n(char *str)
 
 void	ft_free_global(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (g_global.environ[++i])

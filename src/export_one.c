@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_one.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:25:30 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 21:01:17 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:06:18 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	is_in_args(char **args, char *str)
 		len++;
 	while (args[i] != 0)
 	{
-		if ((ft_strncmp(args[i], str, len) == 0) &&
-			(args[i][len] == '=' || args[i][len] == '\0'))
+		if ((ft_strncmp(args[i], str, len) == 0) \
+		&& (args[i][len] == '=' || args[i][len] == '\0'))
 			return (i);
 		i++;
 	}
@@ -94,12 +94,12 @@ char	**build_new_env(char **arguments, int size)
 
 int	export(char **arguments)
 {
-	int has_error;
-	char **new_env;
+	int		has_error;
+	char	**new_env;
 
 	has_error = 0;
-	new_env = build_new_env(arguments,
-							get_new_env_size(arguments, &has_error));
+	new_env = build_new_env(arguments, \
+				get_new_env_size(arguments, &has_error));
 	free_split(g_global.environ);
 	g_global.environ = new_env;
 	return (has_error);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:00:52 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:28:34 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/24 01:08:09 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sub_execute_cmd_one(void)
+void	sub_execute_cmd_one(void)
 {
 	if (g_global.last_write_pipe != -1)
 	{
@@ -22,21 +22,21 @@ void sub_execute_cmd_one(void)
 	}
 }
 
-int execute_command(char *command, char **arguments, char **envp)
+int	execute_command(char *command, char **arguments, char **envp)
 {
 	pid_t	executable_to_be_done;
-	int		execve_return;
 	int		status;
+	int		execve_return ;
 
 	if (ft_strncmp(command, "/usr/bin/cat", 12) == 0)
 	{
 		g_global.is_cat = 1;
 	}
 	sub_execute_cmd_one();
-	execve_return = 1;
+	execve_return(= 1);
 	executable_to_be_done = fork();
 	if (executable_to_be_done == 0)
-		execve_return = execve(command, arguments, envp);
+		execve_return(= execve(command, arguments, envp));
 	if (execve_return == -1)
 	{
 		perror(command);
@@ -48,7 +48,7 @@ int execute_command(char *command, char **arguments, char **envp)
 	else if (WIFSIGNALED(status))
 		return (WTERMSIG(status));
 	else
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 }
 
 void	execution(char *command, char **arguments)
@@ -56,5 +56,6 @@ void	execution(char *command, char **arguments)
 	if (ft_is_buitin(arguments))
 		g_global.exit_status = ft_execute_command_builtin(arguments);
 	else if (command != 0)
-		g_global.exit_status = execute_command(command, arguments, g_global.environ);
+		g_global.exit_status = execute_command(command, arguments,
+				g_global.environ);
 }

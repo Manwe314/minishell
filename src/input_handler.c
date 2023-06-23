@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/21 21:30:49 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:00:55 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*get_input(void)
 
 int	input_handler(char *input)
 {
-	char **arguments;
-	char *command;
+	char	**arguments;
+	char	*command;
 
 	if (!validate_input(input))
 		return (error_handler("invalid input", 0));

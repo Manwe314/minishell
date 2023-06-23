@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/23 23:16:50 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_global
 {
 	char		**environ;
 	char		**history;
-	int			save_STDIN;
-	int			save_STDOUT;
+	int			save_stdin;
+	int			save_stdout;
 	int			*fds;
 	int			f_pipes[2];
 	int			last_out;
@@ -55,14 +55,14 @@ typedef struct s_global
 	char		*heredoc_input;
 	char		*heredoc_delim;
 	int			ctrl_c;
-	char 		*command;
+	char		*command;
 	int			pid;
 	int			hdoc;
 	pid_t		h_pid;
 }				t_global;
 extern t_global	g_global;
-void	sub_handle_heredoc_two(void);
-void	sub_handle_heredoc_one(void);
+void			sub_handle_heredoc_two(void);
+void			sub_handle_heredoc_one(void);
 
 int				input_handler(char *input);
 char			*handle_dollar(char *input);

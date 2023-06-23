@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:00:08 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 22:00:30 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:03:18 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	variable_name_size(char *input, int i)
 	int	size;
 
 	size = 0;
-	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 &&
-			input[i] != 39 && input[i] != '|' && input[i] != '<'
-				&& input[i] != '/')
+	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 \
+			&& input[i] != 39 && input[i] != '|' && input[i] != '<' \
+			&& input[i] != '/')
 	{
 		size++;
 		i++;
@@ -81,9 +81,9 @@ char	*expand_variable(char *input, int i, int varibale_size)
 
 char	*handle_dollar(char *input)
 {
-	char *new_input;
-	int i;
-	int j;
+	char	*new_input;
+	int		i;
+	int		j;
 
 	if (!has_dollar(input))
 		return (input);
@@ -99,9 +99,8 @@ char	*handle_dollar(char *input)
 		if (input[j] == '$')
 		{
 			i = i + variable_name_size(input, j);
-			new_input = ft_strjoingnl(new_input,
-										expand_variable(input, j,
-												variable_name_size(input, j)));
+			new_input = ft_strjoingnl(new_input, expand_variable(input, j, \
+						variable_name_size(input, j)));
 		}
 	}
 	free(input);

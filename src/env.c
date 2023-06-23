@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:30:29 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:30:50 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:08:44 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	env_exist(char *str)
 
 int	ft_env(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (g_global.environ[++i] != NULL)

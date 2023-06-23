@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 00:03:08 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	sub_clean_up_two(void)
 
 void	clean_up(char **arguments, char *command, char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	sub_clean_up_one(arguments, command, input);
@@ -43,9 +43,9 @@ void	clean_up(char **arguments, char *command, char *input)
 		i++;
 	}
 	g_global.fd_size = 0;
-	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
+	if (dup2(g_global.save_stdin, STDIN_FILENO) < 0)
 		error_handler("dup2 clean", 2);
-	if (dup2(g_global.save_STDOUT, STDOUT_FILENO) < 0)
+	if (dup2(g_global.save_stdout, STDOUT_FILENO) < 0)
 		error_handler("dup2 clean", 2);
 	g_global.is_piped = 0;
 	if (g_global.here_doc != 0)

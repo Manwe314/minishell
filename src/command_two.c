@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:58:12 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:58:47 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:09:34 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int	home_begin_size(char *home)
 
 char	*clean_home_path(char *path, char **envp)
 {
-	char *home;
-	char *user;
-	char *new_path;
-	int sub_size;
+	char	*home;
+	char	*user;
+	char	*new_path;
+	int		sub_size;
 
 	home = get_home(envp);
 	user = return_user(path);

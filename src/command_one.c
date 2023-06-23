@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:55:26 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 23:06:09 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:10:26 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*clean_command(char *command, int casse)
 
 char	*get_clean_command(char **arguments)
 {
-	char *command;
+	char	*command;
 
 	if (arguments[0] != 0)
 	{

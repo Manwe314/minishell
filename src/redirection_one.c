@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 23:14:11 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	sub_handle_heredoc_one(void)
 		free(g_global.here_doc);
 		g_global.here_doc = 0;
 	}
-	if (dup2(g_global.save_STDIN, STDIN_FILENO) < 0)
+	if (dup2(g_global.save_stdin, STDIN_FILENO) < 0)
 		error_handler("here_doc", 2);
-	if (dup2(g_global.save_STDOUT, STDOUT_FILENO) < 0)
+	if (dup2(g_global.save_stdout, STDOUT_FILENO) < 0)
 		error_handler("here_doc", 2);
 }
 
@@ -52,9 +52,10 @@ void	handle_heredoc(char *delim)
 		{
 			close(pip[0]);
 			input = readline("> ");
-			if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
-					&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
-					|| g_global.ctrl_c == 1)
+			if ((ft_strncmp(delim, input,
+						(unsigned int)ft_strlengnl(delim)) == 0
+					&& ft_strlen(delim) == ft_strlen(input)) || input == NULL
+				|| g_global.ctrl_c == 1)
 			{
 				free(input);
 				break ;
@@ -65,7 +66,7 @@ void	handle_heredoc(char *delim)
 			g_global.here_doc = ft_strjoingnl(g_global.here_doc, input);
 		}
 		ft_putstr_fd(g_global.here_doc, pip[1]);
-		close (pip[1]);
+		close(pip[1]);
 		exit(0);
 	}
 	else
@@ -98,19 +99,21 @@ void	do_heredocs(char *input)
 	while (input[i] != '\0')
 	{
 		if (input[i] == '<' && !is_quoted(input, i))
+		{
 			if (input[i + 1] == '<')
 			{
 				delim = get_fname_delim_hdoc(input, i + 1);
 				if (delim != 0)
 					handle_heredoc(delim);
 			}
+		}
 		i++;
 	}
 }
 
 void	do_redirections(char *input)
 {
-	int size;
+	int	size;
 
 	if (g_global.is_piped == 0)
 		do_heredocs(input);

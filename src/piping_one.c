@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_one.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:43:09 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:43:53 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:00:09 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	piping(char *input)
 
 char	*set_up_piping(char *input)
 {
-	char *temp;
+	char	*temp;
 
 	if (initial_pipe_check(input) == 1)
 	{

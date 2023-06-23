@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:38:27 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:24:32 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	error_handler(char *msg, int flag)
 	if (flag == 2)
 	{
 		perror(msg);
-		ft_putstr_fd("Fatal Error\n", g_global.save_STDOUT);
+		ft_putstr_fd("Fatal Error\n", g_global.save_stdout);
 		g_global.error_status = 2;
 		return (-1);
 	}

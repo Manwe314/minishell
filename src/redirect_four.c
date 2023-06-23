@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_four.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 22:58:39 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:17:18 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/24 00:56:51 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 char	*sub_clean_rt_two_hdoc(char *token, int i, int j, int *q_pair)
 {
 	if (i != j && j <= i)
-		token = ft_strjoingnl(token,
-								ft_substr(g_global.input, j, i - j));
+		token = ft_strjoingnl(token, \
+		ft_substr(g_global.input, j, i - j));
 	if (g_global.input[q_pair[0]] == 34)
-		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
-					q_pair[1] - q_pair[0] - 1));
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
+		q_pair[1] - q_pair[0] - 1));
 	else
-		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1,
-					q_pair[1] - q_pair[0] - 1));
+		token = ft_strjoingnl(token, ft_substr(g_global.input, q_pair[0] + 1, \
+		q_pair[1] - q_pair[0] - 1));
 	return (token);
 }
 
@@ -45,8 +45,8 @@ char	*sub_clean_rt_one_hdoc(char *token, int i, int end, int *q_pair)
 				i--;
 		}
 		else
-			token = ft_strjoingnl(token,
-									ft_substr(g_global.input, j, i - j));
+			token = ft_strjoingnl(token, \
+					ft_substr(g_global.input, j, i - j));
 		if (i != end)
 			i++;
 	}
@@ -69,10 +69,10 @@ char	*clean_redirection_token_hdoc(char *input, int start, int end)
 
 char	*get_fname_delim_hdoc(char *input, int index)
 {
-	int i;
-	int j;
-	char *fdelim;
-	int *q_pair;
+	int		i;
+	int		j;
+	char	*fdelim;
+	int		*q_pair;
 
 	i = index + 1;
 	q_pair = find_quote_pairs(input, index);

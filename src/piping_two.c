@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_two.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:44:04 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/21 21:47:58 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:59:40 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ char	*finish_piped_input(char *input)
 	{
 		added_input = readline("> ");
 		if (is_all_space(added_input) == 0)
+		{
 			if (initial_pipe_check(added_input) != 1)
 				break ;
+		}
 		input = ft_strjoingnl(input, added_input);
 	}
 	input = ft_strjoingnl(input, added_input);
@@ -72,10 +74,10 @@ void	sub_pipeline_two(int size, int **pipes)
 
 void	pipeline(char **input, int size)
 {
-	pid_t *pids;
-	int i;
-	int **pipes;
-	int status;
+	pid_t	*pids;
+	int		i;
+	int		**pipes;
+	int		status;
 
 	pids = (pid_t *)malloc(sizeof(pid_t) * size);
 	pipes = (int **)malloc(sizeof(int *) * (size - 1));

@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/24 00:37:35 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:00:16 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char *argv[])
 	while (1)
 	{
 		g_global.is_cat = 0;
-
 		input = get_input();
 		if (input == NULL)
 			break ;

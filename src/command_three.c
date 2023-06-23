@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_three.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:59:08 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 18:48:01 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:09:57 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	command_start_index(char *input, int start)
 
 char	*get_path(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i] != 0 && ft_strncmp(envp[i], "PATH=", 5) != 0)
