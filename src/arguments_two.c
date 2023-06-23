@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:53:32 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:54:42 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:14:20 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	has_command(char **arguments, int index)
 
 char	*take_command(char *input)
 {
-	int i;
-	char *command;
+	int		i;
+	char	*command;
 
 	i = 0;
 	command = 0;

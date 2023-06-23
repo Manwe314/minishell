@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_q.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:40:46 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:41:16 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:25:07 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	make_strings_q(char *s, char c, char **strings)
 
 char	**ft_split_q(char *s, char c)
 {
-	char **strings;
-	int words;
+	char	**strings;
+	int		words;
 
 	if (!s)
 		return (0);

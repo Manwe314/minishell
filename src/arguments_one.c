@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_one.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:51:52 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:53:10 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:13:40 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,8 @@ void	remove_quotes_from_args(char **arguments)
 		q_pair = find_quote_pairs(arguments[i], 0);
 		if (q_pair[1] != 0)
 		{
-			temp = clean_redirection_token(arguments[i],
-											0,
-											ft_strlengnl(arguments[i]));
+			temp = clean_redirection_token(arguments[i], 0,
+					ft_strlengnl(arguments[i]));
 			free(arguments[i]);
 			arguments[i] = temp;
 		}
@@ -95,7 +94,7 @@ void	remove_quotes_from_args(char **arguments)
 
 char	**clean_up_split(char **arguments)
 {
-	char **new_arguments;
+	char	**new_arguments;
 
 	new_arguments = remove_redirections(arguments);
 	remove_quotes_from_args(new_arguments);

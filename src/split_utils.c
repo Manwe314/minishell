@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:40:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 18:46:10 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:24:52 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	split_size(char **split)
 
 void	free_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (split == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:22:58 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/19 22:07:33 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:15:56 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	sub_cd_two(char *temp)
 
 int	sub_cd_three(char *temp)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	update_pwd(pwd, 0);
@@ -53,13 +53,13 @@ int	sub_cd_three(char *temp)
 		return (ERROR);
 	}
 	pwd = getcwd(NULL, 0);
-	update_pwd(pwd,1);
+	update_pwd(pwd, 1);
 	return (SUCCEED);
 }
 
 int	ft_cd(char **path)
 {
-	char *temp;
+	char	*temp;
 
 	if (path[1] == 0 || path[1][0] == '~')
 	{

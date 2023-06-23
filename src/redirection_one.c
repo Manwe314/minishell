@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_one.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/21 18:38:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/23 22:17:31 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ void	handle_heredoc(char *delim)
 	sub_handle_heredoc_one();
 	while (g_global.ctrl_c == 0)
 	{
-
 		input = readline("> ");
 		if ((ft_strncmp(delim, input, (unsigned int)ft_strlengnl(delim)) == 0
-				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL \
-				|| g_global.ctrl_c == 1)
+				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL
+			|| g_global.ctrl_c == 1)
 		{
 			free(input);
 			break ;
@@ -60,7 +59,6 @@ void	handle_heredoc(char *delim)
 	sub_handle_heredoc_two();
 	free(delim);
 }
-
 
 void	do_heredocs(char *input)
 {
