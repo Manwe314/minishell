@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:38:27 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:39:48 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:24:32 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	is_all_space(char *input)
 
 int	*find_quote_pairs(char *input, int start)
 {
-	int i;
-	int j;
-	static int quote_pair[2];
+	int			i;
+	int			j;
+	static int	quote_pair[2];
 
 	i = start - 1;
 	quote_pair[0] = 0;

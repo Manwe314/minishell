@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_one.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:35:38 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/15 21:42:24 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:23:51 by hall             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,12 @@ int	check_pipe_token(char *input, int i)
 
 int	validate_input(char *input)
 {
-	int i;
-	int *quote_pair;
+	int	i;
+	int	*quote_pair;
 
 	i = 0;
 	if (is_open_quotes(input))
 		return (0);
-
 	quote_pair = find_quote_pairs(input, 0);
 	while (input[i] != '\0')
 	{

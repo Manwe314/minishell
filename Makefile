@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/06/16 17:13:03 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/06/20 18:36:24 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS 		= ${shell find ./src -iname "*.c"}
 HEADERS		= -I ./includes/ -I ~/.brew/opt/readline/include/readline/
 LIBS		= ${LIBFT}/libft.a -L ~/.brew/opt/readline/lib/
 LIBFT		= ./lib/libft
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -lreadline -ltinfo
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
 
@@ -31,7 +31,7 @@ libft:
 		@${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
 ${NAME}:	${OBJS}
-		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
+		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline -lncurses -ltinfo
 
 
 clean:
