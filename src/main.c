@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/23 23:13:18 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/23 23:55:17 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	main(int argc, char *argv[])
 	handle_signals();
 	while (1)
 	{
-		g_global.is_cat = 0;
-		g_global.is_heredoc = 0;
-		g_global.ctrl_c = 0;
-		g_global.command = NULL;
-		g_global.pid = getpid();
 		input = readline("minishell$ ");
 		if (input == NULL)
 			break ;
+		g_global.is_cat = 0;
+		g_global.is_heredoc = 0;
+		g_global.command = NULL;
+		g_global.pid = getpid();
+		g_global.ctrl_c = 0;
 		g_global.command = input;
 		if (ft_strlengnl(input) > 0)
 			ft_add_history(input);

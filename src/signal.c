@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/23 23:15:27 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 00:01:49 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	handle_ctrl_c(int sig)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		if (g_global.is_heredoc == 1)
+		if (g_global.hdoc == 1)
 		{
 			rl_redisplay();
-			g_global.is_heredoc = 0;
+			g_global.hdoc = 0;
 			return ;
 		}
 		if ((rl_line_buffer[0] == '\0' || !rl_line_buffer) && g_global.is_cat == 0 && g_global.is_piped == 0)
