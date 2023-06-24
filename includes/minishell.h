@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:33:42 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void			sub_handle_heredoc_two(void);
 void			sub_handle_heredoc_one(void);
 
 int				input_handler(char *input);
+int				heredoc(int pip0, int pip1, char *delim);
 char			*handle_dollar(char *input);
 char			*expand_variable(char *input, int i, int varibale_size);
 char			*get_variable_value(char *name);
@@ -156,7 +157,6 @@ void			ft_clear_history(void);
 int				ft_add_history(char *line);
 void			ft_history(void);
 void			ft_free_global(void);
-char			*ft_remove_n(char *str);
 void			ft_init_global(void);
 void			ft_init_global_two(void);
 void			handle_ctrl_c(int sig);

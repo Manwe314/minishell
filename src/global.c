@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:34:45 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ void	ft_init_global_two(void)
 	g_global.is_piped = 0;
 	g_global.error_status = 0;
 	g_global.exit_status = 0;
+}
+
+void	ft_init_global_2(void)
+{
+	g_global.f_pipes[0] = -1;
+	g_global.f_pipes[1] = -1;
+	g_global.last_out = -1;
+	g_global.is_cat = 0;
+	g_global.pid = getpid();
+	g_global.h_pid = -1;
+	g_global.ctrl_c = 0;
 }
 
 void	ft_init_global(void)
@@ -43,20 +54,7 @@ void	ft_init_global(void)
 	g_global.save_stdout = dup(STDOUT_FILENO);
 	g_global.here_doc = 0;
 	g_global.last_write_pipe = -1;
-	g_global.f_pipes[0] = -1;
-	g_global.f_pipes[1] = -1;
-	g_global.last_out = -1;
-	g_global.is_cat = 0;
-	g_global.pid = getpid();
-	g_global.h_pid = -1;
-	g_global.ctrl_c = 0;
-}
-
-char	*ft_remove_n(char *str)
-{
-	if (str[ft_strlen(str) - 1] == '\n')
-		str[ft_strlen(str) - 1] = '\0';
-	return (str);
+	ft_init_global_2();
 }
 
 void	ft_free_global(void)

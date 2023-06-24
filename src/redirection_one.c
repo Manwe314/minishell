@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:31:38 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	sub_handle_heredoc_two(void)
 
 void	handle_heredoc(char *delim)
 {
-	char	*input;
-	char	*temp;
 	char	*buff;
 	int		pip[2];
 
@@ -47,44 +45,20 @@ void	handle_heredoc(char *delim)
 	g_global.hdoc = 1;
 	g_global.h_pid = fork();
 	if (g_global.h_pid == 0)
+		exit(heredoc(pip[0], pip[1], delim));
+	close(pip[1]);
+	waitpid(g_global.h_pid, NULL, 0);
+	if (g_global.ctrl_c != 1)
 	{
-		while (1)
+		buff = ft_strdup(" ");
+		while (read(pip[0], buff, 1) > 0)
 		{
-			close(pip[0]);
-			input = readline("> ");
-			if ((ft_strncmp(delim, input,
-						(unsigned int)ft_strlengnl(delim)) == 0
-					&& ft_strlen(delim) == ft_strlen(input)) || input == NULL
-				|| g_global.ctrl_c == 1)
-			{
-				free(input);
-				break ;
-			}
-			temp = input;
-			input = ft_strjoin(input, "\n");
-			free(temp);
-			g_global.here_doc = ft_strjoingnl(g_global.here_doc, input);
-		}
-		ft_putstr_fd(g_global.here_doc, pip[1]);
-		close(pip[1]);
-		exit(0);
-	}
-	else
-	{
-		close(pip[1]);
-		waitpid(g_global.h_pid, NULL, 0);
-		if (g_global.ctrl_c != 1)
-		{
+			g_global.here_doc = ft_strjoingnl(g_global.here_doc, buff);
 			buff = ft_strdup(" ");
-			while (read(pip[0], buff, 1) > 0)
-			{
-				g_global.here_doc = ft_strjoingnl(g_global.here_doc, buff);
-				buff = ft_strdup(" ");
-			}
-			free(buff);
 		}
-		close(pip[0]);
+		free(buff);
 	}
+	close(pip[0]);
 	g_global.hdoc = 0;
 	sub_handle_heredoc_two();
 	free(delim);

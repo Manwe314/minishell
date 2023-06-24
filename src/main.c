@@ -6,13 +6,24 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/24 01:00:16 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:36:46 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_global	g_global;
+
+void	reset_global(char *input)
+{
+	g_global.is_cat = 0;
+	g_global.is_heredoc = 0;
+	g_global.command = NULL;
+	g_global.pid = getpid();
+	g_global.ctrl_c = 0;
+	g_global.is_piped = 0;
+	g_global.command = input;
+}
 
 int	main(int argc, char *argv[])
 {
@@ -28,13 +39,7 @@ int	main(int argc, char *argv[])
 		input = get_input();
 		if (input == NULL)
 			break ;
-		g_global.is_cat = 0;
-		g_global.is_heredoc = 0;
-		g_global.command = NULL;
-		g_global.pid = getpid();
-		g_global.ctrl_c = 0;
-		g_global.is_piped = 0;
-		g_global.command = input;
+		reset_global(input);
 		if (ft_strlengnl(input) > 0)
 			ft_add_history(input);
 		input_handler(input);
