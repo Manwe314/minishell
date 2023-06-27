@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_one.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:35:38 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:23:51 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/27 21:16:39 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	initial_pipe_check(char *input)
 	int	i;
 
 	i = 0;
+	if (input == 0)
+		return (-1);
 	while (input[i] == ' ' && input[i] != '\0')
 		i++;
 	if (input[i] == '|')

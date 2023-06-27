@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_two.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:44:04 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 00:59:40 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:17:17 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*finish_piped_input(char *input)
 		}
 		input = ft_strjoingnl(input, added_input);
 	}
-	input = ft_strjoingnl(input, added_input);
+	if (added_input != 0)
+		input = ft_strjoingnl(input, added_input);
 	return (input);
 }
 

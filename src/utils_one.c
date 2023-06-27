@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:38:27 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:15:56 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	is_all_space(char *input)
 
 	i = 0;
 	j = 0;
+	if (input == 0)
+		return (0);
 	while (input[i] != '\0')
 	{
 		if (input[i] == ' ' || input[i] == '	')

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/06/27 17:18:42 by beaudibe         ###   ########.fr        #
+#    Updated: 2023/06/27 21:13:10 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRCS 		=	src/arguments_one.c 			\
 HEADERS		= -I ./includes/ -I ~/.brew/opt/readline/include/readline/
 LIBS		= ${LIBFT}/libft.a -L ~/.brew/opt/readline/lib/
 LIBFT		= ./lib/libft
-CFLAGS		= -Wall -Wextra -Werror -g -lreadline
+CFLAGS		= -Wall -Wextra -Werror -g
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
 
