@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/27 17:26:37 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:48:25 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	handle_ctrl_c(int sig)
 			return ;
 		}
 		if (g_global.is_waiting == 1)
-		{
 			return ;
-		}
 		if ((rl_line_buffer[0] == '\0' || !rl_line_buffer)
 			&& g_global.is_cat == 0 && g_global.is_piped == 0)
 			rl_redisplay();
@@ -42,9 +40,15 @@ void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
 	g_global.exit_status = 131;
-	if (g_global.is_waiting == 1)
+	if (g_global.is_waiting == 1 && g_global.hdoc == 0)
 	{
 		ft_putstr_fd("^\\Quit: 3\n", 1);
+		return ;
+	}
+	if (g_global.h_pid > 0)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
 		return ;
 	}
 	rl_on_new_line();
