@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/24 00:51:14 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:37:03 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
 	g_global.exit_status = 131;
+	if (g_global.is_waiting == 1)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+		return ;
+	}
 	rl_on_new_line();
 	rl_redisplay();
-	g_global.exit_status = 131;
-	(void)sig;
 }
 
 void	handle_signals(void)

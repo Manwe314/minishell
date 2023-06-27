@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/24 17:36:46 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:36:51 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int	main(int argc, char *argv[])
 	while (1)
 	{
 		g_global.is_cat = 0;
+		g_global.is_waiting = 0;
 		input = get_input();
 		if (input == NULL)
 			break ;
+		g_global.is_waiting = 1;
 		reset_global(input);
 		if (ft_strlengnl(input) > 0)
 			ft_add_history(input);

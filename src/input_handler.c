@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:00:55 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:35:19 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_input(void)
 {
 	char	*input;
 
-	input = readline("minishell$ ");
+	input = readline("\033[1;32mminishell$ \033[0m");
 	if (input == NULL)
 		return (NULL);
 	return (input);
