@@ -2,5 +2,10 @@
 	"dimmer.enabled": true,
 	"files.associations": {
 		"minishell.h": "c"
+	},
+	"workbench.colorCustomizations": {
+		"activityBar.background": "#37126E",
+		"titleBar.activeBackground": "#4D199A",
+		"titleBar.activeForeground": "#FCFBFE"
 	}
 }
