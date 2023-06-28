@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:12:20 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:22:23 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	clean_up(char **arguments, char *command, char *input)
 		g_global.here_doc = 0;
 	}
 	g_global.last_in = 0;
+	g_global.error_status = 0;
 	g_global.last_out = -1;
 	g_global.ctrl_c = 0;
 	g_global.h_pid = -1;
