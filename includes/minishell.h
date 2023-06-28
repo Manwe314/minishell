@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/28 15:49:01 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:09:30 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,8 @@ void			update_pwd(char *pwd, int flag);
 char			*get_fname_delim_hdoc(char *input, int index);
 char			*clean_redirection_token_hdoc(char *input, int start, int end);
 void			rl_replace_line(const char *text, int clear_undo);
+char			**remove_duplicates(char **arguments);
+char			**refactor_arguments(char **arguments);
+char			*get_variable_name(char *input);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_one.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:25:30 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:06:18 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:09:42 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ int	export(char **arguments)
 	char	**new_env;
 
 	has_error = 0;
+	arguments = remove_duplicates(arguments);
 	new_env = build_new_env(arguments, \
 				get_new_env_size(arguments, &has_error));
 	free_split(g_global.environ);
+	free_split(arguments);
 	g_global.environ = new_env;
 	return (has_error);
 }
