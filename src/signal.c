@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/27 19:48:25 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:52:54 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ void	handle_ctrl_backslash(int sig)
 		rl_on_new_line();
 		return ;
 	}
-	rl_on_new_line();
-	rl_redisplay();
+	if (g_global.no_env == 0)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void	handle_signals(void)
 {
-	input_handler(ft_strdup("stty -echoctl"));
+	input_handler(ft_strdup("/bin/stty -echoctl"));
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, handle_ctrl_backslash);
 	signal(SIGTSTP, SIG_IGN);

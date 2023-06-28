@@ -6,7 +6,7 @@
 /*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 17:34:45 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:52:48 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	ft_init_global(void)
 	i = 0;
 	while (environ[i])
 		i++;
+	g_global.no_env = 0;
+	if (i == 0)
+		g_global.no_env = 1;
 	g_global.environ = malloc(sizeof(char *) * (i + 1));
 	i = -1;
 	while (environ[++i])
