@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:22:58 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:15:56 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/30 18:35:31 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	sub_cd_three(char *temp)
 		return (ERROR);
 	}
 	pwd = getcwd(NULL, 0);
+	if (pwd == 0)
+		update_pwd_er();
 	update_pwd(pwd, 1);
 	return (SUCCEED);
 }

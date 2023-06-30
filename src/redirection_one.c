@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/28 19:12:55 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:16:12 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,12 @@ void	do_heredocs(char *input)
 
 void	do_redirections(char *input)
 {
-	int	size;
-
 	if (g_global.is_piped == 0)
 		do_heredocs(input);
 	if (g_global.ctrl_c != 1)
 	{
-		size = get_fd_size(input);
-		g_global.fds = malloc(sizeof(int) * size);
+		g_global.fsize = get_fd_size(input);
+		g_global.fds = malloc(sizeof(int) * g_global.fsize);
 		redirect(input, 0, -1, 0);
 		if (g_global.last_in == 1)
 		{

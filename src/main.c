@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/28 19:21:57 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:15:31 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,3 @@ int	main(int argc, char *argv[])
 	ft_free_global();
 	return (g_global.exit_status);
 }
-
-/*
-signals in heredoc
-signals ( \ ) exit code
-exit code of ctrl \ is 131;
-muting siganl apperances with termios
-heredoc name varibale never changes <- done
-pwd dosent work when in a directory and rm
-	-rf ../directory shouyld still print after pwd we get error msg <- done
-if unset PATH it segfaults.  <- done
-if env  is not included it segfaults <- done
-
-*/

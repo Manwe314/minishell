@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:01 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/28 19:22:23 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:15:19 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,22 @@ void	sub_clean_up_one(char **arguments, char *command, char *input)
 
 void	sub_clean_up_two(void)
 {
-	if (g_global.fds != 0)
-	{
+	g_global.last_in = 0;
+	g_global.error_status = 0;
+	g_global.last_out = -1;
+	g_global.ctrl_c = 0;
+	g_global.h_pid = -1;
+	g_global.is_piped = 0;
+}
+
+void	sub_clean_up_three(char *input)
+{
+	if (check_piping(input) != 1)
 		free(g_global.fds);
-		g_global.fds = 0;
+	if (g_global.here_doc != 0)
+	{
+		free(g_global.here_doc);
+		g_global.here_doc = 0;
 	}
 }
 
@@ -36,6 +48,7 @@ void	clean_up(char **arguments, char *command, char *input)
 	int	i;
 
 	i = 0;
+	sub_clean_up_three(input);
 	sub_clean_up_one(arguments, command, input);
 	while (i < g_global.fd_size)
 	{
@@ -47,15 +60,5 @@ void	clean_up(char **arguments, char *command, char *input)
 		error_handler("dup2 clean", 2);
 	if (dup2(g_global.save_stdout, STDOUT_FILENO) < 0)
 		error_handler("dup2 clean", 2);
-	g_global.is_piped = 0;
-	if (g_global.here_doc != 0)
-	{
-		free(g_global.here_doc);
-		g_global.here_doc = 0;
-	}
-	g_global.last_in = 0;
-	g_global.error_status = 0;
-	g_global.last_out = -1;
-	g_global.ctrl_c = 0;
-	g_global.h_pid = -1;
+	sub_clean_up_two();
 }

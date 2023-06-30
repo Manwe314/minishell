@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/28 16:09:30 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:16:23 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ typedef struct s_global
 {
 	char		**environ;
 	char		**history;
+	char		*command;
+	char		*input;
+	char		*here_doc;
+	char		*heredoc_delim;
+	char		*heredoc_input;
 	int			save_stdin;
 	int			save_stdout;
 	int			*fds;
@@ -48,24 +53,20 @@ typedef struct s_global
 	int			is_piped;
 	int			fd_size;
 	int			exit_status;
-	char		*input;
-	char		*here_doc;
 	int			is_cat;
 	int			is_heredoc;
-	char		*heredoc_input;
-	char		*heredoc_delim;
 	int			ctrl_c;
-	char		*command;
 	int			pid;
 	int			hdoc;
-	pid_t		h_pid;
 	int			no_env;
 	int			is_waiting;
+	int			fsize;
+	pid_t		h_pid;
 }				t_global;
 extern t_global	g_global;
+
 void			sub_handle_heredoc_two(void);
 void			sub_handle_heredoc_one(void);
-
 int				input_handler(char *input);
 int				heredoc(int pip0, int pip1, char *delim);
 char			*handle_dollar(char *input);
@@ -105,7 +106,7 @@ int				command_start_index(char *input, int start);
 int				jump_fdelim(char *input, int i);
 void			do_redirections(char *input);
 void			redirect(char *input, int i, int j, char *name);
-int				change_fd(char *input, int i, char *name, int fd);
+int				change_fd(char *dir, char *name, int fd);
 int				get_fd_size(char *input);
 void			do_heredocs(char *input);
 char			*get_fname_delim(char *input, int index);
@@ -130,6 +131,7 @@ int				is_open_quotes(char *input);
 int				error_handler(char *msg, int flag);
 void			free_split(char **split);
 int				split_size(char **split);
+int				find_pwd(void);
 char			*get_input(void);
 int				ft_cd(char **path);
 int				env_exist(char *str);
@@ -173,5 +175,6 @@ void			rl_replace_line(const char *text, int clear_undo);
 char			**remove_duplicates(char **arguments);
 char			**refactor_arguments(char **arguments);
 char			*get_variable_name(char *input);
+void			update_pwd_er(void);
 
 #endif

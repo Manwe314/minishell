@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hall <hall@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:31:04 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/23 22:17:15 by hall             ###   ########.fr       */
+/*   Updated: 2023/06/30 19:16:06 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	make_pwd(char *pwd, int flag)
 	char	*variable;
 	char	**env;
 
+	if (pwd == 0)
+		return ;
 	if (flag == 0)
 		variable = ft_strjoin("OLDPWD=", pwd);
 	if (flag == 1)
@@ -73,12 +75,15 @@ void	update_pwd(char *pwd, int flag)
 		make_pwd(pwd, flag);
 	else
 	{
-		temp = g_global.environ[i];
-		if (flag == 0)
-			g_global.environ[i] = ft_strjoin("OLDPWD=", pwd);
-		if (flag == 1)
-			g_global.environ[i] = ft_strjoin("PWD=", pwd);
-		free(temp);
+		if (pwd != 0)
+		{
+			temp = g_global.environ[i];
+			if (flag == 0)
+				g_global.environ[i] = ft_strjoin("OLDPWD=", pwd);
+			if (flag == 1)
+				g_global.environ[i] = ft_strjoin("PWD=", pwd);
+			free(temp);
+		}
 	}
 	free(pwd);
 }

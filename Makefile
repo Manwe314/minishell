@@ -6,7 +6,7 @@
 #    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/06/28 16:08:37 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/06/30 18:35:22 by lkukhale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ SRCS 		=	src/arguments_one.c 			\
 				src/get_next_line_bonus.c 		\
 				src/piping_two.c 				\
 				src/split_q.c					\
-				src/export_five.c
+				src/export_five.c				 \
+				src/norm_overflow.c
 
 HEADERS		= -I ./includes/ -I ~/.brew/opt/readline/include/readline/
 LIBS		= ${LIBFT}/libft.a -L ~/.brew/opt/readline/lib/

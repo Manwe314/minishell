@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:47:46 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 00:55:23 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:16:47 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	sub_redirect_one(char *input, int i, int j, char *name)
 {
 	g_global.last_in = -1;
 	name = get_fname_delim(input, i);
-	if (change_fd(input, i, name, j) < 0)
+	if (change_fd("inf", name, j) < 0)
 	{
 		error_handler("infile", 1);
 		free(name);
@@ -30,7 +30,7 @@ int	sub_redirect_one(char *input, int i, int j, char *name)
 int	sub_redirect_two(char *input, int i, int j, char *name)
 {
 	name = get_fname_delim(input, i);
-	if (change_fd(input, i, name, j) < 0)
+	if (change_fd("ofa", name, j) < 0)
 	{
 		error_handler("outfile", 1);
 		free(name);
@@ -45,7 +45,7 @@ int	sub_redirect_two(char *input, int i, int j, char *name)
 int	sub_redirect_three(char *input, int i, int j, char *name)
 {
 	name = get_fname_delim(input, i);
-	if (change_fd(input, i, name, j) < 0)
+	if (change_fd("oft", name, j) < 0)
 	{
 		error_handler("outfile", 1);
 		free(name);
