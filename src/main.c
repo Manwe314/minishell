@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/30 19:15:31 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:34:35 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char *argv[])
 	{
 		g_global.is_cat = 0;
 		g_global.is_waiting = 0;
+		g_global.stop_signal = 0;
 		input = get_input();
 		if (input == NULL)
 			break ;

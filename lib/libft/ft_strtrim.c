@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:02:06 by lkukhale          #+#    #+#             */
-/*   Updated: 2022/11/21 20:54:29 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:44:03 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	counter(char const *s1, char const *set, size_t *count)
 	int		status;
 
 	i = ft_strlen(s1) - 1;
-	while (i >= 0)
+	while (i)
 	{
 		j = 0;
 		while (set[j] != '\0')

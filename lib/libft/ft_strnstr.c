@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 21:36:45 by lkukhale          #+#    #+#             */
-/*   Updated: 2022/11/17 17:15:31 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:42:28 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	is_there(const char *haystack, const char *needle, size_t len, size_t i)
 {
 	size_t	id;
-	char	*find;
 	int		cmp;
 
-	find = (char *)needle;
 	id = 0;
 	while (haystack[i + id] == needle[id] && (needle[id] != '\0'))
 	{
@@ -37,12 +35,10 @@ int	is_there(const char *haystack, const char *needle, size_t len, size_t i)
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*find;
 	char	*hay;
 	size_t	i;
 
 	hay = (char *)haystack;
-	find = (char *)needle;
 	if ((int)ft_strlen(needle) == 0)
 		return (hay);
 	i = 0;
