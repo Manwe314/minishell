@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+         #
+#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/06/30 18:35:22 by lkukhale         ###   ########.fr        #
+#    Updated: 2023/07/03 15:04:16 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= minishell
 USER		= lkukhale
+
 
 SRCS 		=	src/arguments_one.c 			\
 				src/env.c 						\
@@ -57,15 +58,15 @@ SRCS 		=	src/arguments_one.c 			\
 				src/export_five.c				 \
 				src/norm_overflow.c
 
-HEADERS		= -I ./includes/ -I ~/.brew/opt/readline/include/readline/
-LIBS		= ${LIBFT}/libft.a -L ~/.brew/opt/readline/lib/
+HEADERS		= -I./includes
+LIBS		= ${LIBFT}/libft.a -L
 LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror -g
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
 
 
-all:	libft	${NAME}
+all:	 libft	${NAME}
 
 libft:
 		make -C ${LIBFT}
@@ -73,8 +74,8 @@ libft:
 .c.o:
 		@${CC} ${CFLAGS} -o $@ -c $< ${HEADERS}
 
-${NAME}:	${OBJS}
-		@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
+${NAME}: ${OBJS}
+	@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
 
 
 clean:
@@ -86,5 +87,10 @@ fclean:	clean
 		@make -C $(LIBFT) fclean
 
 re:		fclean all
+
+git:
+		git add .
+		git commit -m "auto commit"
+		git push
 
 .PHONY:	all clean fclean re
