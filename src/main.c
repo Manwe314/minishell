@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/02 15:34:35 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:29:22 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ void	reset_global(char *input)
 	g_global.command = input;
 }
 
+void	reset_global_before(void)
+{
+	g_global.is_cat = 0;
+	g_global.is_waiting = 0;
+	g_global.stop_signal = 0;
+}
+
 int	main(int argc, char *argv[])
 {
 	char	*input;
@@ -35,9 +42,7 @@ int	main(int argc, char *argv[])
 	handle_signals();
 	while (1)
 	{
-		g_global.is_cat = 0;
-		g_global.is_waiting = 0;
-		g_global.stop_signal = 0;
+		reset_global_before();
 		input = get_input();
 		if (input == NULL)
 			break ;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/07/03 15:04:16 by beaudibe         ###   ########.fr        #
+#    Updated: 2023/07/03 17:02:23 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,18 +55,24 @@ SRCS 		=	src/arguments_one.c 			\
 				src/get_next_line_bonus.c 		\
 				src/piping_two.c 				\
 				src/split_q.c					\
-				src/export_five.c				 \
+				src/export_five.c				\
 				src/norm_overflow.c
 
-HEADERS		= -I./includes
-LIBS		= ${LIBFT}/libft.a -L
+# HEADERS		= -I./includes
+# LIBS		= ${LIBFT}/libft.a -L
+
+
+READLINE_PATH := $(shell brew --prefix readline)
+
+HEADERS = -I./includes -I$(READLINE_PATH)/include
+LIBS = ${LIBFT}/libft.a -L$(READLINE_PATH)/lib
 LIBFT		= ./lib/libft
 CFLAGS		= -Wall -Wextra -Werror -g
 OBJS		= ${SRCS:.c=.o}
 RM			= rm -f
 
 
-all:	 libft	${NAME}
+all:	libft	${NAME}
 
 libft:
 		make -C ${LIBFT}
@@ -77,7 +83,6 @@ libft:
 ${NAME}: ${OBJS}
 	@${CC} ${OBJS} ${LIBS} ${HEADERS} -o ${NAME} -lreadline
 
-
 clean:
 		${RM} ${OBJS}
 		@make -C $(LIBFT) clean
@@ -87,6 +92,9 @@ fclean:	clean
 		@make -C $(LIBFT) fclean
 
 re:		fclean all
+
+brew:
+		brew install readline
 
 git:
 		git add .

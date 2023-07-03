@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/02 15:39:07 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:04:14 by beaudibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	handle_ctrl_c(int sig)
 {
@@ -42,7 +44,6 @@ void	handle_ctrl_backslash(int sig)
 	(void)sig;
 	if (g_global.pid != getpid() || g_global.stop_signal)
 		return ;
-		
 	g_global.exit_status = 131;
 	if (g_global.is_waiting == 1 && g_global.hdoc == 0)
 	{
