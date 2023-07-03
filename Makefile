@@ -6,7 +6,7 @@
 #    By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 19:53:49 by lkukhale          #+#    #+#              #
-#    Updated: 2023/07/03 17:02:23 by beaudibe         ###   ########.fr        #
+#    Updated: 2023/07/03 17:10:03 by beaudibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ re:		fclean all
 brew:
 		brew install readline
 
-git:
+git:	fclean
 		git add .
 		git commit -m "auto commit"
 		git push
