@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:34:22 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/28 15:52:48 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:41:44 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_init_global_2(void)
 	g_global.is_cat = 0;
 	g_global.pid = getpid();
 	g_global.h_pid = -1;
-	g_global.ctrl_c = 0;
+	g_global.docs = 0;
+	g_global.c_happen = 0;
 }
 
 void	ft_init_global(void)

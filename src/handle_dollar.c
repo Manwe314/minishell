@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:00:08 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:03:18 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:07:46 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ int	variable_name_size(char *input, int i)
 	int	size;
 
 	size = 0;
+	if (input[i] == '$')
+	{
+		size++;
+		i++;
+	}
 	while (input[i] != ' ' && input[i] != '\0' && input[i] != 34 \
 			&& input[i] != 39 && input[i] != '|' && input[i] != '<' \
-			&& input[i] != '/')
+			&& input[i] != '/' && input[i] != '$' && input[i] != '=')
 	{
 		size++;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:44:04 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/27 21:17:17 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:51:32 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,15 @@ void	sub_pipeline_one(char **input, pid_t *pids, int **pipes, int size)
 			if (pipe(pipes[i]) < 0)
 				error_handler("Pipe", 1);
 		}
-		do_heredocs(input[i]);
 		pids[i] = fork();
 		if (pids[i] < 0)
 			error_handler("Fork", 1);
 		if (i == 0 && pids[i] == 0)
-			piped_command_start(input[i], pipes[0]);
+			piped_command_start(input[i], pipes[0], i);
 		if (i != 0 && i != size - 1 && pids[i] == 0)
-			piped_command_middle(input[i], pipes[i - 1], pipes[i]);
+			piped_command_middle(input[i], pipes[i - 1], pipes[i], i);
 		if (i == size - 1 && pids[i] == 0)
-			piped_command_end(input[i], pipes[size - 2]);
+			piped_command_end(input[i], pipes[size - 2], i);
 		if (i < size - 1)
 			close(pipes[i][1]);
 		i++;

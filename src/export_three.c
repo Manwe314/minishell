@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_three.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:27:32 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:05:09 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:04:18 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	sub_is_valid_exp_one(char *str, int f)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (is_invalid_identifier(str[i]) == 1)
+		if (is_invalid_identifier(str[i]) == 1 || (str[i] == '$' && ft_strlen(str) == 1))
 		{
 			if (f != 0)
 			{
@@ -56,7 +56,7 @@ int	sub_is_valid_exp_three(char *str, int f)
 	i = 0;
 	while (str[i] != '=')
 	{
-		if (is_invalid_identifier(str[i]) == 1)
+		if (is_invalid_identifier(str[i]) == 1 || (str[i] == '$' && ft_strlen(str) == 1))
 		{
 			if (f != 0)
 			{

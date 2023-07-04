@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 22:00:52 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/06/24 01:21:18 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:41:04 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	sub_execute_cmd_one(void)
 {
+	if (g_global.last_out >= 0)
+	{
+		g_global.last_out = -1;
+		return ;
+	}
 	if (g_global.last_write_pipe != -1)
 	{
 		if (dup2(g_global.last_write_pipe, STDOUT_FILENO) < 0)

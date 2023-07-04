@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:31:01 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/06/27 19:41:46 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:27:53 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	heredoc(int pip0, int pip1, char *delim)
 		input = readline("> ");
 		if ((ft_strncmp(delim, input,
 					(unsigned int)ft_strlengnl(delim)) == 0
-				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL
-			|| g_global.ctrl_c == 1)
+				&& ft_strlen(delim) == ft_strlen(input)) || input == NULL)
 		{
 			free(input);
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 21:02:00 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/03 17:09:08 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:45:42 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	handle_ctrl_c(int sig)
 	(void)sig;
 	if (g_global.stop_signal)
 		return ;
+	g_global.exit_status = 1;
 	if (g_global.pid == getpid())
 	{
 		rl_replace_line("", 0);
@@ -26,6 +27,7 @@ void	handle_ctrl_c(int sig)
 		ft_putstr_fd("\n", 1);
 		if (g_global.h_pid > 0)
 		{
+			g_global.c_happen = 1;
 			kill(g_global.h_pid, SIGTERM);
 			return ;
 		}
@@ -42,7 +44,7 @@ void	handle_ctrl_c(int sig)
 void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
-	if ((g_global.pid != getpid() && g_global.h_pid > 0) 
+	if ((g_global.pid != getpid() && g_global.h_pid > 0)
 		|| g_global.stop_signal)
 		return ;
 	if (g_global.h_pid > 0)

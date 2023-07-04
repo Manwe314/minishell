@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:54:42 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/07/02 15:40:05 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:28:48 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	input_handler(char *input)
 		return (0);
 	}
 	do_redirections(input);
-	if (g_global.error_status == 0 && g_global.ctrl_c != 1)
+	if (g_global.error_status == 0)
 	{
 		arguments = ft_split_q(input, ' ');
 		arguments = clean_up_split(arguments);

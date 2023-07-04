@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:26 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/03 17:25:30 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:28:02 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	reset_global(char *input)
 	g_global.is_heredoc = 0;
 	g_global.command = NULL;
 	g_global.pid = getpid();
-	g_global.ctrl_c = 0;
 	g_global.is_piped = 0;
 	g_global.command = input;
 }

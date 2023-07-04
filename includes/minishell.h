@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaudibe <beaudibe@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/02 15:32:39 by beaudibe         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:41:20 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@
 # define SUCCEED 1
 # define ERROR 0
 
+typedef struct s_doc
+{
+	char			*doc;
+	int				num;
+	struct s_doc	*next;
+
+}	t_doc;
+
 typedef struct s_global
 {
 	char		**environ;
@@ -40,11 +48,9 @@ typedef struct s_global
 	char		*command;
 	char		*input;
 	char		*here_doc;
-	char		*heredoc_delim;
-	char		*heredoc_input;
+	int			*fds;
 	int			save_stdin;
 	int			save_stdout;
-	int			*fds;
 	int			f_pipes[2];
 	int			last_out;
 	int			last_in;
@@ -55,14 +61,15 @@ typedef struct s_global
 	int			exit_status;
 	int			is_cat;
 	int			is_heredoc;
-	int			ctrl_c;
 	int			pid;
 	int			hdoc;
 	int			no_env;
 	int			is_waiting;
 	int			fsize;
-	pid_t		h_pid;
+	int			c_happen;
 	int			stop_signal;
+	pid_t		h_pid;
+	t_doc		*docs;
 }				t_global;
 extern t_global	g_global;
 
@@ -80,9 +87,9 @@ void			execution(char *command, char **arguments);
 char			*set_up_piping(char *input);
 void			piping(char *input);
 void			pipeline(char **input, int size);
-void			piped_command_middle(char *input, int *inpip, int *outpip);
-void			piped_command_end(char *input, int *pip);
-void			piped_command_start(char *input, int *pip);
+void			piped_command_middle(char *input, int *inpip, int *outpip, int i);
+void			piped_command_end(char *input, int *pip, int i);
+void			piped_command_start(char *input, int *pip, int i);
 char			*get_clean_command(char **arguments);
 void			clean_up(char **arguments, char *command, char *input);
 char			**clean_up_split(char **arguments);
