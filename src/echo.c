@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:29:39 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/07/04 17:06:01 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:32:08 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_echo(char **str)
 {
 	int	i;
 	int	flag;
-	int non_flag;
+	int	non_flag;
 
 	i = 1;
 	non_flag = 0;

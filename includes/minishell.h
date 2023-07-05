@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:55 by beaudibe          #+#    #+#             */
-/*   Updated: 2023/07/04 19:41:20 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:38:31 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void			execution(char *command, char **arguments);
 char			*set_up_piping(char *input);
 void			piping(char *input);
 void			pipeline(char **input, int size);
-void			piped_command_middle(char *input, int *inpip, int *outpip, int i);
+void			piped_command_middle(char *input,
+					int *inpip, int *outpip, int i);
 void			piped_command_end(char *input, int *pip, int i);
 void			piped_command_start(char *input, int *pip, int i);
 char			*get_clean_command(char **arguments);
@@ -184,5 +185,8 @@ char			**remove_duplicates(char **arguments);
 char			**refactor_arguments(char **arguments);
 char			*get_variable_name(char *input);
 void			update_pwd_er(void);
+void			do_pipd_heredoc(char *input);
+void			handle_pipd_hdoc(char **split);
+void			put_hdoc_in(int id);
 
 #endif

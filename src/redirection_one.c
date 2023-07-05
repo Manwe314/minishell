@@ -6,7 +6,7 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:45:53 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/07/04 20:10:38 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:33:14 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,31 +82,6 @@ void	do_heredocs(char *input)
 	}
 }
 
-void do_pipd_heredoc(char *input)
-{
-	int	i;
-
-	i = ft_strlen(input);
-
-	while (i >= 0)
-	{
-		if (input[i] == '<')
-		{
-			if (i > 0 && input[i - 1] == '<')
-			{
-				g_global.last_in = 1;
-				break ;
-			}
-			else
-			{
-				g_global.last_in = -1;
-				break ;
-			}
-		}
-		i--;
-	}
-}
-
 void	do_redirections(char *input)
 {
 	if (g_global.is_piped == 0)
@@ -126,5 +101,4 @@ void	do_redirections(char *input)
 		close(g_global.f_pipes[1]);
 		g_global.f_pipes[1] = -1;
 	}
-
 }

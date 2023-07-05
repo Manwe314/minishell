@@ -6,58 +6,11 @@
 /*   By: lkukhale <lkukhale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 21:43:09 by lkukhale          #+#    #+#             */
-/*   Updated: 2023/07/04 19:57:48 by lkukhale         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:35:15 by lkukhale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	put_hdoc_in(int id)
-{
-	t_doc	*temp;
-
-	temp = g_global.docs;
-	while (temp != 0)
-	{
-		if (temp->num == id)
-		{
-			if (temp->doc != 0)
-				g_global.here_doc = ft_strdup(temp->doc);
-		}
-		temp = temp->next;
-	}
-}
-
-void	handle_pipd_hdoc(char **split)
-{
-	int		i;
-	t_doc	*temp;
-
-	g_global.docs = (t_doc *)malloc(sizeof(t_doc));
-	i = 0;
-	temp = g_global.docs;
-	while (split[i] != 0)
-	{
-		temp->num = i;
-		do_heredocs(split[i]);
-		if (g_global.here_doc != 0)
-			temp->doc = ft_strdup(g_global.here_doc);
-		else
-			temp->doc = 0;
-		if (split[i + 1] == 0)
-			temp->next = 0;
-		else
-			temp->next = (t_doc *)malloc(sizeof(t_doc));
-		if (g_global.c_happen == 1)
-		{
-			temp->next = 0;
-			g_global.error_status = 1;
-			break ;
-		}
-		temp = temp->next;
-		i++;
-	}
-}
 
 void	piped_command_start(char *input, int *pip, int i)
 {
